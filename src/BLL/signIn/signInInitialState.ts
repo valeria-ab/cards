@@ -1,3 +1,7 @@
-export interface ISignInState {}
+export type SignInState = {
+  isLoggedIn: boolean;
+};
 
-export const signInInitialState: ISignInState = {};
+export const signInInitialState: SignInState = {
+  isLoggedIn: false,
+};

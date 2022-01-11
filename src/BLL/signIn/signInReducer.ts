@@ -1,17 +1,14 @@
 import { signInInitialState } from "./signInInitialState";
-import { ISignInActions, SIGN_IN } from "./signInActions";
+import { SignInActions, SIGN_IN_SUCCESS } from "./signInActions";
 
 export const signInReducer = (
   state = signInInitialState,
-  action: ISignInActions
+  action: SignInActions
 ) => {
   switch (action.type) {
-    case SIGN_IN: {
-      return {
-        ...state,
-      };
+    case SIGN_IN_SUCCESS: {
+      return { ...state, isLoggedIn: true };
     }
-
     default: {
       return state;
     }

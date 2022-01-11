@@ -8,8 +8,16 @@ interface ISignInSome {
   type: typeof SIGN_IN;
 }
 
-export type ISignInActions = ISignInSome;
+type SignInSuccessType = {
+  type: typeof SIGN_IN_SUCCESS;
+}
+
+export type SignInActions = SignInSuccessType;
 
 export const signInSome = (): ISignInSome => ({
   type: SIGN_IN,
+});
+
+export const SignInSuccess = (): SignInSuccessType => ({
+  type: SIGN_IN_SUCCESS,
 });
