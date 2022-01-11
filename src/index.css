@@ -5,9 +5,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%) no-repeat;
+  background-size:100%; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+code {
+  font-family: 'Poppins', sans-serif;
+}
+
+@font-face {
+    font-family: 'SFUIDisplayMedium';
+    src: local('SFUIDisplayMedium'), url(./fonts/SFUIDisplay/SFUIDisplay-Medium.woff) format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SFUIDisplayRegular';
+    src: local('SFUIDisplayRegular'), url(./fonts/SFUIDisplay/SFUIDisplay-Regular.woff) format('woff');
+    font-display: swap;
 }
