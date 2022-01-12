@@ -8,7 +8,7 @@ const instance = axios.create({
 
 // types
 // response form server
-export type userType = {
+export type UserDomainType = {
   _id: string;
   email: string;
   name: string;
@@ -20,17 +20,20 @@ export type userType = {
   verified: boolean;
   rememberMe: boolean;
   error?: string;
+  token: string;
+  tokenDeathTime: number;
+  __v: number;
 };
 
 type registerType = {
-  addedUser: userType;
+  addedUser: UserDomainType;
   error?: string;
 };
 
 type updateMeType = {
   updatedUser: {};
   token: string;
-  tokenDeathTime: number; // под вапросом посмотреть в респонсе
+  tokenDeathTime: number; // под вопросом посмотреть в респонсе
   error?: string;
 };
 
@@ -76,7 +79,7 @@ type SetNewPasswordType = {
 // api
 export const api = {
   login(payload: LoginDataType) {
-    return instance.post<userType>("auth/login", payload);
+    return instance.post<UserDomainType>("auth/login", payload);
   },
   register(payload: registerDataType) {
     return instance.post<registerType>("auth/register", {
@@ -85,7 +88,7 @@ export const api = {
     });
   },
   me() {
-    return instance.post<userType>("auth/me", {});
+    return instance.post<UserDomainType>("auth/me", {});
   },
   updateMe(payload: updateMeDataType) {
     return instance.put<updateMeType>("auth/me", { payload });

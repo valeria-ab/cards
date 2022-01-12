@@ -7,12 +7,14 @@ import { IAppStore } from "../../BLL/store/store";
 import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
 
 const Login = () => {
+  console.log("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const isLoggedIn = useSelector<IAppStore, boolean>(
     (state) => state.signIn.isLoggedIn
   );
+  // const error = useSelector<IAppStore, string>((state) => state.signIn.error);
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(signIn({ email, password, rememberMe }));
@@ -56,6 +58,7 @@ const Login = () => {
             />
           </div>
         </div>
+        {/* <div>{error}</div> */}
         <div>
           <NavLink to={FORGOT_PATH}>Forgot password</NavLink>
         </div>
