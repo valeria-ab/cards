@@ -1,11 +1,12 @@
 import React from "react";
+import {Forgot} from "./Forgot";
 
-import Forgot from "./Forgot";
+
 
 const ForgotContainer: React.FC = () => {
   // redirect logic
 
-  return <Forgot />;
+  return <Forgot  />;
 };
 
 export default ForgotContainer;
