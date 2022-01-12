@@ -1,11 +1,11 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import ForgotPage from "./Forgot/ForgotPage";
 import {ProfilePage} from "./Profile/ProfilePage";
 import RegisterPage from "./Register/RegisterPage";
 import SignInPage from "./SignIn/SignInPage";
 import {NewPassword} from "./Forgot/NewPassword";
 import {Error404} from "./Error404";
+import {Forgot} from "./Forgot/Forgot";
 
 // all project paths
 export const SIGN_IN_PATH = "/sign-in";
@@ -21,7 +21,7 @@ const RoutesComponent: React.FC = () => {
             <Route path={'/'} element={<SignInPage/>}/>
             <Route path={PROFILE_PATH} element={<ProfilePage/>}/>
             <Route path={REGISTER_PATH} element={<RegisterPage/>}/>
-            <Route path={FORGOT_PATH} element={<ForgotPage/>}/>
+            <Route path={FORGOT_PATH} element={<Forgot/>}/>
             <Route path={RECOVERY_PATH} element={<NewPassword/>}/>
             <Route path={"404"} element={<Error404/>}/>
             <Route path={"*"} element={<Navigate to="/404"/>}/>
