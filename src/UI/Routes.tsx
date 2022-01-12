@@ -1,4 +1,4 @@
-import React, {MemoExoticComponent} from "react";
+import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import ForgotPage from "./Forgot/ForgotPage";
 import {ProfilePage} from "./Profile/ProfilePage";
@@ -23,8 +23,8 @@ const RoutesComponent: React.FC = () => {
             <Route path={REGISTER_PATH} element={<RegisterPage/>}/>
             <Route path={FORGOT_PATH} element={<ForgotPage/>}/>
             <Route path={RECOVERY_PATH} element={<NewPassword/>}/>
-            <Route path={"404"} element={<Error404 />} />
-            <Route path={"*"} element={<Navigate to="/404" />} />
+            <Route path={"404"} element={<Error404/>}/>
+            <Route path={"*"} element={<Navigate to="/404"/>}/>
         </Routes>
     );
 };

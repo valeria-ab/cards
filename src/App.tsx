@@ -6,7 +6,6 @@ import Main from './UI/Main';
 import store from './BLL/store/store';
 
 
-
 const App: React.FC = () => {
     return (
         <div className="App">
