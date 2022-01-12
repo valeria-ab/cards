@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/.idea
+.idea/
 # testing
 /coverage
 
@@ -22,4 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< HEAD
 .idea/
+=======
+>>>>>>> e8ae9f7afe19c0719c8d6231d327366a7692d5c2
