@@ -50,7 +50,7 @@ export const Forgot = React.memo(() => {
                     <button className={styles.forgot__button}
                             onClick={onClickHandler}>Send Instructions
                     </button>
-                    <Link to={"login"} className={styles.forgot__login}>Try logging
+                    <Link to={"/login"} className={styles.forgot__login}>Try logging
                         in</Link>
                 </div>
             </div>
