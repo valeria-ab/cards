@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import { signIn } from "../../BLL/signIn/signInThunk";
+import { signIn } from "../../BLL/login/loginThunk";
 import { IAppStore } from "../../BLL/store/store";
 import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
 
-const Login = () => {
-  console.log("login");
+const Login = React.memo(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const isLoggedIn = useSelector<IAppStore, boolean>(
-    (state) => state.signIn.isLoggedIn
+    (state) => state.login.isLoggedIn
   );
-  // const error = useSelector<IAppStore, string>((state) => state.signIn.error);
+  const error = useSelector<IAppStore, string>((state) => state.login.error);
   const dispatch = useDispatch();
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     dispatch(signIn({ email, password, rememberMe }));
+    e.preventDefault();
   };
 
   if (isLoggedIn) {
     return <Navigate to={"/profile"} />;
   }
+
   return (
     <div>
       <h2>It-incubator</h2>
@@ -48,6 +49,7 @@ const Login = () => {
             />
           </div>
         </div>
+        {error && <span>{error}</span>}
         <div>
           <label>Remember me</label>
           <div>
@@ -58,7 +60,6 @@ const Login = () => {
             />
           </div>
         </div>
-        {/* <div>{error}</div> */}
         <div>
           <NavLink to={FORGOT_PATH}>Forgot password</NavLink>
         </div>
@@ -72,6 +73,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Login;

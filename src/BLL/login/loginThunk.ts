@@ -1,8 +1,8 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { api, LoginDataType } from "../../DAL/api";
-import { setUserProfile } from "../profile/profileReducer";
+import { setUserProfile } from "../profile/profileActions";
 import { IAppStore } from "../store/store";
-import { SignInActions, signInError, signInSuccess } from "./signInActions";
+import { LoginActions, loginError, loginSuccess } from "./loginActions";
 
 type Return = void;
 type ExtraArgument = {};
@@ -11,16 +11,15 @@ type IGetStore = () => IAppStore;
 export const signIn =
   (
     payload: LoginDataType
-  ): ThunkAction<Return, IAppStore, ExtraArgument, SignInActions> =>
+  ): ThunkAction<Return, IAppStore, ExtraArgument, LoginActions> =>
   (
-    dispatch: ThunkDispatch<IAppStore, ExtraArgument, SignInActions>,
+    dispatch: ThunkDispatch<IAppStore, ExtraArgument, LoginActions>,
     getStore: IGetStore
   ) => {
     api
       .login(payload)
       .then((res) => {
-        // console.log(res.data);
-        dispatch(signInSuccess());
+        dispatch(loginSuccess());
         dispatch(setUserProfile(res.data));
       })
       .catch((err) => {
@@ -29,7 +28,6 @@ export const signIn =
           ? err.response.data.error
           : err.message + ", more details in the console";
         console.log("Error: ", { ...err });
-        console.log(error);
-        dispatch(signInError(error));
+        dispatch(loginError(error));
       });
   };

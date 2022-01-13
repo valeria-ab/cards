@@ -4,13 +4,12 @@ import RoutesComponent from "./Routes";
 
 // headers, routes, footers
 const Main: React.FC = () => {
-  return (
-    <>
-      <Header />
-
-      <RoutesComponent />
-    </>
-  );
+    return (
+        <>
+            <Header/>
+            <RoutesComponent/>
+        </>
+    );
 };
 
 export default Main;

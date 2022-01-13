@@ -1,9 +1,9 @@
-export type SignInState = {
+export type LoginState = {
   isLoggedIn: boolean;
   error: string;
 };
 
-export const signInInitialState: SignInState = {
+export const loginInitialState: LoginState = {
   isLoggedIn: false,
   error: "",
 };

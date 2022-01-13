@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { InitialProfileStateType } from "../../BLL/profile/profileReducer";
+import { InitialProfileStateType } from "../../BLL/profile/profileInitialState";
 import { IAppStore } from "../../BLL/store/store";
 
 export const ProfilePage = () => {
