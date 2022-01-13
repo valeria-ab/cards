@@ -12,6 +12,11 @@ export const Forgot = React.memo(() => {
     const [valueInput, setValueInput] = useState<string>("");
     const isRequestSend = useSelector<IAppStore, boolean>(state => state.forgot.isRequestSend)
 
+    const checkEmailValidity = (value: string) => {  //валидация емайл
+        const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return reg.test(value);
+    };
+
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValueInput(e.currentTarget.value)
@@ -19,6 +24,9 @@ export const Forgot = React.memo(() => {
 
 
     const onClickHandler = () => {
+        if (!checkEmailValidity(valueInput)) {
+            alert("Not valid email")
+        }
         dispatch(forgotPasswordTC(valueInput))
     }
 
