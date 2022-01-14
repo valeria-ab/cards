@@ -21,14 +21,13 @@ export const signIn =
       .then((res) => {
         dispatch(loginSuccess());
         dispatch(setUserProfile(res.data));
-        dispatch(loginError(""));
+        dispatch(loginError("", true));
       })
       .catch((err) => {
-        debugger;
         const error = err.response
           ? err.response.data.error
           : err.message + ", more details in the console";
         console.log("Error: ", { ...err });
-        dispatch(loginError(error));
+        dispatch(loginError(error, false));
       });
   };

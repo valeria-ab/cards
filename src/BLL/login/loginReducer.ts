@@ -10,7 +10,7 @@ export const loginReducer = (
       return { ...state, isLoggedIn: true };
     }
     case LOGIN_ERROR: {
-      return { ...state, isLoggedIn: false, error: action.error };
+      return { ...state, isLoggedIn: action.isLoggedIn, error: action.error };
     }
     default: {
       return state;

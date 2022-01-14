@@ -17,7 +17,7 @@ export const RECOVERY_PATH = "/set-new-password/:token";
 const RoutesComponent: React.FC = () => {
   return (
     <Routes>
-      <Route path={"/"} element={<Login />} />
+      <Route path={"/"} element={<ProfilePage />} />
       <Route path={PROFILE_PATH} element={<ProfilePage />} />
       <Route path={SIGN_IN_PATH} element={<Login />} />
       <Route path={REGISTER_PATH} element={<RegisterPage />} />

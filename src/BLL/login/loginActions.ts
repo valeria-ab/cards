@@ -7,9 +7,13 @@ export const LOGIN_SUCCESS = "LOGIN/SUCCESS";
 export const loginSuccess = (): LoginSuccessType => ({
   type: LOGIN_SUCCESS,
 });
-export const loginError = (error: string): LoginErrorType => ({
+export const loginError = (
+  error: string,
+  isLoggedIn: boolean
+): LoginErrorType => ({
   type: LOGIN_ERROR,
   error,
+  isLoggedIn,
 });
 
 //types
@@ -19,6 +23,7 @@ type LoginSuccessType = {
 type LoginErrorType = {
   type: typeof LOGIN_ERROR;
   error: string;
+  isLoggedIn: boolean;
 };
 
 export type LoginActions =

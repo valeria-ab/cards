@@ -6,7 +6,7 @@ import { signIn } from "../../BLL/login/loginThunk";
 import { IAppStore } from "../../BLL/store/store";
 import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
 import s from "./LogIn.module.scss";
-import {Alert} from "@mui/material";
+import { Alert } from "@mui/material";
 
 const Login = React.memo(() => {
   const [email, setEmail] = useState("");
@@ -18,15 +18,13 @@ const Login = React.memo(() => {
   const error = useSelector<IAppStore, string>((state) => state.login.error);
   const dispatch = useDispatch();
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    dispatch(signIn({ email, password, rememberMe }));
     e.preventDefault();
+    dispatch(signIn({ email, password, rememberMe }));
   };
 
   if (isLoggedIn) {
     return <Navigate to={"/profile"} />;
   }
-
-  
 
   return (
     <div className={s.signIn}>
@@ -36,26 +34,30 @@ const Login = React.memo(() => {
         <div className={s.formBox}>
           <label className={s.loginLabel}>Email</label>
           <div className={s.InputWrapper}>
-            <input className={s.Input}
+            <input
+              className={s.Input}
               type="email"
               name="email"
               onChange={(e) => setEmail(e.currentTarget.value)}
             />
           </div>
-        </div>         
+        </div>
         <div className={s.PasswordWrapper}>
           <label className={s.loginLabel}>Password</label>
           <div className={s.InputWrapper}>
-            <input  className={s.Input}
+            <input
+              className={s.Input}
               type="password"
               name="password"
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>
         </div>
-        {error && <span>
-          <Alert severity="error">{error}</Alert>
-          </span>}
+        {error && (
+          <span>
+            <Alert severity="error">{error}</Alert>
+          </span>
+        )}
         <div className={s.CheckBoxWrapper}>
           <div className={s.CheckBox}>
             <input
@@ -67,17 +69,19 @@ const Login = React.memo(() => {
           </div>
         </div>
         <div>
-          <NavLink  className={s.linkTransparent} to={FORGOT_PATH}>Forgot password</NavLink>
+          <NavLink className={s.linkTransparent} to={FORGOT_PATH}>
+            Forgot password
+          </NavLink>
         </div>
         <div>
-          <button className={s.btnBlue}>
-            Login
-          </button>
+          <button className={s.btnBlue}>Login</button>
         </div>
       </form>
       <p className={s.textLight}>Don't have an account?</p>
       <div>
-        <NavLink className={s.linkBlue} to={REGISTER_PATH}>Sign Up</NavLink>
+        <NavLink className={s.linkBlue} to={REGISTER_PATH}>
+          Sign Up
+        </NavLink>
       </div>
     </div>
   );
