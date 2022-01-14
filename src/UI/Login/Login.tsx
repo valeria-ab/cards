@@ -6,6 +6,7 @@ import { signIn } from "../../BLL/login/loginThunk";
 import { IAppStore } from "../../BLL/store/store";
 import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
 import s from "./LogIn.module.scss";
+import {Alert} from "@mui/material";
 
 const Login = React.memo(() => {
   const [email, setEmail] = useState("");
@@ -24,6 +25,8 @@ const Login = React.memo(() => {
   if (isLoggedIn) {
     return <Navigate to={"/profile"} />;
   }
+
+  
 
   return (
     <div className={s.signIn}>
@@ -50,7 +53,9 @@ const Login = React.memo(() => {
             />
           </div>
         </div>
-        {error && <span>{error}</span>}
+        {error && <span>
+          <Alert severity="error">{error}</Alert>
+          </span>}
         <div className={s.CheckBoxWrapper}>
           <div className={s.CheckBox}>
             <input

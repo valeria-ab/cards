@@ -5,6 +5,7 @@ import { registrationTC } from "../../BLL/register/registerReducer";
 import { IAppStore } from "../../BLL/store/store";
 import { Navigate } from "react-router-dom";
 import s from "./Register.module.scss";
+import {Alert} from "@mui/material";
 
 //Add my branch
 interface IRegisterProps {
@@ -28,7 +29,7 @@ const Register: React.FC<IRegisterProps> = ({ }) => {
     const blurHandler = () => {
         const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
         if (!re.test(String(email).toLowerCase())) {
-            serEmailError('не верный формат email')
+            serEmailError('Not valid email')
         } else {
             serEmailError(null)
         }
@@ -56,7 +57,9 @@ const Register: React.FC<IRegisterProps> = ({ }) => {
             />
 
         </div>
-        {emailError !== null && <span>{emailError}</span>}
+        {emailError !== null && <span>
+            <Alert severity="error">{emailError}</Alert>
+            </span>}
         <div className={s.InputWrapper}>
             <label className={s.loginLabel}>Password</label>
             <input className={s.Input}
@@ -88,12 +91,6 @@ const Register: React.FC<IRegisterProps> = ({ }) => {
             Register
             </button>
             </div>
-        {/* <button onClick={registration}
-            name={'Register'}>
-            submit
-        </button> */}
-
-
     </div>;
 };
 

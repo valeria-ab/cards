@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {forgotPasswordTC} from "../../BLL/forgot/forgot-reducer";
 import {IAppStore} from "../../BLL/store/store";
 import {CheckEmail} from "./CheckEmail";
+import {Alert} from "@mui/material";
 
 export const Forgot = React.memo(() => {
 
@@ -25,7 +26,7 @@ export const Forgot = React.memo(() => {
 
     const onClickHandler = () => {
         if (!checkEmailValidity(valueInput)) {
-            alert("Not valid email")
+            <Alert severity="error">Not valid email</Alert>
         }
         dispatch(forgotPasswordTC(valueInput))
     }
