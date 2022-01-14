@@ -5,11 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {forgotPasswordTC} from "../../BLL/forgot/forgot-reducer";
 import {IAppStore} from "../../BLL/store/store";
 import {CheckEmail} from "./CheckEmail";
+import {Alert} from "@mui/material";
 
 export const Forgot = React.memo(() => {
 
     const dispatch = useDispatch()
     const [valueInput, setValueInput] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
     const isRequestSend = useSelector<IAppStore, boolean>(state => state.forgot.isRequestSend)
 
     const checkEmailValidity = (value: string) => {  //валидация емайл
@@ -19,20 +21,21 @@ export const Forgot = React.memo(() => {
 
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setError(null)
         setValueInput(e.currentTarget.value)
     }
 
 
     const onClickHandler = () => {
         if (!checkEmailValidity(valueInput)) {
-            alert("Not valid email")
+            setError("Not valid email")
             return
         }
         dispatch(forgotPasswordTC(valueInput))
 
     }
 
-
+console.log(checkEmailValidity(valueInput));
     if (isRequestSend) return <CheckEmail/>
 
     return (
@@ -45,6 +48,8 @@ export const Forgot = React.memo(() => {
                     <input placeholder="" type="text" value={valueInput}
                            onChange={onInputChange}
                            className={styles.forgot__input}/>
+                    {error ?
+                        <Alert severity="error">{error}</Alert> : null}
                     <div className={styles.forgot__info}>Enter your email address and we
                         will
                         send you
