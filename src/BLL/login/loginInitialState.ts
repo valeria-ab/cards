@@ -5,5 +5,5 @@ export type LoginState = {
 
 export const loginInitialState: LoginState = {
   isLoggedIn: false,
-  error: "Not valid email",
+  error: "",
 };

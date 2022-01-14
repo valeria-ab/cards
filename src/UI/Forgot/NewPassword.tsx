@@ -29,7 +29,7 @@ export const NewPassword = React.memo(() => {
     if (token) dispatch(sendNewPasswordTC(valueInput, token));
   };
 
-  if (isSend) return <Login />; // КТО ДЕЛАЕТ Логин, тут логин компоненту вставить
+  if (isSend) return <Login />;
 
   return (
     <div className={styles.main}>

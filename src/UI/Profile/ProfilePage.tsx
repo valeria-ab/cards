@@ -1,11 +1,18 @@
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { InitialProfileStateType } from "../../BLL/profile/profileInitialState";
 import { IAppStore } from "../../BLL/store/store";
 
 export const ProfilePage = () => {
+  const isLoggedIn = useSelector<IAppStore, boolean>(
+    (state) => state.login.isLoggedIn
+  );
   const profile = useSelector<IAppStore, InitialProfileStateType>(
     (state) => state.profile
   );
+  if (!isLoggedIn) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <div>
       <h3>Profile</h3>
