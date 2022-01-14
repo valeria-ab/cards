@@ -1,15 +1,16 @@
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from './Registration.module.css';
-import {registrationTC} from "../../BLL/register/registerReducer";
-import {IAppStore} from "../../BLL/store/store";
-import {Navigate} from "react-router-dom";
+import { registrationTC } from "../../BLL/register/registerReducer";
+import { IAppStore } from "../../BLL/store/store";
+import { Navigate } from "react-router-dom";
+import s from "./Register.module.scss";
 
 //Add my branch
 interface IRegisterProps {
 }
 
-const Register: React.FC<IRegisterProps> = ({}) => {
+const Register: React.FC<IRegisterProps> = ({ }) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [repeatPassword, setRepeatPassword] = useState<string>('');
@@ -19,8 +20,8 @@ const Register: React.FC<IRegisterProps> = ({}) => {
 
 
     const registration = () => {
-        if (password === repeatPassword){
-            dispatch(registrationTC({email, password}))
+        if (password === repeatPassword) {
+            dispatch(registrationTC({ email, password }))
         }
     }
 
@@ -33,42 +34,64 @@ const Register: React.FC<IRegisterProps> = ({}) => {
         }
     }
 
-    if (isRegistration){
+    if (isRegistration) {
         return <Navigate to={'/login'} />
     }
 
-    return <div className={styles.container}>
-
-        <div>
-            <input type="text"
-                   placeholder={'e-mail'}
-                   value={email}
-                   name={'email'}
-                   onChange={(e)=>{setEmail(e.target.value)}}
-                   onBlur={blurHandler}
+    return <div className={s.Register}>
+        <h1 className={s.title}>
+            It-incubator
+        </h1>
+        <h3 className={s.subtitle}>Sign Up</h3>
+        <div className={s.formBox}>
+        <div className={s.InputWrapper}>
+            <label className={s.loginLabel}>Email</label>
+            <input className={s.Input}
+                type="text"
+                placeholder={''}
+                value={email}
+                name={'email'}
+                onChange={(e) => { setEmail(e.target.value) }}
+                onBlur={blurHandler}
             />
 
         </div>
         {emailError !== null && <span>{emailError}</span>}
-        <div><input type="password"
-                    placeholder={'pass'}
-                    value={password}
-                    name={'password'}
-                    onChange={(e)=>{setPassword(e.target.value)}}
-        /></div>
+        <div className={s.InputWrapper}>
+            <label className={s.loginLabel}>Password</label>
+            <input className={s.Input}
+                type="password"
+                placeholder={''}
+                value={password}
+                name={'password'}
+                onChange={(e) => { setPassword(e.target.value) }}
+            /></div>
 
-        <div><input type="password"
-                    placeholder={'repeat pass'}
-                    value={repeatPassword}
-                    name={'repeatPassword'}
-                    onChange={(e)=>{setRepeatPassword(e.target.value)}}
-        /></div>
-
-        <button onClick={registration}
-                name={'Register'}>
+        <div className={s.InputWrapper}>
+            <label className={s.loginLabel}>Confirm password</label>
+            <input className={s.Input}
+                type="password"
+                placeholder={''}
+                value={repeatPassword}
+                name={'repeatPassword'}
+                onChange={(e) => { setRepeatPassword(e.target.value) }}
+            /></div>
+            </div>
+            <div className={s.btnWrap}>
+            <button className={s.btnLeft} type="button" >
+                Cancel
+            </button>
+            <button className={s.btnRight} 
+                onClick={registration}
+                name={'Register'}
+                type="submit"> 
+            Register
+            </button>
+            </div>
+        {/* <button onClick={registration}
+            name={'Register'}>
             submit
-
-        </button>
+        </button> */}
 
 
     </div>;
