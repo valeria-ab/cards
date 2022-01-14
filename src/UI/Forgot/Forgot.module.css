@@ -4,14 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: olive;
 }
 
 .forgot {
     height: 540px;
     max-width: 413px;
     padding: 25px 30px;
-    background-color: #ECECF9;
+    background-color: #F9F9FE;
 }
 
 .forgot__body {
@@ -31,12 +30,22 @@
     margin-bottom: 55px;
 }
 
+.loginLabel{
+    font-family: "SFUIDisplay-Regular";
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+    opacity: 0.5;
+    text-align: left;
+}
+
 .forgot__input {
     margin-bottom: 30px;
     border: none;
     border-bottom: 1px solid #2D2E46;
     padding: 5px;
-    background-color: #ECECF9;
+    background-color: #F9F9FE;
 }
 
 .forgot__info {
@@ -63,6 +72,10 @@
     margin: 0 auto 70px auto;
     transition: all 0.3s ease 0s;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -ms-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
 }
 
 .forgot__button:hover {
