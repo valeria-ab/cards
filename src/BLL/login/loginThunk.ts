@@ -21,6 +21,7 @@ export const signIn =
       .then((res) => {
         dispatch(loginSuccess());
         dispatch(setUserProfile(res.data));
+        dispatch(loginError(""));
       })
       .catch((err) => {
         debugger;
