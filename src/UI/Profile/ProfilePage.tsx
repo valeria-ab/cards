@@ -6,6 +6,7 @@ import {IAppStore} from "../../BLL/store/store";
 import {getPacksTC} from "../../BLL/packs/packs-reducer";
 import {cardPacksType} from "../../DAL/Packs-api";
 import styles from "./ProfilePage.module.scss";
+import {Table} from "../Table/Table";
 
 
 export const ProfilePage = () => {
@@ -18,7 +19,6 @@ export const ProfilePage = () => {
     );
 
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
-    const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
 
     useEffect(() => {
                 dispatch(getPacksTC({
@@ -27,9 +27,6 @@ export const ProfilePage = () => {
         }))
     }, []);
 
-
-    console.log(currentUserID);
-    console.log(cardPacks);
 
 
     if (!isLoggedIn) {
@@ -54,26 +51,7 @@ export const ProfilePage = () => {
                 <div>_id: {profile._id}</div>
             </div>
             <div className={styles.profile__main}>
-                <div className={styles.table}>
-                    <div className={styles.header}>
-                        <div className={styles.header__item}>Name</div>
-                        <div className={styles.header__item}>Cards</div>
-                        <div className={styles.header__item}>Last Updated</div>
-                        <div className={styles.header__item}>Created by</div>
-                        <div className={styles.header__item}>Actions</div>
-                    </div>
-                    <div className={styles.table__main}>
-                        {cardPacks.map((pack)=> {
-                            return (<div key={pack._id} className={styles.table__row}>
-                                <div className={styles.table__name}>{pack.name}</div>
-                                <div className={styles.table__cards}>{pack.cardsCount}</div>
-                                <div className={styles.table__updated}>{pack.updated}</div>
-                                <div className={styles.table__created}>{pack.created}</div>
-                                <div className={styles.table__actions}><div className="buttons"> <button>Delete</button> <button>Edit</button></div> </div>
-                            </div>)
-                        })}
-                    </div>
-                </div>
+                <Table/>
             </div>
         </div>
     );
