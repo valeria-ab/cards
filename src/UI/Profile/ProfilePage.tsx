@@ -4,7 +4,6 @@ import {Navigate} from "react-router-dom";
 import {InitialProfileStateType} from "../../BLL/profile/profileInitialState";
 import {IAppStore} from "../../BLL/store/store";
 import {getPacksTC} from "../../BLL/packs/packs-reducer";
-import {cardPacksType} from "../../DAL/Packs-api";
 import styles from "./ProfilePage.module.scss";
 import {Table} from "../Table/Table";
 
@@ -21,12 +20,11 @@ export const ProfilePage = () => {
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
     useEffect(() => {
-                dispatch(getPacksTC({
+        dispatch(getPacksTC({
             user_id: currentUserID
 
         }))
     }, []);
-
 
 
     if (!isLoggedIn) {

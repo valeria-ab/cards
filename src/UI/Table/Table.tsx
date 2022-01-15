@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "../Profile/ProfilePage.module.scss";
+import styles from "./Table.module.scss";
 import {useSelector} from "react-redux";
 import {IAppStore} from "../../BLL/store/store";
 import {cardPacksType} from "../../DAL/Packs-api";
