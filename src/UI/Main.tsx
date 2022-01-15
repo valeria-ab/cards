@@ -7,6 +7,7 @@ const Main: React.FC = () => {
     return (
         <>
             <Header/>
+
             <RoutesComponent/>
         </>
     );

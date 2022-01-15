@@ -44,6 +44,11 @@ export type CreatePacksType = {
     type?: string
 }
 
+export type UpdatePacksType = {
+    _id: string
+    name: string
+}
+
 
 
 //request to server
@@ -54,12 +59,17 @@ export type PacksType = {
     sortPacks?: string
     page?: number
     pageCount?: number
-    user_id?: number
+    user_id?: string
 
 }
 
 export type CreatePacksResponseType = {
     newCardsPack: {}
+}
+
+
+export type UpdatePacksResponseType = {
+    updatedCardsPack:{}
 }
 
 
@@ -80,5 +90,8 @@ export const packsApi = {
     deletePack(packID: string) {
         return instance.delete(`cards/pack?id=${packID}`,
         );
+    },
+    updatePack(payload:UpdatePacksType) {
+        return instance.put(`cards/pack`,{...payload});
     },
 };
