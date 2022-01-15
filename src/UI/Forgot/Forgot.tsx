@@ -35,7 +35,6 @@ export const Forgot = React.memo(() => {
 
     }
 
-console.log(checkEmailValidity(valueInput));
     if (isRequestSend) return <CheckEmail/>
 
     return (

@@ -19,7 +19,7 @@ const RoutesComponent: React.FC = () => {
     <Routes>
       <Route path={"/"} element={<ProfilePage />} />
       <Route path={PROFILE_PATH} element={<ProfilePage />} />
-      {/*<Route path={SIGN_IN_PATH} element={<Login />} />*/}
+      <Route path={SIGN_IN_PATH} element={<Login />} />
       <Route path={REGISTER_PATH} element={<RegisterPage />} />
       <Route path={FORGOT_PATH} element={<Forgot />} />
       <Route path={RECOVERY_PATH} element={<NewPassword />} />

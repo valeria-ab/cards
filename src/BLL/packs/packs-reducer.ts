@@ -27,7 +27,7 @@ const initialState: InitialStateType = {
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case "FORGOT/SEND-REQUEST": {
+        case "PACKS/GET-PACKS": {
             return {...state, ...action.payload}
         }
 
@@ -38,7 +38,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 
 
 export const GetPacksAC = (payload: PacksResponseType) => ({
-    type: 'FORGOT/SEND-REQUEST',
+    type: 'PACKS/GET-PACKS',
     payload
 } as const);
 
@@ -59,7 +59,6 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         maxCardsCount,
         minCardsCount,
     } = getState().packs;
-
 
     packsApi.getPacks({
         page,

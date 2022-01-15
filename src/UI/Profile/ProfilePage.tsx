@@ -1,8 +1,15 @@
-import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
 import {InitialProfileStateType} from "../../BLL/profile/profileInitialState";
 import {IAppStore} from "../../BLL/store/store";
+import {getPacksTC} from "../../BLL/packs/packs-reducer";
+import {cardPacksType} from "../../DAL/Packs-api";
+import styles from "./ProfilePage.module.scss";
+
 
 export const ProfilePage = () => {
+    const dispatch = useDispatch()
     const isLoggedIn = useSelector<IAppStore, boolean>(
         (state) => state.login.isLoggedIn
     );
@@ -11,13 +18,23 @@ export const ProfilePage = () => {
     );
 
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
+    const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
 
-console.log(currentUserID);
+    useEffect(() => {
+                dispatch(getPacksTC({
+            user_id: currentUserID
+
+        }))
+    }, []);
 
 
-    // if (!isLoggedIn) {
-    //   return <Navigate to={"/login"} />;
-    // }
+    console.log(currentUserID);
+    console.log(cardPacks);
+
+
+    if (!isLoggedIn) {
+        return <Navigate to={"/login"}/>;
+    }
 
     return (
         <div>
@@ -36,9 +53,27 @@ console.log(currentUserID);
                 <div>__v: {profile.__v}</div>
                 <div>_id: {profile._id}</div>
             </div>
-            <div className={"profile__main"}>
-
-                ffffff
+            <div className={styles.profile__main}>
+                <div className={styles.table}>
+                    <div className={styles.header}>
+                        <div className={styles.header__item}>Name</div>
+                        <div className={styles.header__item}>Cards</div>
+                        <div className={styles.header__item}>Last Updated</div>
+                        <div className={styles.header__item}>Created by</div>
+                        <div className={styles.header__item}>Actions</div>
+                    </div>
+                    <div className={styles.table__main}>
+                        {cardPacks.map((pack)=> {
+                            return (<div key={pack._id} className={styles.table__row}>
+                                <div className={styles.table__name}>{pack.name}</div>
+                                <div className={styles.table__cards}>{pack.cardsCount}</div>
+                                <div className={styles.table__updated}>{pack.updated}</div>
+                                <div className={styles.table__created}>{pack.created}</div>
+                                <div className={styles.table__actions}><div className="buttons"> <button>Delete</button> <button>Edit</button></div> </div>
+                            </div>)
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );
