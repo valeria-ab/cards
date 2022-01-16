@@ -1,8 +1,8 @@
-import React, { FormEvent, useState } from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import { signIn } from "../../BLL/login/loginThunk";
+import {checkAuthMe, signIn} from "../../BLL/login/loginThunk";
 import { IAppStore } from "../../BLL/store/store";
 import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
 import s from "./LogIn.module.scss";
@@ -22,9 +22,19 @@ const Login = React.memo(() => {
     dispatch(signIn({ email, password, rememberMe }));
   };
 
-  if (isLoggedIn) {
-    return <Navigate to={"/profile"} />;
-  }
+  useEffect(() => {
+    if(!isLoggedIn){
+      dispatch(checkAuthMe())
+    }
+
+  }, [isLoggedIn])
+
+
+ if(isLoggedIn){
+   return <Navigate to={'/profile'}/>
+ }
+
+
 
   return (
     <div className={s.signIn}>

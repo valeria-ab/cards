@@ -73,34 +73,30 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
 }
 
 
-export const createPacks = (name: string, user_id?: string):ThunkAction<void, IAppStore, unknown, AnyAction>  => (dispatch) => {
+export const createPacks = (name: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     packsApi.createPack({name})
-        .then((res)=> {
+        .then((res) => {
             dispatch(getPacksTC({user_id}))
         })
 }
 
 
-
-
-
-
-export const deletedPacks = (packID: string, user_id?: string):ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-        packsApi.deletePack(packID)
-            .then((res)=> {
-                dispatch(getPacksTC({user_id}))
-            })
+export const deletedPacks = (packID: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    packsApi.deletePack(packID)
+        .then((res) => {
+            dispatch(getPacksTC({user_id}))
+        })
 
 }
 
 
+export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch, getState: () => IAppStore) => {
+    const pack = getState().packs.cardPacks.find((pack) => pack._id === payload._id)
 
-export const updatePacks = (payload: cardPacksType):ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch, getState: () => IAppStore) => {
-   const pack = getState().packs.cardPacks.map((pack)=> pack._id===payload._id)
-    const updatePack = { ...pack, ...payload };
+    const updatePack = {...pack, ...payload};
     packsApi.updatePack(updatePack)
-        .then((res)=> {
-            dispatch(getPacksTC({user_id:payload.user_id}))
+        .then((res) => {
+            dispatch(getPacksTC({user_id: payload.user_id}))
         })
 }
 

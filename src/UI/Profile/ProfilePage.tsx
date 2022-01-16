@@ -20,11 +20,16 @@ export const ProfilePage = () => {
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
     useEffect(() => {
-        dispatch(getPacksTC({
-            user_id: currentUserID
 
-        }))
-    }, []);
+        if(isLoggedIn){
+            dispatch(getPacksTC({
+                user_id: currentUserID
+
+            }))
+        }
+
+
+    }, [isLoggedIn]);
 
 
     if (!isLoggedIn) {

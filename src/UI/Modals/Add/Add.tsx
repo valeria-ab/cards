@@ -1,20 +1,18 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import styles from './EditPack.module.scss';
+import styles from './Add.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {updatePacks} from "../../../BLL/packs/packs-reducer";
+import {createPacks, updatePacks} from "../../../BLL/packs/packs-reducer";
 import {IAppStore} from "../../../BLL/store/store";
-import {cardPacksType} from "../../../DAL/Packs-api";
 
-type  EditPackPropsType = {
-    editModeOff: () => void
-    pack: cardPacksType
+type  AddPackPropsType = {
+    addModeOff: () => void
 }
 
 
-export const EditPack = React.memo((props: EditPackPropsType) => {
+export const Add = React.memo((props: AddPackPropsType) => {
 
 
-    const [name, setName] = useState<string>(props.pack.name);
+    const [name, setName] = useState<string>("");
 
     const dispatch = useDispatch()
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
@@ -33,12 +31,8 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
     }
 
     const onSaveClick = () => {
-        dispatch(updatePacks({
-            ...props.pack,
-            name: name,
-            user_id: props.pack.user_id,
-        }))
-        props.editModeOff()
+        dispatch(createPacks(name, currentUserID))
+        props.addModeOff()
     }
 
     return (
@@ -46,7 +40,7 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Edit pack name</h2>
+                        <h2 className={styles.title}>Add pack name</h2>
                     </div>
                     <p className={styles.text}>Pack name</p>
                     <input
@@ -56,11 +50,11 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
                         onChange={onChangeName}
                     />
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.editModeOff}>
+                        <button className={styles.btnCancel} onClick={props.addModeOff}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>
-                            Save
+                            Add pack
                         </button>
                     </div>
                 </div>

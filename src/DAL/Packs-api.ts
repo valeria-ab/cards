@@ -84,7 +84,7 @@ export const packsApi = {
     },
     createPack(payload = {} as CreatePacksType) {
         return instance.post<CreatePacksResponseType>("cards/pack", {
-            cardsPack:payload
+            cardsPack:{...payload}
         });
     },
     deletePack(packID: string) {
@@ -92,6 +92,6 @@ export const packsApi = {
         );
     },
     updatePack(payload:UpdatePacksType) {
-        return instance.put(`cards/pack`,{...payload});
+        return instance.put(`cards/pack`,{cardsPack:{...payload}});
     },
 };

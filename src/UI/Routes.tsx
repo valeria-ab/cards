@@ -6,6 +6,8 @@ import Login from "./Login/Login";
 import { NewPassword } from "./Forgot/NewPassword";
 import { Error404 } from "./Error404";
 import { Forgot } from "./Forgot/Forgot";
+import {useSelector} from "react-redux";
+import {IAppStore} from "../BLL/store/store";
 
 // all project paths
 export const SIGN_IN_PATH = "/login";
@@ -15,6 +17,9 @@ export const PROFILE_PATH = "/profile";
 export const RECOVERY_PATH = "/set-new-password/:token";
 
 const RoutesComponent: React.FC = () => {
+
+
+
   return (
     <Routes>
       <Route path={"/"} element={<ProfilePage />} />
