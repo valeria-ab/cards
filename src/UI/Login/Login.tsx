@@ -36,65 +36,69 @@ const Login = React.memo(() => {
 
 
 
-  return (
-    <div className={s.signIn}>
-      <h2 className={s.title}>It-incubator</h2>
-      <h3 className={s.subtitle}>Sign In</h3>
-      <form onSubmit={handleSubmit}>
-        <div className={s.formBox}>
-          <label className={s.loginLabel}>Email</label>
-          <div className={s.InputWrapper}>
-            <input
-              className={s.Input}
-              type="email"
-              name="email"
-              onChange={(e) => setEmail(e.currentTarget.value)}
-            />
-          </div>
-        </div>
-        <div className={s.PasswordWrapper}>
-          <label className={s.loginLabel}>Password</label>
-          <div className={s.InputWrapper}>
-            <input
-              className={s.Input}
-              type="password"
-              name="password"
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-          </div>
-        </div>
-        {error && (
-          <span>
+    return (
+        <div className={s.signIn}>
+            <h2 className={s.title}>It-incubator</h2>
+            <h3 className={s.subtitle}>Sign In</h3>
+            <form onSubmit={handleSubmit}>
+                <div className={s.formBox}>
+                    <label className={s.loginLabel}>Email
+                        <div className={s.InputWrapper}>
+                            <input
+                                className={s.Input}
+                                type="email"
+                                name="email"
+                                onChange={(e) => setEmail(e.currentTarget.value)}
+                            />
+                        </div>
+                    </label>
+                </div>
+                <div className={s.PasswordWrapper}>
+                    <label className={s.loginLabel}>Password
+                        <div className={s.InputWrapper}>
+                            <input
+                                className={s.Input}
+                                type="password"
+                                name="password"
+                                onChange={(e) => setPassword(e.currentTarget.value)}
+                            />
+                        </div>
+                    </label>
+                </div>
+                {error && (
+                    <span>
             <Alert severity="error">{error}</Alert>
           </span>
-        )}
-        <div className={s.CheckBoxWrapper}>
-          <div className={s.CheckBox}>
-            <input
-              type="checkbox"
-              name="rememberMe"
-              onChange={(e) => setRememberMe(e.currentTarget.checked)}
-            />
-            <label className={s.CheckBoxLabel}>Remember me</label>
-          </div>
+                )}
+                <div className={s.CheckBoxWrapper}>
+                    <div className={s.CheckBox}>
+                        <label className={s.CheckBoxLabel}>
+                            <input
+                                type="checkbox"
+                                name="rememberMe"
+                                onChange={(e) => setRememberMe(e.currentTarget.checked)}
+                            />
+                            Remember me
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <NavLink className={s.linkTransparent} to={FORGOT_PATH}>
+                        Forgot password
+                    </NavLink>
+                </div>
+                <div>
+                    <button className={s.btnBlue}>Login</button>
+                </div>
+            </form>
+            <p className={s.textLight}>Don't have an account?</p>
+            <div>
+                <NavLink className={s.linkBlue} to={REGISTER_PATH}>
+                    Sign Up
+                </NavLink>
+            </div>
         </div>
-        <div>
-          <NavLink className={s.linkTransparent} to={FORGOT_PATH}>
-            Forgot password
-          </NavLink>
-        </div>
-        <div>
-          <button className={s.btnBlue}>Login</button>
-        </div>
-      </form>
-      <p className={s.textLight}>Don't have an account?</p>
-      <div>
-        <NavLink className={s.linkBlue} to={REGISTER_PATH}>
-          Sign Up
-        </NavLink>
-      </div>
-    </div>
-  );
+    );
 });
 
 export default Login;
