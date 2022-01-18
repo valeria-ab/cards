@@ -14,7 +14,7 @@ type  EditPackPropsType = {
 export const EditPack = React.memo((props: EditPackPropsType) => {
 
 
-    const [name, setName] = useState<string>(props.pack.name);
+    const [name, setname] = useState<string>(props.pack.name);
 
     const dispatch = useDispatch()
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
@@ -29,7 +29,7 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
     }, []);
 
     const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.currentTarget.value)
+        setname(e.currentTarget.value)
     }
 
     const onSaveClick = () => {
