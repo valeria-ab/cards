@@ -12,6 +12,7 @@ export const SIGN_IN_PATH = "/login";
 export const REGISTER_PATH = "/register";
 export const FORGOT_PATH = "/forgot";
 export const PROFILE_PATH = "/profile";
+export const PACKS_LIST_PATH = "/packs-list";
 export const RECOVERY_PATH = "/set-new-password/:token";
 
 const RoutesComponent: React.FC = () => {
@@ -26,6 +27,7 @@ const RoutesComponent: React.FC = () => {
       <Route path={REGISTER_PATH} element={<RegisterPage />} />
       <Route path={FORGOT_PATH} element={<Forgot />} />
       <Route path={RECOVERY_PATH} element={<NewPassword />} />
+      <Route path={PACKS_LIST_PATH} element={<PacksList />} />
       <Route path={"404"} element={<Error404 />} />
       <Route path={"*"} element={<Navigate to="/404" />} />
       <Route path={"/cards"} element={<Navigate to="/profile" />} />
