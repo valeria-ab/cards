@@ -1,16 +1,16 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import styles from './Delete.module.scss';
+import React, {useEffect} from 'react';
+import styles from './DeleteCard.module.scss';
 import {useDispatch} from "react-redux";
-import {cardPacksType} from "../../../DAL/Packs-api";
-import {deletedPacks, updatePacks} from '../../../BLL/packs/packs-reducer';
+import {CardResponseType} from "../../../DAL/CardsAPI";
+import {deleteCardTC} from "../../../BLL/cards/cards-reducer";
 
-type  DeletePackPropsType = {
+type  DeleteCardsPropsType = {
     deleteModeOff: () => void
-    pack: cardPacksType
+    cards: CardResponseType
 }
 
 
-export const Delete = React.memo((props: DeletePackPropsType) => {
+export const DeleteCard = React.memo((props: DeleteCardsPropsType) => {
 
 
     // const [name, setName] = useState<string>(props.pack.name);
@@ -30,9 +30,10 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
 
 
     const onSaveClick = () => {
-        dispatch(deletedPacks(
-            props.pack._id, props.pack.user_id
+        dispatch(deleteCardTC(
+            props.cards._id, props.cards.cardsPack_id
         ))
+
         props.deleteModeOff()
     }
 
@@ -41,11 +42,12 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Delete pack name</h2>
+                        <h2 className={styles.title}>Delete card</h2>
                     </div>
-                    <p className={styles.text}>Pack name {props.pack.name}</p>
+                    <p className={styles.text}>Card question {props.cards.question}</p>
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.deleteModeOff}>
+                        <button className={styles.btnCancel}
+                                onClick={props.deleteModeOff}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>

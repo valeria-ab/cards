@@ -1,13 +1,11 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { ProfilePage } from "./Profile/ProfilePage";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {ProfilePage} from "./Profile/ProfilePage";
 import RegisterPage from "./Register/RegisterPage";
 import Login from "./Login/Login";
-import { NewPassword } from "./Forgot/NewPassword";
-import { Error404 } from "./Error404";
-import { Forgot } from "./Forgot/Forgot";
-import {useSelector} from "react-redux";
-import {IAppStore} from "../BLL/store/store";
+import {NewPassword} from "./Forgot/NewPassword";
+import {Error404} from "./Error404";
+import {Forgot} from "./Forgot/Forgot";
 
 // all project paths
 export const SIGN_IN_PATH = "/login";

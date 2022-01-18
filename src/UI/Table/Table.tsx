@@ -7,13 +7,18 @@ import {EditPack} from "../Modals/Edit/EditPack";
 import {Delete} from "../Modals/Delete/Delete";
 import {Add} from "../Modals/Add/Add";
 
-export const Table = React.memo(() => {
+type  CardsPropsType = {
+    onClickCardsHandler: (id: string) => void
+}
+
+
+export const Table = React.memo((props: CardsPropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
 
+
     // const [name, setName] = useState<string>("");
-    // const [packID, setPackID] = useState<string>("");
 
     const [pack, setPack] = useState<cardPacksType | null>(null);
 
@@ -50,12 +55,12 @@ export const Table = React.memo(() => {
 
 
     return (
-
-
         <div className={styles.table}>
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
             {addMode && <Add addModeOff={addModeOff}/>}
+            {/*{cardMode &&*/}
+            {/*<Cards tableOffHandler={props.tableOffHandler} cardsModeOff={cardsModeOff}/>}*/}
 
             <button className={styles.add} onClick={addModeOn}> Add Pack</button>
             <div className={styles.header}>
@@ -69,7 +74,8 @@ export const Table = React.memo(() => {
                 {cardPacks.map((pack) => {
 
                     return (<div key={pack._id} className={styles.table__row}>
-                        <div className={styles.table__name}>{pack.name}</div>
+                        <div className={styles.table__name}
+                             onClick={()=> {props.onClickCardsHandler(pack._id)}}>{pack.name}</div>
                         <div className={styles.table__cards}>{pack.cardsCount}</div>
                         <div className={styles.table__updated}>{pack.updated}</div>
                         <div className={styles.table__created}>{pack.created}</div>
@@ -84,8 +90,6 @@ export const Table = React.memo(() => {
                     </div>)
                 })}
             </div>
-
-
         </div>
     );
 });
