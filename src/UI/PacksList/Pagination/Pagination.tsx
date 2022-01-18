@@ -1,2 +1,5 @@
-//just a plug
-export {}
+export const Pagination= () => {
+    return <div>
+
+    </div>
+}
