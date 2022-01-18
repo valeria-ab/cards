@@ -7,6 +7,7 @@ import {forgotReducer} from "../forgot/forgot-reducer";
 import {newPasswordReducer} from "../forgot/newPassword-reducer";
 import {packsReducer} from "../packs/packs-reducer";
 import {searchReducer} from '../search/searchReducer';
+import {findAndPaginationReducer} from '../findAndPagination/findAndPaginationReducer';
 
 
 const reducers = combineReducers({
@@ -17,6 +18,7 @@ const reducers = combineReducers({
     newPasswordReducer: newPasswordReducer,
     packs: packsReducer,
     search: searchReducer,
+    findAndPagination: findAndPaginationReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));

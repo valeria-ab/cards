@@ -10,7 +10,7 @@ function valuetext(value: number) {
     return `${value}°C`;
 }
 
-export  function RangeSlider() {
+export function RangeSlider() {
     const dispatch = useDispatch()
     const packs = useSelector((store: IAppStore) => store.packs);
     const min = packs.minCardsCount
@@ -18,25 +18,26 @@ export  function RangeSlider() {
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         // dispatch(setCardsPacksCountAC(newValue as number[]))
+        //export const setCardsPacksCountAC = (numbers: Array<number> ) =>  // min and max cardsPacks
+        //     ({type: 'FIND-AND-PAGINATION/SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
     };
 
-    return (
-        <Box sx={{ width: 200 }}>
+    return (<div>
+
+        <span>Number of cards</span>
+        <Box sx={{width: 200}}>
             <Slider
                 getAriaLabel={() => 'Number of cards'}
                 value={[min, max]}
                 onChange={handleChange}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="on"
                 getAriaValueText={valuetext}
                 min={0}
                 max={200}
             />
         </Box>
-    );
+    </div>);
 }
-
-
-
 
 
 export const CardsRange = () => {
@@ -149,6 +150,6 @@ export const CardsRange = () => {
         {/*           </div>*/}
         {/*       )}*/}
         {/*       />*/}
-<RangeSlider />
+        <RangeSlider/>
     </div>
 }
