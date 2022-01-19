@@ -14,14 +14,16 @@ export const ProfilePage = () => {
     const isLoggedIn = useSelector<IAppStore, boolean>(
         (state) => state.login.isLoggedIn
     );
-    const [tableOff, setTableOff] = useState<boolean>(true);
-
-
-    const [packID, setPackID] = useState<string>("");
-
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
+    const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
+
+
+
+    const [tableOff, setTableOff] = useState<boolean>(true);
+    const [packID, setPackID] = useState<string>("");
+
 
     const onClickCardsHandler = (id: string) => {
         setTableOff(false)
@@ -31,9 +33,12 @@ export const ProfilePage = () => {
     const cardsModeOff = () => {
         setTableOff(true)
     }
+    const tableOffHandler = () => {
+        setTableOff(false)
+
+    }
 
 
-    const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -46,10 +51,7 @@ export const ProfilePage = () => {
     }, [isLoggedIn]);
 
 
-    const tableOffHandler = () => {
-        setTableOff(false)
 
-    }
 
     if (!isLoggedIn) {
         return <Navigate to={"/login"}/>;
@@ -59,17 +61,11 @@ export const ProfilePage = () => {
         <div>
             <div className={"profile__info"}>
                 <h3>Profile</h3>
-                <div>created: "2022-01-11T12:05:19.647Z"</div>
+                <div>created: {profile.created}</div>
                 email:{profile.email}
-                <div>isAdmin: {profile.isAdmin} </div>
                 <div> name:{profile.name}</div>
                 <div>publicCardPacksCount:{profile.publicCardPacksCount}</div>
-                rememberMe: {profile.rememberMe}
                 <div>token: {profile.token}</div>
-                tokenDeathTime: {profile.tokenDeathTime}
-                <div> updated:{profile.updated}</div>
-                verified: {profile.verified}
-                <div>__v: {profile.__v}</div>
                 <div>_id: {profile._id}</div>
             </div>
             <div className={styles.profile__main}>

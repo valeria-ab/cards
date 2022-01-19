@@ -9,12 +9,13 @@ import {
 import {ThunkAction} from "redux-thunk";
 import {IAppStore} from "../store/store";
 import {UpdatePacksType} from "../../DAL/Packs-api";
+import {setCardsPacksCountAC} from '../packs/ActionCreators';
 
 export type InitialStateType = {
     cards: CardResponseType[],
     cardsTotalCount: number | null
-    maxGrade: number | null
-    minGrade: number | null
+    maxGrade: number
+    minGrade: number
     page: number | null
     pageCount: number | null
     packUserId: string | null
@@ -24,8 +25,8 @@ export type InitialStateType = {
 const initialState: InitialStateType = {
     cards: [],
     cardsTotalCount: null,
-    maxGrade: null,
-    minGrade: null,
+    maxGrade: 100,
+    minGrade: 10,
     page: null,
     pageCount: null,
     packUserId: null,
@@ -35,6 +36,9 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case "CARDS/GET-CARDS": {
             return {...state, ...action.cards}
+        }
+        case 'CARDS/SET-CARDS-PACKS-COUNT': {
+            return {...state,  maxGrade: action.max, minGrade: action.min}
         }
         default:
             return state;
@@ -58,7 +62,7 @@ export const AddCardsAC = (cards: CardsResponseType) => ({
 export type GetCardsActionType = ReturnType<typeof getCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
 
-type ActionsType = GetCardsActionType
+type ActionsType = GetCardsActionType | ReturnType<typeof setCardsPacksCountAC>
 
 
 // thunk

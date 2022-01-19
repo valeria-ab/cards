@@ -15,7 +15,7 @@ export const setMaxCardsCount = (value: number): SetMaxCardsCountType => ({
 })
 
 export const setCardsPacksCountAC = (numbers: Array<number> ) =>  // min and max cardsPacks
-    ({type: 'FIND-AND-PAGINATION/SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
+    ({type: 'CARDS/SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
 
 
 //types

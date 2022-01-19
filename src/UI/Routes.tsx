@@ -6,6 +6,7 @@ import Login from "./Login/Login";
 import {NewPassword} from "./Forgot/NewPassword";
 import {Error404} from "./Error404";
 import {Forgot} from "./Forgot/Forgot";
+import {PacksList} from './PacksList/PacksList';
 
 // all project paths
 export const SIGN_IN_PATH = "/login";
