@@ -1,16 +1,17 @@
-import {CardsRange} from './Range/CardsRange';
+
 import Search from './Search/Search';
 import {ChooseOwner} from './ChooseOwner/ChooseOwner';
 import {Pagination} from './Pagination/Pagination';
 import {Table} from '../Table/Table';
+import RangeSlider from './Range/RangeSlider';
 
 
 export const PacksList = () => {
     return <div>
         <ChooseOwner/>
-        <CardsRange/>
+        <RangeSlider/>
         <Search/>
-        {/*<Table/>*/}
-        <Pagination/>
+        <Table onClickCardsHandler={() => {} } />
+
     </div>
 }
