@@ -1,7 +1,7 @@
-import {useEffect} from 'react';
 import {getPacksTC} from '../../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
+import {Link, useParams} from "react-router-dom";
 
 export const ChooseOwner = () => {
     const dispatch = useDispatch()

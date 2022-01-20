@@ -28,7 +28,12 @@ export const Table = React.memo((props: CardsPropsType) => {
 
 
     const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
-    
+
+
+
+    const id = useSelector<IAppStore>((state) => state.profile._id);
+
+
 
     const editModeOn = (pack: cardPacksType) => {
         setPack(pack)
@@ -91,12 +96,17 @@ export const Table = React.memo((props: CardsPropsType) => {
                         <td className={s.table__data}>{pack.updated}</td>
                         <td className={s.table__data}>{pack.created}</td>
                         <td className={s.table__data}>
-                            <td className={s.buttons}>
-                                <button  className={s.delButtonWrapper} onClick={() => deleteModeOn(pack)}>Delete</button>
-                                <button   className={s.buttonWrapper}
-                                    onClick={() => editModeOn(pack)}>Edit
-                                </button>
-                            </td>
+                            {id === pack.user_id ?
+                                <div className={s.buttons}>
+                                    <button className={s.delButtonWrapper}
+                                            onClick={() => deleteModeOn(pack)}>Delete
+                                    </button>
+                                    <button className={s.buttonWrapper}
+                                            onClick={() => editModeOn(pack)}>Edit
+                                    </button>
+                                </div>
+                                : ""
+                            }
                         </td>
                     </tr>)
                 })}

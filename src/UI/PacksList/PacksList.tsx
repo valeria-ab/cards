@@ -1,9 +1,4 @@
-
-import Search from './Search/Search';
-import {ChooseOwner} from './ChooseOwner/ChooseOwner';
-import {Pagination} from './Pagination/Pagination';
 import {Table} from '../Table/Table';
-import RangeSlider from './Range/RangeSlider';
 import {Cards} from '../Cards/Cards';
 import React, {useState} from 'react';
 
