@@ -103,6 +103,7 @@ export const Table = React.memo((props: CardsPropsType) => {
             </tbody>
             </table>
             </div>
+            <PaginationPacksContainer/>
         </div>
     );
 });
