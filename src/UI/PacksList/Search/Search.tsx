@@ -1,20 +1,29 @@
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {setSearchValue} from '../../../BLL/search/searchActions';
+import {ChangeEvent, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import useDebounce from './CustomHook';
+import {getPacksTC, setSearchPackNameAC} from '../../../BLL/packs/packs-reducer';
+import {IAppStore} from '../../../BLL/store/store';
 
 const Search = () => {
-    const [value, setValue] = useState('')
+    const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const dispatch = useDispatch();
-    const search = () => {
-        dispatch(setSearchValue(value))
-        console.log('dispatch(getProducts())')
-    };
+    const debouncedSearch = useDebounce(() => dispatch(getPacksTC()), 1000)
+    const onKeyUpHandler = () => {
+        debouncedSearch()
+    }
+    const setInputValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setSearchPackNameAC(e.currentTarget.value))
+    }
     return <div>
-        <input placeholder={'Search...'}
-               onChange={(e) => setValue(e.currentTarget.value)}/>
-        <button onClick={search}>Search</button>
-    </div>
+        <input
+            type="text"
+            value={packName}
+            placeholder={'Search...'}
+            onChange={setInputValueHandler}
+            onKeyUp={onKeyUpHandler}
+        />
 
+    </div>
 };
 
 export default Search;

@@ -1,44 +1,45 @@
-import {AnyAction, Dispatch} from "redux";
+import {AnyAction, Dispatch} from 'redux';
 import {
     CardRequestType,
     CardResponseType,
     cardsApi,
     CardsResponseType,
     CardsType
-} from "../../DAL/CardsAPI";
-import {ThunkAction} from "redux-thunk";
-import {IAppStore} from "../store/store";
-import {UpdatePacksType} from "../../DAL/Packs-api";
-import {setCardsPacksCountAC} from '../packs/ActionCreators';
+} from '../../DAL/CardsAPI';
+import {ThunkAction} from 'redux-thunk';
+import {IAppStore} from '../store/store';
+import {UpdatePacksType} from '../../DAL/Packs-api';
 
 export type InitialStateType = {
     cards: CardResponseType[],
-    cardsTotalCount: number | null
-    maxGrade: number
-    minGrade: number
-    page: number | null
-    pageCount: number | null
+    cardsTotalCount: number
+    maxGrade: number | null
+    minGrade: number | null
+    page: number
+    pageCount: number
     packUserId: string | null
-
 }
 
 const initialState: InitialStateType = {
     cards: [],
-    cardsTotalCount: null,
-    maxGrade: 100,
-    minGrade: 10,
-    page: null,
-    pageCount: null,
+    cardsTotalCount: 10,
+    maxGrade: null,
+    minGrade: null,
+    page: 1,
+    pageCount: 10,
     packUserId: null,
 };
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case "CARDS/GET-CARDS": {
+        case 'CARDS/GET-CARDS': {
             return {...state, ...action.cards}
         }
-        case 'CARDS/SET-CARDS-PACKS-COUNT': {
-            return {...state,  maxGrade: action.max, minGrade: action.min}
+        case 'CARDS/SET-CARDS-CURRENT-PAGE': {
+            return {...state, page: action.page}
+        }
+        case 'CARDS/SET-CARDS-PAGE-COUNT': {
+            return {...state, pageCount: action.pageCount}
         }
         default:
             return state;
@@ -52,29 +53,43 @@ export const getCardsAC = (cards: CardsResponseType) => ({
 } as const);
 
 
-
 export const AddCardsAC = (cards: CardsResponseType) => ({
     type: 'CARDS/ADD-CARDS',
     cards
 } as const);
 
+export const setCardsCurrentPageAC = (page: number) =>
+    ({type: 'CARDS/SET-CARDS-CURRENT-PAGE', page} as const)
+export const setCardsPageCountAC = (pageCount: number) =>
+    ({type: 'CARDS/SET-CARDS-PAGE-COUNT', pageCount} as const)
 
 export type GetCardsActionType = ReturnType<typeof getCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
 
-type ActionsType = GetCardsActionType | ReturnType<typeof setCardsPacksCountAC>
+type ActionsType =
+    GetCardsActionType
+    | ReturnType<typeof setCardsCurrentPageAC>
+    | ReturnType<typeof setCardsPageCountAC>
 
 
 // thunk
 
-export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch) => {
+export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState: () => IAppStore) => {
+    const {
+        page,
+        pageCount,
+    } = getState().cardsReducer;
 
-    cardsApi.getCards({...payload})
+    cardsApi.getCards({
+        page,
+        pageCount,
+        ...payload
+    })
         .then((res) => {
             dispatch(getCardsAC(res.data))
         })
         .catch((err) => {
-            alert("No cards, error")
+            alert('No cards, error')
         })
 }
 

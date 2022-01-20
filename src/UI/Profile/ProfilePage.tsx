@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Navigate} from "react-router-dom";
-import {InitialProfileStateType} from "../../BLL/profile/profileInitialState";
-import {IAppStore} from "../../BLL/store/store";
-import {getPacksTC} from "../../BLL/packs/packs-reducer";
-import styles from "./ProfilePage.module.scss";
-import {Table} from "../Table/Table";
-import {Cards} from "../Cards/Cards";
-
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Navigate} from 'react-router-dom';
+import {InitialProfileStateType} from '../../BLL/profile/profileInitialState';
+import {IAppStore} from '../../BLL/store/store';
+import {getPacksTC} from '../../BLL/packs/packs-reducer';
+import styles from './ProfilePage.module.css';
+import {Table} from '../Table/Table';
+import {Cards} from '../Cards/Cards';
 
 export const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -20,9 +19,8 @@ export const ProfilePage = () => {
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
-
     const [tableOff, setTableOff] = useState<boolean>(true);
-    const [packID, setPackID] = useState<string>("");
+    const [packID, setPackID] = useState<string>('');
 
 
     const onClickCardsHandler = (id: string) => {
@@ -39,7 +37,6 @@ export const ProfilePage = () => {
     }
 
 
-
     useEffect(() => {
         if (isLoggedIn) {
             dispatch(getPacksTC({
@@ -51,27 +48,29 @@ export const ProfilePage = () => {
     }, [isLoggedIn]);
 
 
-
-
     if (!isLoggedIn) {
-        return <Navigate to={"/login"}/>;
+        return <Navigate to={'/login'}/>;
     }
 
     return (
         <div>
-            <div className={"profile__info"}>
+            <div className={'profile__info'}>
                 <h3>Profile</h3>
-                <div>created: {profile.created}</div>
-                email:{profile.email}
-                <div> name:{profile.name}</div>
-                <div>publicCardPacksCount:{profile.publicCardPacksCount}</div>
-                <div>token: {profile.token}</div>
-                <div>_id: {profile._id}</div>
+                email: <i>{profile.email}</i>
+                <div> name: <i>{profile.name}</i></div>
+                <div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>
+
+                {/*<div>created: {profile.created}</div>*/}
+                {/*<div>token: {profile.token}</div>*/}
+                {/*<div>_id: {profile._id}</div>*/}
             </div>
+
             <div className={styles.profile__main}>
-                {tableOff ? <Table onClickCardsHandler={onClickCardsHandler}/> :
-                    <Cards id={packID} tableOffHandler={tableOffHandler}
-                           cardsModeOff={cardsModeOff}/>}
+                {tableOff
+                    ? <Table onClickCardsHandler={onClickCardsHandler}/>
+                    : <Cards id={packID}
+                             tableOffHandler={tableOffHandler}
+                             cardsModeOff={cardsModeOff}/>}
             </div>
         </div>
     );
