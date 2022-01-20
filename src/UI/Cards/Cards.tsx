@@ -6,6 +6,8 @@ import {IAppStore} from "../../BLL/store/store";
 import {CardResponseType, cardsApi} from "../../DAL/CardsAPI";
 import {DeleteCard} from "../Modals/DeleteCard/DeleteCard";
 import {AddUpdate} from "../Modals/AddUpdateCard/AddUpdate";
+import {PaginationCardsContainer} from '../PacksList/Pagination/PaginationCardsContainer';
+import Search from '../PacksList/Search/Search';
 
 type  CardsPropsType = {
     id: string
@@ -87,6 +89,7 @@ export const Cards = (props: CardsPropsType) => {
 
     return (
         <div className={styles.table}>
+            <Search/>
             {cards && cardsCurrent && deleteMode &&
             <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
 
@@ -131,6 +134,7 @@ export const Cards = (props: CardsPropsType) => {
                     </div>)
                 })}
             </div>
+            <PaginationCardsContainer id={props.id}/>
         </div>
     );
 };

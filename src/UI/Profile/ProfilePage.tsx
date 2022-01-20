@@ -7,11 +7,6 @@ import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import styles from './ProfilePage.module.css';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
-import {ChooseOwner} from '../PacksList/ChooseOwner/ChooseOwner';
-import Search from '../PacksList/Search/Search';
-import {Pagination} from '../PacksList/Pagination/Pagination';
-import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
-import RangeSlider from '../PacksList/Range/RangeSlider';
 
 export const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -69,9 +64,6 @@ export const ProfilePage = () => {
                 {/*<div>token: {profile.token}</div>*/}
                 {/*<div>_id: {profile._id}</div>*/}
             </div>
-            <ChooseOwner/>
-            <RangeSlider/>
-            <Search/>
 
             <div className={styles.profile__main}>
                 {tableOff
@@ -80,7 +72,6 @@ export const ProfilePage = () => {
                              tableOffHandler={tableOffHandler}
                              cardsModeOff={cardsModeOff}/>}
             </div>
-            <PaginationPacksContainer/>
         </div>
     );
 };

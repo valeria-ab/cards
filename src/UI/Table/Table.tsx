@@ -6,6 +6,10 @@ import {cardPacksType} from "../../DAL/Packs-api";
 import {EditPack} from "../Modals/Edit/EditPack";
 import {Delete} from "../Modals/Delete/Delete";
 import {Add} from "../Modals/Add/Add";
+import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
+import {ChooseOwner} from '../PacksList/ChooseOwner/ChooseOwner';
+import RangeSlider from '../PacksList/Range/RangeSlider';
+import Search from '../PacksList/Search/Search';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -55,6 +59,11 @@ export const Table = React.memo((props: CardsPropsType) => {
 
 
     return (
+        <div>
+            <ChooseOwner/>
+            <RangeSlider/>
+            <Search/>
+
         <div className={styles.table}>
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
@@ -90,6 +99,8 @@ export const Table = React.memo((props: CardsPropsType) => {
                     </div>)
                 })}
             </div>
+            <PaginationPacksContainer/>
+        </div>
         </div>
     );
 });

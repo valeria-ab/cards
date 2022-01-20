@@ -1,7 +1,7 @@
-import {cardPacksType, packsApi, PacksResponseType, PacksType} from "../../DAL/Packs-api";
-import {AnyAction, Dispatch} from "redux";
-import {IAppStore} from "../store/store";
-import {ThunkAction} from "redux-thunk";
+import {cardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/Packs-api';
+import {AnyAction, Dispatch} from 'redux';
+import {IAppStore} from '../store/store';
+import {ThunkAction} from 'redux-thunk';
 
 
 export type InitialStateType = {
@@ -12,7 +12,7 @@ export type InitialStateType = {
     minCardsCount: number
     page: number
     pageCount: number
-
+    packName: string
 
 }
 
@@ -23,14 +23,20 @@ const initialState: InitialStateType = {
     minCardsCount: 0,
     page: 1,
     pageCount: 10,
+    packName: '', //for search
 };
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case "PACKS/GET-PACKS": {
+        case 'PACKS/GET-PACKS': {
             return {...state, ...action.payload}
         }
-
+        case 'PACKS/SET-CARD-PACKS-CURRENT-PAGE':
+            return {...state, page: action.page}
+        case 'PACKS/SET-CARD-PACKS-PAGE-COUNT':
+            return {...state, pageCount: action.pageCount}
+        case 'PACKS/SET-SEARCH-PACK-NAME':
+            return {...state, packName: action.packName}
         default:
             return state;
     }
@@ -42,11 +48,21 @@ export const GetPacksAC = (payload: PacksResponseType) => ({
     payload
 } as const);
 
+export const setCardPacksCurrentPageAC = (page: number) =>
+    ({type: 'PACKS/SET-CARD-PACKS-CURRENT-PAGE', page} as const)
+export const setCardPacksPageCountAC = (pageCount: number) =>
+    ({type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', pageCount} as const)
+export const setSearchPackNameAC = (packName: string) =>
+    ({type: 'PACKS/SET-SEARCH-PACK-NAME', packName} as const)
 
 export type GetPacksActionType = ReturnType<typeof GetPacksAC>
 
 
-type ActionsType = GetPacksActionType
+type ActionsType =
+    GetPacksActionType
+    | ReturnType<typeof setCardPacksCurrentPageAC>
+    | ReturnType<typeof setCardPacksPageCountAC>
+    | ReturnType<typeof setSearchPackNameAC>
 
 
 // thunk
@@ -58,6 +74,7 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         pageCount,
         maxCardsCount,
         minCardsCount,
+        packName,
     } = getState().packs;
 
     packsApi.getPacks({
@@ -65,6 +82,7 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         pageCount,
         min: minCardsCount,
         max: maxCardsCount,
+        packName: packName,
         ...payload
     })
         .then((res) => {

@@ -6,10 +6,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
 import {getPacksTC} from '../../../BLL/packs/packs-reducer';
 import s from './Range.module.css'
-import {setCardsPacksCountAC} from '../../../BLL/findAndPagination/findAndPaginationReducer';
+import {setCardsPacksCountAC} from '../../../BLL/range/rangeCardsInPacksReducerr';
 
-
-export const paginationTextColor = '#2D2E46';
 
 const CustomSlider = styled(Slider)({
     color: '#21268F',
@@ -44,13 +42,12 @@ const CustomSlider = styled(Slider)({
 
 export default function RangeSlider() {
     const dispatch = useDispatch()
-    const min = useSelector<IAppStore, number>(state => state.findAndPagination.cardPacks.min)
-    const max = useSelector<IAppStore, number>(state => state.findAndPagination.cardPacks.max)
+    const min = useSelector<IAppStore, number>(state => state.range.min)
+    const max = useSelector<IAppStore, number>(state => state.range.max)
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         dispatch(setCardsPacksCountAC(newValue as number[]))
     };
-
 
     return (<div className={s.range}>
             <Box sx={{width: 200}}>

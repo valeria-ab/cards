@@ -1,5 +1,7 @@
 import React, {ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes} from 'react'
 import s from './Paginations.module.scss'
+import {getPacksTC, setCardPacksPageCountAC} from '../../../BLL/packs/packs-reducer';
+import {useDispatch} from 'react-redux';
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
 
@@ -15,6 +17,7 @@ const Select: React.FC<SuperSelectPropsType> = (
         ...restProps
     }
 ) => {
+const dispatch=useDispatch()
     const mappedOptions: any[] = options ? options.map((o, i) => (
         <option className={s.option} key={'option-' + i} value={o}>{o}</option>
     )) : []
@@ -22,7 +25,8 @@ const Select: React.FC<SuperSelectPropsType> = (
     const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
         onChange && onChange(e)
         onChangeOption && onChangeOption(e.currentTarget.value)
-
+        dispatch(setCardPacksPageCountAC(+e.currentTarget.value))
+        dispatch(getPacksTC())
     }
 
     return (
