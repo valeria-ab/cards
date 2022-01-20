@@ -1,38 +1,124 @@
-.header {
-  display: flex;
-  justify-content: center;
-}
-
-.header__item {
-  margin: 0px 100px 0px 0px;
-  font-weight: bold;
-
-  &:last-child {
-    margin: 0px 0px 0px 0px;
-  }
+.tableMain{
+  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  overflow: auto;
+  max-height: 432px;
+  width: 100%;
 }
 
 .table__row {
   display: flex;
   justify-content: center;
+  height: 48px;
+  text-align: left;     
+  color: #2D2E46;
+  font-family: "SFUIDisplay-Bold";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  text-overflow: ellipsis;
 }
 
-.table__name {
+.tableWrapper{
+  border: none;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  width: 100%; 
+  max-width: 671px;  
+}
+.table__data {
   margin-right: 50px;
   cursor: pointer;
 }
-
-.table__cards {
-  margin-right: 50px;
+.table__head{
+  display: flex;
+  justify-content: center;
+  text-align: left;     
+    color: #2D2E46;
+    font-family: "SFUIDisplayRegular";
+    font-style: bold;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    text-overflow: ellipsis;
 }
 
-.table__updated {
-  margin-right: 50px;
+
+.tableHeader{
+  background-color: #ECECF9;
+  cursor: pointer;
+  padding: 0 5px; 
+  gap: 10px;
+  height: 48px;
 }
 
-.table__created {
-  margin-right: 50px;
+.table__head:first-child {
+  padding: 0 5px 0 24px;
 }
+
+table td:first-child{
+  padding: 0 5px 0 24px;
+  cursor: pointer;
+}
+
+table td:last-child{
+  padding: 0 30px 0 5px;
+}
+
+.table__head:last-child {
+  padding: 0 130px 0 60px;
+}
+
+.table__head:nth-child(3){
+  padding: 0 50px 0 0;
+}
+
+.table__head:nth-child(4){
+  padding: 0 20px 0 0;
+}
+
+.table__row:nth-child(even) {
+  background-color:#F8F7FD;
+}
+
+.table__row:nth-child(odd) {
+  background-color:#FFFFFF;
+}
+.table__headRow {
+  height: 48px;
+    text-align: left;     
+    color: #2D2E46;
+    font-family: "SFUIDisplayRegular";
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.table__data {
+  font-family: "SFUIDisplayRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+}
+
+// .table__data:first-child {
+//   padding: 0 5px 0 24px;
+//   cursor: pointer;
+// }
+
+// .table__data:last-child {
+//   padding: 0 30px 0 5px;
+// }
+
 
 .add {
   background: #21268F;
@@ -43,7 +129,7 @@
   border-radius: 30px;
   width: 266px;
   height: 36px;
-  font-family: "SFUIDisplay-Medium";
+  font-family: "SFUIDisplayRegular";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -51,9 +137,31 @@
   border: none;
   cursor: pointer;
   box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
 }
 
 .back {
   font-weight: 900;
   cursor: pointer;
+}
+
+.buttonWrapper{
+  background-color: #D7D8EF;
+  color:#21268F;
+  font-weight: 600;
+  font-family: "SFUIDisplayRegular";
+
+}
+.delButtonWrapper{
+  color: #FFFFFF;
+  background-color: #F1453D;
+  font-family: "SFUIDisplayRegular";
+}
+.buttons{
+  display: flex;
+    align-items: center;
+    gap: 10px;
 }

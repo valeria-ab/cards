@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import RoutesComponent from "./Routes";
 import {useDispatch} from "react-redux";
+import MainHeader from './MainHeader/MainHeader';
 
 // headers, routes, footers
 const Main: React.FC = () => {
@@ -10,6 +11,7 @@ const Main: React.FC = () => {
 
     return (
         <>
+            <MainHeader/>
             <Header/>
 
             <RoutesComponent/>

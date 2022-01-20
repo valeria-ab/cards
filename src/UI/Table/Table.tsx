@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
-import styles from "./Table.module.scss";
+import s from "./Table.module.scss";
 import {useSelector} from "react-redux";
 import {IAppStore} from "../../BLL/store/store";
 import {cardPacksType} from "../../DAL/Packs-api";
 import {EditPack} from "../Modals/Edit/EditPack";
 import {Delete} from "../Modals/Delete/Delete";
 import {Add} from "../Modals/Add/Add";
+
+
+
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -24,7 +27,7 @@ export const Table = React.memo((props: CardsPropsType) => {
 
 
     const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
-
+    
 
     const editModeOn = (pack: cardPacksType) => {
         setPack(pack)
@@ -55,40 +58,46 @@ export const Table = React.memo((props: CardsPropsType) => {
 
 
     return (
-        <div className={styles.table}>
+        <div className={s.table}>
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
             {addMode && <Add addModeOff={addModeOff}/>}
             {/*{cardMode &&*/}
             {/*<Cards tableOffHandler={props.tableOffHandler} cardsModeOff={cardsModeOff}/>}*/}
 
-            <button className={styles.add} onClick={addModeOn}> Add Pack</button>
-            <div className={styles.header}>
-                <div className={styles.header__item}>Name</div>
-                <div className={styles.header__item}>Cards</div>
-                <div className={styles.header__item}>Last Updated</div>
-                <div className={styles.header__item}>Created by</div>
-                <div className={styles.header__item}>Actions</div>
-            </div>
-            <div className={styles.table__main}>
+            <button className={s.add} onClick={addModeOn}> Add Pack</button>
+            <div className={s.tableMain}>
+            <table className={s.tableWrapper}>
+            <thead className={s.tableHeader}>
+                    <tr className={s.table__headRow}>
+                        <th className={s.table__head}>Name</th>
+                        <th className={s.table__head}>Cards </th>
+                        <th className={s.table__head}>Last Updated</th>
+                        <th className={s.table__head}>Created by</th>
+                        <th className={s.table__head}>Actions</th>
+                    </tr>
+                </thead>
+            <tbody className={s.table__main}>
                 {cardPacks.map((pack) => {
 
-                    return (<div key={pack._id} className={styles.table__row}>
-                        <div className={styles.table__name}
-                             onClick={()=> {props.onClickCardsHandler(pack._id)}}>{pack.name}</div>
-                        <div className={styles.table__cards}>{pack.cardsCount}</div>
-                        <div className={styles.table__updated}>{pack.updated}</div>
-                        <div className={styles.table__created}>{pack.created}</div>
-                        <div className={styles.table__actions}>
-                            <div className="buttons">
-                                <button onClick={() => deleteModeOn(pack)}>Delete</button>
-                                <button
+                    return (<tr key={pack._id} className={s.table__row}>
+                        <td className={s.table__data}
+                            onClick={()=> {props.onClickCardsHandler(pack._id)}}>{pack.name}</td>
+                        <td className={s.table__data}>{pack.cardsCount}</td>
+                        <td className={s.table__data}>{pack.updated}</td>
+                        <td className={s.table__data}>{pack.created}</td>
+                        <td className={s.table__data}>
+                            <td className={s.buttons}>
+                                <button  className={s.delButtonWrapper} onClick={() => deleteModeOn(pack)}>Delete</button>
+                                <button   className={s.buttonWrapper}
                                     onClick={() => editModeOn(pack)}>Edit
                                 </button>
-                            </div>
-                        </div>
-                    </div>)
+                            </td>
+                        </td>
+                    </tr>)
                 })}
+            </tbody>
+            </table>
             </div>
         </div>
     );
