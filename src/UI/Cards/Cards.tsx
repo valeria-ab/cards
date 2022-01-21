@@ -8,6 +8,7 @@ import { DeleteCard } from "../Modals/DeleteCard/DeleteCard";
 import { AddUpdate } from "../Modals/AddUpdateCard/AddUpdate";
 import {PaginationCardsContainer} from '../PacksList/Pagination/PaginationCardsContainer';
 import Search from '../PacksList/Search/Search';
+import {ErrorSnackbar} from "../Error/ErrorSnackbar";
 
 type CardsPropsType = {
     id: string
@@ -139,6 +140,7 @@ export const Cards = (props: CardsPropsType) => {
                 </table>
             </div>
             <PaginationCardsContainer id={props.id}/>
+            <ErrorSnackbar/>
         </div>
     );
 };

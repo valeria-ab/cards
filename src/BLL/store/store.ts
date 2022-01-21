@@ -8,6 +8,7 @@ import {newPasswordReducer} from "../forgot/newPassword-reducer";
 import {packsReducer} from "../packs/packs-reducer";
 import {cardsReducer} from "../cards/cards-reducer";
 import {rangeCardsInPacksReducer} from '../range/rangeCardsInPacksReducerr';
+import {errorReducer} from "../Error/errorReducer";
 
 
 const reducers = combineReducers({
@@ -18,7 +19,9 @@ const reducers = combineReducers({
     newPasswordReducer: newPasswordReducer,
     packs: packsReducer,
     cardsReducer:cardsReducer,
-    range: rangeCardsInPacksReducer
+    range: rangeCardsInPacksReducer,
+    error:errorReducer,
+
 });
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));

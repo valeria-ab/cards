@@ -6,6 +6,7 @@ import { IAppStore } from "../../BLL/store/store";
 import { Navigate } from "react-router-dom";
 import s from "./Register.module.scss";
 import {Alert} from "@mui/material";
+import {ErrorSnackbar} from "../Error/ErrorSnackbar";
 
 //Add my branch
 interface IRegisterProps {
@@ -91,6 +92,7 @@ const Register: React.FC<IRegisterProps> = ({ }) => {
             Register
             </button>
             </div>
+        <ErrorSnackbar/>
     </div>;
 };
 

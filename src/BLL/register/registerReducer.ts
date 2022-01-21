@@ -1,6 +1,7 @@
 
 import {Dispatch} from "redux";
 import {api} from "../../DAL/api";
+import {setErrorAC, SetErrorActionType} from "../Error/errorReducer";
 
 type InitialStateType = typeof initialState
 
@@ -9,7 +10,7 @@ export const initialState = {
   message: '',
 }
 
-type actionType = successRegistrationType
+type actionType = successRegistrationType | SetErrorActionType
 
  export const registerReducer = (state: InitialStateType = initialState, action: actionType): InitialStateType => {
     switch (action.type) {
@@ -30,6 +31,9 @@ export const registrationTC = (payload : {email: string, password: string}) => (
   api.register(payload)
       .then((res)=>{
         dispatch(successRegistrationAC(true))
+      })
+      .catch((error)=> {
+          dispatch(setErrorAC(error))
       })
 }
 

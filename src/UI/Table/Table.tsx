@@ -10,6 +10,7 @@ import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksC
 import {ChooseOwner} from '../PacksList/ChooseOwner/ChooseOwner';
 import RangeSlider from '../PacksList/Range/RangeSlider';
 import Search from '../PacksList/Search/Search';
+import {ErrorSnackbar} from "../Error/ErrorSnackbar";
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -65,9 +66,9 @@ export const Table = React.memo((props: CardsPropsType) => {
 
     return (
         <div className={s.table}>
-            <ChooseOwner/>
-            <RangeSlider/>
-            <Search/>
+            {/*<ChooseOwner/>*/}
+            {/*<RangeSlider/>*/}
+            {/*<Search/>*/}
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
             {addMode && <Add addModeOff={addModeOff}/>}
@@ -114,6 +115,7 @@ export const Table = React.memo((props: CardsPropsType) => {
             </table>
             </div>
             <PaginationPacksContainer/>
+            <ErrorSnackbar/>
         </div>
     );
 });

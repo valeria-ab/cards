@@ -6,6 +6,8 @@ import {forgotPasswordTC} from "../../BLL/forgot/forgot-reducer";
 import {IAppStore} from "../../BLL/store/store";
 import {CheckEmail} from "./CheckEmail";
 import {Alert} from "@mui/material";
+import {setErrorAC} from "../../BLL/Error/errorReducer";
+import {ErrorSnackbar} from "../Error/ErrorSnackbar";
 
 export const Forgot = React.memo(() => {
 
@@ -29,6 +31,7 @@ export const Forgot = React.memo(() => {
     const onClickHandler = () => {
         if (!checkEmailValidity(valueInput)) {
             setError("Not valid email")
+            dispatch(setErrorAC("Not valid email"))
             return
         }
         dispatch(forgotPasswordTC(valueInput))
@@ -61,6 +64,7 @@ export const Forgot = React.memo(() => {
                         in</Link>
                 </div>
             </div>
+            <ErrorSnackbar/>
         </div>
     );
 });
