@@ -1,15 +1,17 @@
 .tableMain{
   box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
   overflow: auto;
-  max-height: 432px;
-  width: 100%;
+  width: 669px;
 }
-
+.tableWrapper{
+  border: none;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  width: 669px;
+}
 .table__row {
-  display: flex;
-  justify-content: center;
-  height: 48px;
-  text-align: left;     
+  text-align: left;
+  height: 48px;    
   color: #2D2E46;
   font-family: "SFUIDisplay-Bold";
   font-style: normal;
@@ -17,33 +19,9 @@
   font-size: 13px;
   line-height: 16px;
   text-overflow: ellipsis;
+  align-items: center;
+  
 }
-
-.tableWrapper{
-  border: none;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  width: 100%; 
-  //max-width: 671px;
-}
-.table__data {
-  margin-right: 50px;
-  cursor: pointer;
-}
-.table__head{
-  display: flex;
-  justify-content: center;
-  text-align: left;     
-    color: #2D2E46;
-    font-family: "SFUIDisplayRegular";
-    font-style: bold;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    text-overflow: ellipsis;
-}
-
-
 .tableHeader{
   background-color: #ECECF9;
   cursor: pointer;
@@ -52,29 +30,39 @@
   height: 48px;
 }
 
-.table__head:first-child {
-  padding: 0 5px 0 24px;
+
+.table__head{
+
+  text-align: left;     
+  color: #2D2E46;
+  font-family: "SFUIDisplayRegular";
+    font-style: bold;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    text-overflow: ellipsis;
 }
 
-table td:first-child{
-  padding: 0 5px 0 24px;
-  cursor: pointer;
+.table__head:first-child, .table__data:first-child{
+  width: 182px;
+  padding-left: 24px;
 }
 
-table td:last-child{
-  padding: 0 30px 0 5px;
+.table__head:nth-child(2), .table__data:nth-child(2){
+  width: 82px;
 }
 
-.table__head:last-child {
-  padding: 0 130px 0 60px;
+.table__head:nth-child(3), .table__data:nth-child(3){
+  width: 135px;
 }
 
-.table__head:nth-child(3){
-  padding: 0 50px 0 0;
+.table__head:nth-child(4), .table__data:nth-child(4){
+  width: 109px;
 }
 
-.table__head:nth-child(4){
-  padding: 0 20px 0 0;
+.table__head:nth-child(5), .table__data:nth-child(5){
+  width: 161px;
+  padding-left: 10px;
 }
 
 .table__row:nth-child(even) {
@@ -93,9 +81,6 @@ table td:last-child{
     font-size: 13px;
     line-height: 16px;
     text-overflow: ellipsis;
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
 }
 
 .table__data {
@@ -107,17 +92,8 @@ table td:last-child{
   color: #000000;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0 5px;
+  
 }
-
-// .table__data:first-child {
-//   padding: 0 5px 0 24px;
-//   cursor: pointer;
-// }
-
-// .table__data:last-child {
-//   padding: 0 30px 0 5px;
-// }
 
 
 .add {
@@ -149,6 +125,7 @@ table td:last-child{
 }
 
 .buttonWrapper{
+  
   background-color: #D7D8EF;
   color:#21268F;
   font-weight: 600;
@@ -161,6 +138,7 @@ table td:last-child{
   font-family: "SFUIDisplayRegular";
 }
 .buttons{
+  
   display: flex;
     align-items: center;
     gap: 10px;
