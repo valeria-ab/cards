@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {api} from "../../DAL/api";
+import {setErrorAC, SetErrorActionType} from "../Error/errorReducer";
 
 export type InitialStateType = {
     isRequestSend: boolean
@@ -30,7 +31,7 @@ export const sendRequestAC = (isRequestSend: boolean) => ({
 export type SendRequestActionType = ReturnType<typeof sendRequestAC>
 
 
-type ActionsType = SendRequestActionType
+type ActionsType = SendRequestActionType | SetErrorActionType
 
 
 // thunk
@@ -41,7 +42,8 @@ export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
            dispatch(sendRequestAC(true))
         })
         .catch((error) => {
-            alert(error)
+            console.log(error);
+            dispatch(setErrorAC(error))
         })
 }
 

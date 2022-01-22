@@ -2,6 +2,7 @@ import {cardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/P
 import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
+import {setErrorAC} from "../Error/errorReducer";
 
 
 export type InitialStateType = {
@@ -95,6 +96,9 @@ export const createPacks = (name: string, user_id?: string): ThunkAction<void, I
     packsApi.createPack({name})
         .then((res) => {
             dispatch(getPacksTC({user_id}))
+        })
+        .catch((err)=> {
+            dispatch(setErrorAC(err))
         })
 }
 

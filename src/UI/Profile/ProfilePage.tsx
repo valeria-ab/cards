@@ -7,6 +7,9 @@ import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import styles from './ProfilePage.module.css';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
+import {ChooseOwner} from "../PacksList/ChooseOwner/ChooseOwner";
+import RangeSlider from "../PacksList/Range/RangeSlider";
+import Search from "../PacksList/Search/Search";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -53,8 +56,8 @@ export const ProfilePage = () => {
     }
 
     return (
-        <div>
-            <div className={'profile__info'}>
+        <div className={styles.profile__body}>
+            <div className={styles.profile__info}>
                 <h3>Profile</h3>
                 email: <i>{profile.email}</i>
                 <div> name: <i>{profile.name}</i></div>
@@ -63,6 +66,10 @@ export const ProfilePage = () => {
                 {/*<div>created: {profile.created}</div>*/}
                 {/*<div>token: {profile.token}</div>*/}
                 {/*<div>_id: {profile._id}</div>*/}
+
+                <ChooseOwner/>
+                <RangeSlider/>
+                <Search/>
             </div>
 
             <div className={styles.profile__main}>

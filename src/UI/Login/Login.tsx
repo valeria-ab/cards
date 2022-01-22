@@ -7,6 +7,7 @@ import { IAppStore } from "../../BLL/store/store";
 import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
 import s from "./LogIn.module.scss";
 import { Alert } from "@mui/material";
+import {ErrorSnackbar} from "../Error/ErrorSnackbar";
 
 const Login = React.memo(() => {
   const [email, setEmail] = useState("");
@@ -97,6 +98,7 @@ const Login = React.memo(() => {
                     Sign Up
                 </NavLink>
             </div>
+            <ErrorSnackbar/>
         </div>
     );
 });

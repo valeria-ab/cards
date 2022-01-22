@@ -9,6 +9,7 @@ import {
 import {ThunkAction} from 'redux-thunk';
 import {IAppStore} from '../store/store';
 import {UpdatePacksType} from '../../DAL/Packs-api';
+import {setErrorAC, SetErrorActionType} from "../Error/errorReducer";
 
 export type InitialStateType = {
     cards: CardResponseType[],
@@ -70,6 +71,7 @@ type ActionsType =
     GetCardsActionType
     | ReturnType<typeof setCardsCurrentPageAC>
     | ReturnType<typeof setCardsPageCountAC>
+    | SetErrorActionType
 
 
 // thunk
@@ -89,7 +91,7 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
             dispatch(getCardsAC(res.data))
         })
         .catch((err) => {
-            alert('No cards, error')
+            dispatch(setErrorAC(err))
         })
 }
 
@@ -97,6 +99,9 @@ export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): Thun
     cardsApi.sendCard({...payload})
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err))
         })
 }
 
@@ -107,12 +112,18 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
         })
+        .catch((err) => {
+            dispatch(setErrorAC(err))
+        })
 }
 
 export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     cardsApi.updateCard(payload)
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err))
         })
 }
 

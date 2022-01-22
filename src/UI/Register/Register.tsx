@@ -1,10 +1,11 @@
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {registrationTC} from "../../BLL/register/registerReducer";
-import {IAppStore} from "../../BLL/store/store";
-import {Navigate} from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registrationTC } from "../../BLL/register/registerReducer";
+import { IAppStore } from "../../BLL/store/store";
+import { Navigate } from "react-router-dom";
 import s from "./Register.module.scss";
 import {Alert} from "@mui/material";
+import {ErrorSnackbar} from "../Error/ErrorSnackbar";
 
 //Add my branch
 interface IRegisterProps {
@@ -14,19 +15,18 @@ const Register: React.FC<IRegisterProps> = ({}) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [repeatPassword, setRepeatPassword] = useState<string>('');
-    const [emailError, setEmailError] = useState<null | string>(null);
+    const [emailError, serEmailError] = useState<null | string>(null)
     const [passError, setPassError] = useState<null | string>(null)
     const [repeatPasswordError, setRepeatPasswordError] = useState<null | string>(null)
-
-    const dispatch = useDispatch();
-    const isRegistration = useSelector<IAppStore, boolean>(state => state.register.isRegistration);
+    const dispatch = useDispatch()
+    const isRegistration = useSelector<IAppStore, boolean>(state => state.register.isRegistration)
 
 
     const registration = () => {
         if (password === repeatPassword) {
-            dispatch(registrationTC({email, password}));
+            dispatch(registrationTC({ email, password }))
         }
-    };
+    }
 
     const blurHandler = () => {
         const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -56,7 +56,7 @@ const Register: React.FC<IRegisterProps> = ({}) => {
     }
 
     if (isRegistration) {
-        return <Navigate to={'/login'}/>;
+        return <Navigate to={'/login'} />
     }
 
     return <div className={s.Register}>
@@ -77,10 +77,10 @@ const Register: React.FC<IRegisterProps> = ({}) => {
                            setEmailError(null)
                        }}
                        onBlur={blurHandler}
+            />
 
-                />
-            </div>
-            {emailError !== null && <span>
+        </div>
+        {emailError !== null && <span>
             <Alert severity="error">{emailError}</Alert>
             </span>}
             <div className={s.InputWrapper}>
@@ -128,6 +128,7 @@ const Register: React.FC<IRegisterProps> = ({}) => {
                 Register
             </button>
         </div>
+        <ErrorSnackbar/>
     </div>;
 };
 
