@@ -15,7 +15,7 @@ const Register: React.FC<IRegisterProps> = ({}) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [repeatPassword, setRepeatPassword] = useState<string>('');
-    const [emailError, serEmailError] = useState<null | string>(null)
+    const [emailError, setEmailError] = useState<null | string>(null)
     const [passError, setPassError] = useState<null | string>(null)
     const [repeatPasswordError, setRepeatPasswordError] = useState<null | string>(null)
     const dispatch = useDispatch()

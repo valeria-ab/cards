@@ -29,6 +29,7 @@ export const signIn =
                     const error = err.response
                         ? err.response.data.error
                         : err.message + ", more details in the console";
+                    console.log("Error: ", {...err});
                     dispatch(loginError(error, false));
                     dispatch(setErrorAC(error))
                 });
