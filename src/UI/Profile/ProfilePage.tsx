@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Navigate} from 'react-router-dom';
 import {InitialProfileStateType} from '../../BLL/profile/profileInitialState';
 import {IAppStore} from '../../BLL/store/store';
-import {getPacksTC} from '../../BLL/packs/packs-reducer';
+import {getPacksTC, InitialStateType} from '../../BLL/packs/packs-reducer';
 import styles from './ProfilePage.module.css';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
@@ -18,6 +18,9 @@ export const ProfilePage = () => {
     );
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
+    );
+    const packs = useSelector<IAppStore, InitialStateType>(
+        (state) => state.packs
     );
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
@@ -39,17 +42,22 @@ export const ProfilePage = () => {
 
     }
 
+    //
+    // useEffect(() => {
+    //     if (isLoggedIn) {
+    //         dispatch(getPacksTC({
+    //             user_id: currentUserID
+    //
+    //         }))
+    //         setTableOff(true)
+    //     }
+    // }, [isLoggedIn]);
+
 
     useEffect(() => {
-        if (isLoggedIn) {
-            dispatch(getPacksTC({
-                user_id: currentUserID
-
-            }))
-            setTableOff(true)
-        }
-    }, [isLoggedIn]);
-
+        dispatch(getPacksTC(packs.withMyId ? {user_id: currentUserID} : {}))
+        // dispatch(fetchPacks())
+    }, [dispatch, packs.page, packs.pageCount, packs.withMyId])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>;

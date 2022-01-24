@@ -14,7 +14,8 @@ export type InitialStateType = {
     page: number
     pageCount: number
     packName: string
-
+    cardsValuesFromRange: Array<number>
+    withMyId: boolean
 }
 
 const initialState: InitialStateType = {
@@ -25,6 +26,8 @@ const initialState: InitialStateType = {
     page: 1,
     pageCount: 10,
     packName: '', //for search
+    cardsValuesFromRange: [0, 1000],
+    withMyId: true
 };
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -38,6 +41,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, pageCount: action.pageCount}
         case 'PACKS/SET-SEARCH-PACK-NAME':
             return {...state, packName: action.packName}
+        case 'PACKS/SET-WITH-MY-ID':
+            return {...state, withMyId: action.withMyId}
         // case 'PACKS/SET-MAX-CARDS-COUNT':
         //     return {...state, maxCardsCount: action.maxCardsCount}
         // case 'PACKS/SET-MIN-CARDS-COUNT':
@@ -59,6 +64,8 @@ export const setCardPacksPageCountAC = (pageCount: number) =>
     ({type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', pageCount} as const)
 export const setSearchPackNameAC = (packName: string) =>
     ({type: 'PACKS/SET-SEARCH-PACK-NAME', packName} as const)
+export const setWithMyIdAC = (withMyId: boolean) =>
+    ({type: 'PACKS/SET-WITH-MY-ID', withMyId} as const)
 // export const setMaxCardsCountAC = (maxCardsCount: number) =>
 //     ({type: 'PACKS/SET-MAX-CARDS-COUNT', maxCardsCount} as const)
 // export const setMinCardsCountAC = (minCardsCount: number) =>
@@ -72,6 +79,7 @@ type ActionsType =
     | ReturnType<typeof setCardPacksCurrentPageAC>
     | ReturnType<typeof setCardPacksPageCountAC>
     | ReturnType<typeof setSearchPackNameAC>
+    | ReturnType<typeof setWithMyIdAC>
     // | ReturnType<typeof setMaxCardsCountAC>
     // | ReturnType<typeof setMinCardsCountAC>
 
