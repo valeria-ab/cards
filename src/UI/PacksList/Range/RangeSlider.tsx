@@ -47,10 +47,16 @@ export default function RangeSlider() {
     const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
     const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
 
-    const handleChange = (event: Event, newValue:  number | number[]) => {
-       dispatch(setCardsPacksCountFromRangeAC(newValue as number[]))
-    };
+    const withMyId = useSelector<IAppStore, boolean>(
+        (state) => state.packs.withMyId
+    );
+    const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
+    const handleChange = (event: Event, newValue: number | number[]) => {
+        if (maxCardsCount > 0) {
+            dispatch(setCardsPacksCountFromRangeAC(newValue as number[]))
+        }
+    };
 
 
     return (<div className={s.range}>
@@ -60,7 +66,14 @@ export default function RangeSlider() {
                     getAriaLabel={() => 'Number of cards'}
                     value={[min, max]}
                     onChange={handleChange}
-                    onChangeCommitted={ () => dispatch(getPacksTC()) }
+                    onChangeCommitted={() => {
+                        if (maxCardsCount > 0) {
+                            dispatch(getPacksTC(withMyId
+                                ? {user_id: currentUserID}
+                                : {}))
+                        }
+                    }
+                    }
                     valueLabelDisplay="on"
                     min={minCardsCount}
                     max={maxCardsCount}

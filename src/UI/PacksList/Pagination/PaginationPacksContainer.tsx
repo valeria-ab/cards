@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Pagination} from "./Pagination";
 import {IAppStore} from '../../../BLL/store/store';
-import {getPacksTC, setCardPacksCurrentPageAC, setCardPacksPageCountAC} from '../../../BLL/packs/packs-reducer';
+import {setCardPacksCurrentPageAC, setCardPacksPageCountAC} from '../../../BLL/packs/packs-reducer';
 
 export const PaginationPacksContainer = () => {
     const dispatch = useDispatch()
@@ -16,12 +16,11 @@ export const PaginationPacksContainer = () => {
 
     const currentPageHandler = (page: number) => {
         dispatch(setCardPacksCurrentPageAC(page))
-        dispatch(getPacksTC())
     }
 
-    const arr = ['5', '10', '20', '50', '100'] // for SuperSelect
+    const arr = ['5', '10', '20', '50', '100'] // for Select
 
-    const [valueForSelect, onChangeOption] = useState(arr[1]) // for SuperSelect
+    const [valueForSelect, onChangeOption] = useState(arr[1]) // for Select
 
     const onClickSelectHandler = () => {
         dispatch(setCardPacksPageCountAC(+valueForSelect))

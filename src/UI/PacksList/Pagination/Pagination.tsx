@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import s from './Paginations.module.scss'
 import Select from './Select';
 
@@ -26,11 +26,6 @@ export const Pagination: React.FC<PropsType> = (props) => {
         setPortion(portionCount)
     }
 
-    // const arrowClicked = false;
-    //
-    // useEffect(() => {
-    //     props.currentPageHandler(leftNumber)
-    // }, [arrowClicked])
 
     return (
         <div className={s.pagination}>

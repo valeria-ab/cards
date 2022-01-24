@@ -56,7 +56,6 @@ export const ProfilePage = () => {
 
     useEffect(() => {
         dispatch(getPacksTC(packs.withMyId ? {user_id: currentUserID} : {}))
-        // dispatch(fetchPacks())
     }, [dispatch, packs.page, packs.pageCount, packs.withMyId])
 
     if (!isLoggedIn) {
