@@ -43,6 +43,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, packName: action.packName}
         case 'PACKS/SET-WITH-MY-ID':
             return {...state, withMyId: action.withMyId}
+        case 'PACKS/RANGE-SET-CARDS-PACKS-COUNT':
+            return {...state,  cardsValuesFromRange: [action.min,  action.max] }
         // case 'PACKS/SET-MAX-CARDS-COUNT':
         //     return {...state, maxCardsCount: action.maxCardsCount}
         // case 'PACKS/SET-MIN-CARDS-COUNT':
@@ -66,6 +68,10 @@ export const setSearchPackNameAC = (packName: string) =>
     ({type: 'PACKS/SET-SEARCH-PACK-NAME', packName} as const)
 export const setWithMyIdAC = (withMyId: boolean) =>
     ({type: 'PACKS/SET-WITH-MY-ID', withMyId} as const)
+
+export const setCardsPacksCountFromRangeAC = (numbers: Array<number> ) =>  // min and max cardsPacks
+    ({type: 'PACKS/RANGE-SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
+
 // export const setMaxCardsCountAC = (maxCardsCount: number) =>
 //     ({type: 'PACKS/SET-MAX-CARDS-COUNT', maxCardsCount} as const)
 // export const setMinCardsCountAC = (minCardsCount: number) =>
@@ -80,6 +86,7 @@ type ActionsType =
     | ReturnType<typeof setCardPacksPageCountAC>
     | ReturnType<typeof setSearchPackNameAC>
     | ReturnType<typeof setWithMyIdAC>
+    | ReturnType<typeof setCardsPacksCountFromRangeAC>
     // | ReturnType<typeof setMaxCardsCountAC>
     // | ReturnType<typeof setMinCardsCountAC>
 
@@ -91,16 +98,15 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
     const {
         page,
         pageCount,
-        maxCardsCount,
-        minCardsCount,
+        cardsValuesFromRange,
         packName,
     } = getState().packs;
 
     packsApi.getPacks({
         page,
         pageCount,
-        min: minCardsCount,
-        max: maxCardsCount,
+        min: cardsValuesFromRange[0],
+        max: cardsValuesFromRange[1],
         packName: packName,
         ...payload
     })

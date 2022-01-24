@@ -4,9 +4,8 @@ import Slider from '@mui/material/Slider';
 import {styled} from '@mui/material/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {getPacksTC} from '../../../BLL/packs/packs-reducer';
+import {getPacksTC, setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
 import s from './Range.module.css'
-import {setCardsPacksCountAC} from '../../../BLL/range/rangeCardsInPacksReducerr';
 
 
 const CustomSlider = styled(Slider)({
@@ -42,18 +41,15 @@ const CustomSlider = styled(Slider)({
 
 export default function RangeSlider() {
     const dispatch = useDispatch()
-    const min = useSelector<IAppStore, number>(state => state.range.min)
-    const max = useSelector<IAppStore, number>(state => state.range.max)
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
-        dispatch(setCardsPacksCountAC(newValue as number[]))
+    const min = useSelector<IAppStore, number>(state => state.packs.cardsValuesFromRange[0])
+    const max = useSelector<IAppStore, number>(state => state.packs.cardsValuesFromRange[1])
+    const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
+    const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
+
+    const handleChange = (event: Event, newValue:  number | number[]) => {
+       dispatch(setCardsPacksCountFromRangeAC(newValue as number[]))
     };
-
-    // const onChangeCommitted = () => {
-    //     dispatch(setMaxCardsCountAC(max))
-    //     dispatch(setMinCardsCountAC(min))
-    //
-    // }
 
 
 
@@ -64,15 +60,10 @@ export default function RangeSlider() {
                     getAriaLabel={() => 'Number of cards'}
                     value={[min, max]}
                     onChange={handleChange}
-                    onChangeCommitted={ () => {
-                        dispatch(getPacksTC({
-                            min: min,
-                            max: max
-                        }))
-                    }}
+                    onChangeCommitted={ () => dispatch(getPacksTC()) }
                     valueLabelDisplay="on"
-                    min={0}
-                    max={200}
+                    min={minCardsCount}
+                    max={maxCardsCount}
                 />
             </Box>
         </div>
