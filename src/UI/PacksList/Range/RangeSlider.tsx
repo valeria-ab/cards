@@ -49,6 +49,14 @@ export default function RangeSlider() {
         dispatch(setCardsPacksCountAC(newValue as number[]))
     };
 
+    // const onChangeCommitted = () => {
+    //     dispatch(setMaxCardsCountAC(max))
+    //     dispatch(setMinCardsCountAC(min))
+    //
+    // }
+
+
+
     return (<div className={s.range}>
             <Box sx={{width: 200}}>
                 <div className={s.rangeTitle}><b>Number of cards</b></div>
@@ -56,7 +64,7 @@ export default function RangeSlider() {
                     getAriaLabel={() => 'Number of cards'}
                     value={[min, max]}
                     onChange={handleChange}
-                    onChangeCommitted={() => {
+                    onChangeCommitted={ () => {
                         dispatch(getPacksTC({
                             min: min,
                             max: max

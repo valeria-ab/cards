@@ -38,6 +38,10 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, pageCount: action.pageCount}
         case 'PACKS/SET-SEARCH-PACK-NAME':
             return {...state, packName: action.packName}
+        // case 'PACKS/SET-MAX-CARDS-COUNT':
+        //     return {...state, maxCardsCount: action.maxCardsCount}
+        // case 'PACKS/SET-MIN-CARDS-COUNT':
+        //     return {...state, minCardsCount: action.minCardsCount}
         default:
             return state;
     }
@@ -55,6 +59,10 @@ export const setCardPacksPageCountAC = (pageCount: number) =>
     ({type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', pageCount} as const)
 export const setSearchPackNameAC = (packName: string) =>
     ({type: 'PACKS/SET-SEARCH-PACK-NAME', packName} as const)
+// export const setMaxCardsCountAC = (maxCardsCount: number) =>
+//     ({type: 'PACKS/SET-MAX-CARDS-COUNT', maxCardsCount} as const)
+// export const setMinCardsCountAC = (minCardsCount: number) =>
+//     ({type: 'PACKS/SET-MIN-CARDS-COUNT', minCardsCount} as const)
 
 export type GetPacksActionType = ReturnType<typeof GetPacksAC>
 
@@ -64,6 +72,8 @@ type ActionsType =
     | ReturnType<typeof setCardPacksCurrentPageAC>
     | ReturnType<typeof setCardPacksPageCountAC>
     | ReturnType<typeof setSearchPackNameAC>
+    // | ReturnType<typeof setMaxCardsCountAC>
+    // | ReturnType<typeof setMinCardsCountAC>
 
 
 // thunk
