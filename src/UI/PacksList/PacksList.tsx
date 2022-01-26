@@ -1,6 +1,7 @@
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
 import React, {useState} from 'react';
+import {RateYourself} from '../Rate/RateYourself';
 
 
 export const PacksList = () => {
@@ -23,6 +24,8 @@ export const PacksList = () => {
             : <Cards id={packID}
                      tableOffHandler={tableOffHandler}
                      cardsModeOff={cardsModeOff}/>}
+
+        <RateYourself/>
 
     </div>
 }
