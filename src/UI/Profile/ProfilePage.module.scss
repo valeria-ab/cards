@@ -1,0 +1,38 @@
+.range {
+  padding-left: 40px;
+}
+
+.container{
+  width: 1008px;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+
+}
+
+.profile__info {
+  width: 243px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: #ECECF9;
+  font-family: 'SFUIDisplayRegular';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2D2E46;
+  padding-left: 24px;
+  padding-top: 33px;
+}
+.profile__main{
+  width: 765px;
+  background-color: #FEFEFF;
+  display: flex;
+  justify-content: center;
+}
+.profile__textName{
+  margin-bottom: 20px;
+}
+.profile__ChooseOwner{
+  margin-top: 33px;
+}

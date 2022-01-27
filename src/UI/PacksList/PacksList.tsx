@@ -1,7 +1,11 @@
-import {Table} from '../Table/Table';
-import {Cards} from '../Cards/Cards';
-import React, {useState} from 'react';
-import {RateYourself} from '../Rate/RateYourself';
+import { Table } from '../Table/Table';
+import { Cards } from '../Cards/Cards';
+import React, { useState } from 'react';
+import { RateYourself } from '../Rate/RateYourself';
+import { ChooseOwner } from "../PacksList/ChooseOwner/ChooseOwner";
+import RangeSlider from "../PacksList/Range/RangeSlider";
+import { setWithMyIdAC } from '../../BLL/packs/packs-reducer';
+import s from '../Profile/ProfilePage.module.scss';
 
 
 export const PacksList = () => {
@@ -18,14 +22,24 @@ export const PacksList = () => {
     const cardsModeOff = () => {
         setTableOff(true)
     }
-    return <div>
-        {tableOff
-            ? <Table onClickCardsHandler={onClickCardsHandler}/>
-            : <Cards id={packID}
-                     tableOffHandler={tableOffHandler}
-                     cardsModeOff={cardsModeOff}/>}
+    return <div className={s.PacksList}>
+        <div className={s.container}>
+        <div className={s.profile__info}>
+            <div className={s.profile__ChooseOwner}>
+                <ChooseOwner />
+            </div>
+                <RangeSlider />
+            </div>
+            <div className={s.profile__main}>
+                {tableOff
+                    ? <Table onClickCardsHandler={onClickCardsHandler} />
+                    : <Cards id={packID}
+                        tableOffHandler={tableOffHandler}
+                        cardsModeOff={cardsModeOff} />}
+            </div>
 
-        <RateYourself/>
-
+        </div>
+        <RateYourself />
     </div>
+
 }

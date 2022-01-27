@@ -4,7 +4,7 @@ import {Navigate} from 'react-router-dom';
 import {InitialProfileStateType} from '../../BLL/profile/profileInitialState';
 import {IAppStore} from '../../BLL/store/store';
 import {getPacksTC, InitialStateType} from '../../BLL/packs/packs-reducer';
-import styles from './ProfilePage.module.css';
+import s from './ProfilePage.module.scss';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
 import {ChooseOwner} from "../PacksList/ChooseOwner/ChooseOwner";
@@ -63,28 +63,29 @@ export const ProfilePage = () => {
     }
 
     return (
-        <div className={styles.profile__body}>
-            <div className={styles.profile__info}>
-                <h3>Profile</h3>
-                email: <i>{profile.email}</i>
-                <div> name: <i>{profile.name}</i></div>
+        <div className={s.container}>
+            <div className={s.profile__info}>
+                <h3 className={s.profile__text}>Profile</h3>
+                E-mail: <i>{profile.email}</i>
+                <div className={s.profile__textName}> Name: <i>{profile.name}</i></div>
                 <div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>
 
                 {/*<div>created: {profile.created}</div>*/}
                 {/*<div>token: {profile.token}</div>*/}
                 {/*<div>_id: {profile._id}</div>*/}
-
-                <ChooseOwner/>
-                <RangeSlider/>
-                <Search/>
+            <div className={s.profile__ChooseOwner}>
+            <ChooseOwner/>
+            </div>    
+            <RangeSlider/>
             </div>
-
-            <div className={styles.profile__main}>
+            <div className={s.profile__main}>
+            
                 {tableOff
+                    
                     ? <Table onClickCardsHandler={onClickCardsHandler}/>
                     : <Cards id={packID}
-                             tableOffHandler={tableOffHandler}
-                             cardsModeOff={cardsModeOff}/>}
+                            tableOffHandler={tableOffHandler}
+                            cardsModeOff={cardsModeOff}/>}
             </div>
         </div>
     );

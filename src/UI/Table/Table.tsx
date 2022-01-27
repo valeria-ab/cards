@@ -74,8 +74,11 @@ export const Table = React.memo((props: CardsPropsType) => {
             {addMode && <Add addModeOff={addModeOff}/>}
             {/*{cardMode &&*/}
             {/*<Cards tableOffHandler={props.tableOffHandler} cardsModeOff={cardsModeOff}/>}*/}
-
+            <h2 className={s.Table__name}>Packs List</h2>
+            <div className={s.Table__top}>
+                <Search/>
             <button className={s.add} onClick={addModeOn}> Add Pack</button>
+            </div>
             <div className={s.tableMain}>
             <table className={s.tableWrapper}>
             <thead className={s.tableHeader}>
