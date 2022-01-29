@@ -1,0 +1,30 @@
+.SearchInput{
+    width: 461px;
+    height: 36px;
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    font-family: "SFUIDisplayRegular";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 6px 20px 6px 40px;
+    position: relative;
+    
+}
+.SearchInput:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+.SearchInput::before{
+        content: url( "../../../image/SearchIcon.png");
+        display: block;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        z-index: 99999999999999999;
+    }
