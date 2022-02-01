@@ -43,7 +43,8 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
                     <div className={styles.header}>
                         <h2 className={styles.title}>Delete pack name</h2>
                     </div>
-                    <p className={styles.text}>Pack name {props.pack.name}</p>
+                    <p className={styles.text}>Do you really want to remove the pack "{props.pack.name}" ?
+                        All cards will be excluded from this course.</p>
                     <div className={styles.wrapBtn}>
                         <button className={styles.btnCancel} onClick={props.deleteModeOff}>
                             Cancel

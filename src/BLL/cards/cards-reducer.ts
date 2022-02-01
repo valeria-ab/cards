@@ -12,7 +12,7 @@ import {UpdatePacksType} from '../../DAL/Packs-api';
 import {setErrorAC, SetErrorActionType} from "../Error/errorReducer";
 import {GradeType, rateAPI} from '../../DAL/rateAPI';
 
-export type InitialStateType = {
+export type InitialCardsStateType = {
     cards: CardResponseType[],
     cardsTotalCount: number
     maxGrade: number | null
@@ -23,7 +23,7 @@ export type InitialStateType = {
     myCurrentGrade: number
 }
 
-const initialState: InitialStateType = {
+const initialState: InitialCardsStateType = {
     cards: [],
     cardsTotalCount: 10,
     maxGrade: null,
@@ -35,7 +35,7 @@ const initialState: InitialStateType = {
 
 };
 
-export const cardsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const cardsReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
     switch (action.type) {
         case 'CARDS/GET-CARDS': {
             return {...state, ...action.cards}
