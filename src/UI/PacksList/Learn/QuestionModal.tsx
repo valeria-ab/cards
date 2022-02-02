@@ -5,28 +5,18 @@ import {cardPacksType} from '../../../DAL/Packs-api';
 import React, {useEffect, useState} from 'react';
 import {deletedPacks} from '../../../BLL/packs/packs-reducer';
 import styles from './Learn.module.scss';
-import {
-    getCardsTC,
-    InitialCardsStateType,
-    setCurrentCardIndexAC,
-    setMyCurrentGradeAC,
-    updateGradeTC
-} from '../../../BLL/cards/cards-reducer';
+import {getCardsTC, InitialCardsStateType, updateGradeTC} from '../../../BLL/cards/cards-reducer';
 import {CardResponseType, cardsApi} from '../../../DAL/CardsAPI';
+import {QuestionType} from './Learn';
 
-export type QuestionType = {
-    question: string
-    answer: string
-    id: string
-}
 type  LearnPackPropsType = {
-    learnModeOff: () => void
-    questionModeOn: () => void
+    learnModeOn: () => void
+    questionModeOff: () => void
     pack: cardPacksType
     // questions: Array<QuestionType>
 }
 
-export const Learn = (props: LearnPackPropsType) => {
+export const QuestionModal = (props: LearnPackPropsType) => {
 
     const dispatch = useDispatch()
 
@@ -38,26 +28,34 @@ export const Learn = (props: LearnPackPropsType) => {
         };
     }, []);
 
-    const onNextClick = () => {
+    useEffect(() => {
+        // dispatch(getCardsTC({ cardsPack_id: props.id }))
+    }, [])
 
-
-        dispatch(setMyCurrentGradeAC(1))
-        if (questions.length > currentCardIndex) {
-            dispatch(setCurrentCardIndexAC(currentCardIndex + 1))
-            dispatch(updateGradeTC(grade, questions[currentCardIndex].id))
-        }
-        props.learnModeOff()
-        props.questionModeOn()
-
+    const onSaveClick = () => {
+        // dispatch(deletedPacks(
+        //     props.pack._id, props.pack.user_id
+        // ))
+        dispatch(updateGradeTC(grade, props.pack._id))
+        // props.deleteModeOff()
     }
 
+    const getQuestions = () => {
+        dispatch(getCardsTC({cardsPack_id: props.pack._id}))
+
+        // .then(() => {
+        //     setAddMode(false)
+        //     setCardsCurrent(null)
+        //     dispatch(getCardsTC({ cardsPack_id: props.id }))
+        // })
 
 
-    const grade = useSelector<IAppStore, number>(state => state.cardsReducer.myCurrentGrade)
+    }
     const currentCardIndex = useSelector<IAppStore, number>(state => state.cardsReducer.currentCardIndex)
+    const grade = useSelector<IAppStore, number>(state => state.cardsReducer.myCurrentGrade)
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
-    const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
-    console.log(currentCardIndex)
+    const questions = cards.map(c => ({question: c.question, answer: c.answer}))
+
     return (
 
         <div className={styles.modal}>
@@ -70,27 +68,24 @@ export const Learn = (props: LearnPackPropsType) => {
                         {questions.length
                             ? <>
                                 <div className={styles.bold}>Question:
-                                    <span className={styles.regular}>{questions[currentCardIndex].question}</span>
-                                </div>
-                                <div className={styles.bold}>Answer:
-                                    <span className={styles.regular}>{questions[currentCardIndex].answer}</span>
+                                    <span className={styles.regular}> {questions[currentCardIndex].question}</span>
                                 </div>
                             </>
                             : <div>There are no questions yet</div>
                         }
                     </div>
-                    <RateYourself/>
+
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.learnModeOff}>
+                        <button className={styles.btnCancel} onClick={props.questionModeOff}>
                             Cancel
                         </button>
-                        <button onClick={onNextClick}
+                        <button onClick={props.learnModeOn}
 
 
                                 className={styles.btnNext}
 
                         >
-                            Next
+                            Show answer
                         </button>
                     </div>
                 </div>

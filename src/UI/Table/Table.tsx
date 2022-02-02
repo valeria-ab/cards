@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import s from './Table.module.scss';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {cardPacksType} from '../../DAL/Packs-api';
 import {EditPack} from '../Modals/Edit/EditPack';
@@ -10,6 +10,9 @@ import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksC
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {Learn} from '../PacksList/Learn/Learn';
+import {QuestionModal} from '../PacksList/Learn/QuestionModal';
+import {getCardsTC} from '../../BLL/cards/cards-reducer';
+import {CardResponseType} from '../../DAL/CardsAPI';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -20,16 +23,22 @@ export const Table = React.memo((props: CardsPropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
-    const [learnMode, learnAddMode] = useState<boolean>(false);
+    const [learnMode, setLearnMode] = useState<boolean>(false);
+    const [questionMode, setQuestionMode] = useState<boolean>(false);
+    const dispatch = useDispatch()
+
+    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
+    const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
 
 
-    // const [name, setName] = useState<string>("");
-
+    // конкретный пак с карточками которые можно учить
     const [pack, setPack] = useState<cardPacksType | null>(null);
 
+    console.log("pack = " + pack)
 
+    //список всех паков
     const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
-
+    console.log("cardPacks = " + cardPacks)
 
     const id = useSelector<IAppStore>((state) => state.profile._id);
 
@@ -63,11 +72,26 @@ export const Table = React.memo((props: CardsPropsType) => {
 
     const learnModeOn = (pack: cardPacksType) => {
         setPack(pack)
-        learnAddMode(true)
+        setLearnMode(true)
 
     }
     const learnModeOff = () => {
-        learnAddMode(false)
+        setLearnMode(false)
+        setQuestionMode(false)
+    }
+
+    const questionModeOn = (pack: cardPacksType) => {
+        setPack(pack)
+        setQuestionMode(true)
+
+    }
+    const questionModeOff = () => {
+        setQuestionMode(false)
+    }
+
+    const onLearnButtonClick = (pack: cardPacksType) => {
+        questionModeOn(pack)
+        dispatch(getCardsTC({ cardsPack_id: pack._id }))
     }
 
 
@@ -75,7 +99,8 @@ export const Table = React.memo((props: CardsPropsType) => {
         <div className={s.table}>
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
-            {pack && learnMode && <Learn pack={pack} learnModeOff={learnModeOff}/>}
+            {pack && questionMode && <QuestionModal pack={pack} learnModeOn={() => learnModeOn(pack)} questionModeOff={questionModeOff}/>}
+            {pack && learnMode  && <Learn pack={pack} learnModeOff={learnModeOff} questionModeOn={() => questionModeOn(pack)}/>}
             {addMode && <Add addModeOff={addModeOff}/>}
             {/*{cardMode &&*/}
             {/*<Cards tableOffHandler={props.tableOffHandler} cardsModeOff={cardsModeOff}/>}*/}
@@ -116,11 +141,11 @@ export const Table = React.memo((props: CardsPropsType) => {
                                                 onClick={() => editModeOn(pack)}>Edit
                                         </button>
                                         <button className={s.buttonWrapper}
-                                                onClick={() => learnModeOn(pack)}>Learn
+                                                onClick={() => onLearnButtonClick(pack)}>Learn
                                         </button>
                                     </div>
                                     : <button className={s.buttonWrapper}
-                                              onClick={() => learnModeOn(pack)}>Learn
+                                              onClick={() => onLearnButtonClick(pack)}>Learn
                                     </button>
                                 }
                             </td>
