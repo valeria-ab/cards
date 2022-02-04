@@ -21,7 +21,6 @@ export type InitialCardsStateType = {
     pageCount: number
     packUserId: string | null
     myCurrentGrade: number
-    currentCardIndex: number
 }
 
 const initialState: InitialCardsStateType = {
@@ -33,7 +32,6 @@ const initialState: InitialCardsStateType = {
     pageCount: 10,
     packUserId: null,
     myCurrentGrade: 1,
-    currentCardIndex: 0
 };
 
 export const cardsReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -55,8 +53,7 @@ export const cardsReducer = (state: InitialCardsStateType = initialState, action
                 ...state,
                 cards: state.cards.map(card => card.cardsPack_id === action.id ? {...card, grade: action.grade} : card)
             }
-        case 'CARDS/SET-CURRENT-CARD-INDEX':
-            return {...state, currentCardIndex: action.currentCardIndex}
+
         default:
             return state;
     }
@@ -81,10 +78,7 @@ export const setCardsPageCountAC = (pageCount: number) =>
 export const setMyCurrentGradeAC = (value: number) =>
     ({type: 'CARDS/SET-MY-CURRENT-GRADE', value} as const)
 export const updateGradeAC = (grade: number, id: string) => ({type: "CARDS/UPDATE-GRADE", grade, id} as const)
-export const setCurrentCardIndexAC = (currentCardIndex: number) => ({
-    type: 'CARDS/SET-CURRENT-CARD-INDEX',
-    currentCardIndex
-} as const);
+
 export type GetCardsActionType = ReturnType<typeof getCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
 
@@ -94,7 +88,6 @@ type ActionsType =
     | ReturnType<typeof setCardsPageCountAC>
     | ReturnType<typeof setMyCurrentGradeAC>
     | ReturnType<typeof updateGradeAC>
-    | ReturnType<typeof setCurrentCardIndexAC>
     | SetErrorActionType
 
 

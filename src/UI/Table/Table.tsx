@@ -15,7 +15,6 @@ import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {CardResponseType} from '../../DAL/CardsAPI';
 import {NavLink, useParams} from 'react-router-dom';
 import {getPacksTC} from '../../BLL/packs/packs-reducer';
-import {Learning} from '../PacksList/Learn/Learning';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -33,7 +32,6 @@ export const Table = React.memo((props: CardsPropsType) => {
     const dispatch = useDispatch()
 
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
-    const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
 
     const getCard = (cards: CardResponseType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -118,13 +116,13 @@ export const Table = React.memo((props: CardsPropsType) => {
 
     return (
         <div className={s.table}>
+            {addMode && <Add addModeOff={addModeOff}/>}
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
             {pack && questionMode && <QuestionModal card={card} pack={pack} learnModeOn={() => learnModeOn(pack)} questionModeOff={questionModeOff}/>}
             {pack && learnMode  && <Learn card={card} pack={pack} learnModeOff={learnModeOff} questionModeOn={() => questionModeOn(pack)}/>}
-            {addMode && <Add addModeOff={addModeOff}/>}
-            {/*{cardMode &&*/}
-            {/*<Cards tableOffHandler={props.tableOffHandler} cardsModeOff={cardsModeOff}/>}*/}
+
+
             <h2 className={s.Table__name}>Packs List</h2>
             <div className={s.Table__top}>
                 <Search/>

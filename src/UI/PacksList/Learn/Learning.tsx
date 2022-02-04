@@ -1,35 +1,16 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {RateYourself} from '../../Rate/RateYourself';
 import {cardPacksType} from '../../../DAL/Packs-api';
 import React, {useEffect, useState} from 'react';
-import {deletedPacks} from '../../../BLL/packs/packs-reducer';
 import styles from './Learn.module.scss';
 import {
     getCardsTC,
-    InitialCardsStateType,
-    setCurrentCardIndexAC,
-    setMyCurrentGradeAC,
-    updateGradeTC
+    setMyCurrentGradeAC
 } from '../../../BLL/cards/cards-reducer';
-import {CardResponseType, cardsApi} from '../../../DAL/CardsAPI';
+import {CardResponseType} from '../../../DAL/CardsAPI';
 import {useParams} from 'react-router-dom';
-import {QuestionModal} from './QuestionModal';
-import {Learn} from './Learn';
 
-export type QuestionType = {
-    question: string
-    answer: string
-    id: string
-}
-type  LearnPackPropsType = {
-    // learnModeOff: () => void
-    // questionModeOn: () => void
-    // pack: cardPacksType
-    // questions: Array<QuestionType>
-}
-
-export const Learning = (props: LearnPackPropsType) => {
+export const Learning = () => {
     const {learningPackId} = useParams()
     const dispatch = useDispatch()
 
@@ -71,10 +52,10 @@ export const Learning = (props: LearnPackPropsType) => {
     const onNextClick = () => {
 
         dispatch(setMyCurrentGradeAC(1))
-        if (questions.length > currentCardIndex) {
-            dispatch(setCurrentCardIndexAC(currentCardIndex + 1))
-            dispatch(updateGradeTC(grade, questions[currentCardIndex].id))
-        }
+        // if (questions.length > currentCardIndex) {
+        //     dispatch(setCurrentCardIndexAC(currentCardIndex + 1))
+        //     dispatch(updateGradeTC(grade, questions[currentCardIndex].id))
+        // }
         learnModeOff()
        questionModeOn()
 
@@ -83,7 +64,7 @@ export const Learning = (props: LearnPackPropsType) => {
 
 
     const grade = useSelector<IAppStore, number>(state => state.cardsReducer.myCurrentGrade)
-    const currentCardIndex = useSelector<IAppStore, number>(state => state.cardsReducer.currentCardIndex)
+    // const currentCardIndex = useSelector<IAppStore, number>(state => state.cardsReducer.currentCardIndex)
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
     const packs = useSelector<IAppStore, cardPacksType[]>(state => state.packs.cardPacks)
     const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
