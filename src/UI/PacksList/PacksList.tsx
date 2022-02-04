@@ -31,7 +31,7 @@ export const PacksList = () => {
             </div>
             <div className={s.profile__main}>
                 {tableOff
-                    ? <Table onClickCardsHandler={onClickCardsHandler}/>
+                    ? <Table onClickCardsHandler={onClickCardsHandler} isfromProfile={false}/>
                     : <Cards id={packID}
                              tableOffHandler={tableOffHandler}
                              cardsModeOff={cardsModeOff}/>}

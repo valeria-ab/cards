@@ -11,7 +11,7 @@ import {ChooseOwner} from "../PacksList/ChooseOwner/ChooseOwner";
 import RangeSlider from "../PacksList/Range/RangeSlider";
 import Search from "../PacksList/Search/Search";
 
-export const ProfilePage = () => {
+export const Profile = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<IAppStore, boolean>(
         (state) => state.login.isLoggedIn
@@ -70,12 +70,6 @@ export const ProfilePage = () => {
                 <div className={s.profile__textName}> Name: <i>{profile.name}</i></div>
                 <div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>
 
-                {/*<div>created: {profile.created}</div>*/}
-                {/*<div>token: {profile.token}</div>*/}
-                {/*<div>_id: {profile._id}</div>*/}
-            <div className={s.profile__ChooseOwner}>
-            <ChooseOwner/>
-            </div>    
             <RangeSlider/>
             </div>
             <div className={s.profile__main}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
@@ -13,9 +13,13 @@ import {Learn} from '../PacksList/Learn/Learn';
 import {QuestionModal} from '../PacksList/Learn/QuestionModal';
 import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {CardResponseType} from '../../DAL/CardsAPI';
+import {NavLink, useParams} from 'react-router-dom';
+import {getPacksTC} from '../../BLL/packs/packs-reducer';
+import {Learning} from '../PacksList/Learn/Learning';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
+    isfromProfile: boolean
 }
 
 
@@ -25,22 +29,34 @@ export const Table = React.memo((props: CardsPropsType) => {
     const [addMode, setAddMode] = useState<boolean>(false);
     const [learnMode, setLearnMode] = useState<boolean>(false);
     const [questionMode, setQuestionMode] = useState<boolean>(false);
+    const [card, setCard] = useState<CardResponseType>({} as CardResponseType);
     const dispatch = useDispatch()
 
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
     const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
 
+    const getCard = (cards: CardResponseType[]) => {
+        const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
+        const rand = Math.random() * sum;
+        const res = cards.reduce((acc: { sum: number, id: number}, card, i) => {
+                const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
+                return {sum: newSum, id: newSum < rand ? i : acc.id}
+            }
+            , {sum: 0, id: -1});
+        console.log('test: ', sum, rand, res)
+
+        return cards[res.id + 1];
+    }
 
     // конкретный пак с карточками которые можно учить
     const [pack, setPack] = useState<cardPacksType | null>(null);
 
-    console.log("pack = " + pack)
 
     //список всех паков
     const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
-    console.log("cardPacks = " + cardPacks)
 
-    const id = useSelector<IAppStore>((state) => state.profile._id);
+
+    const id = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
     const editModeOn = (pack: cardPacksType) => {
@@ -83,7 +99,7 @@ export const Table = React.memo((props: CardsPropsType) => {
     const questionModeOn = (pack: cardPacksType) => {
         setPack(pack)
         setQuestionMode(true)
-
+        setCard(getCard(cards))
     }
     const questionModeOff = () => {
         setQuestionMode(false)
@@ -94,13 +110,18 @@ export const Table = React.memo((props: CardsPropsType) => {
         dispatch(getCardsTC({ cardsPack_id: pack._id }))
     }
 
+    useEffect(() => {
+        props.isfromProfile
+        ? dispatch(getPacksTC({user_id: id}))
+       : dispatch(getPacksTC())
+    }, [])
 
     return (
         <div className={s.table}>
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
-            {pack && questionMode && <QuestionModal pack={pack} learnModeOn={() => learnModeOn(pack)} questionModeOff={questionModeOff}/>}
-            {pack && learnMode  && <Learn pack={pack} learnModeOff={learnModeOff} questionModeOn={() => questionModeOn(pack)}/>}
+            {pack && questionMode && <QuestionModal card={card} pack={pack} learnModeOn={() => learnModeOn(pack)} questionModeOff={questionModeOff}/>}
+            {pack && learnMode  && <Learn card={card} pack={pack} learnModeOff={learnModeOff} questionModeOn={() => questionModeOn(pack)}/>}
             {addMode && <Add addModeOff={addModeOff}/>}
             {/*{cardMode &&*/}
             {/*<Cards tableOffHandler={props.tableOffHandler} cardsModeOff={cardsModeOff}/>}*/}
@@ -140,13 +161,18 @@ export const Table = React.memo((props: CardsPropsType) => {
                                         <button className={s.buttonWrapper}
                                                 onClick={() => editModeOn(pack)}>Edit
                                         </button>
+                                        {/*<NavLink to={`/learn/${pack._id}`}>*/}
+                                            <button className={s.buttonWrapper}
+                                                    onClick={() => onLearnButtonClick(pack)}>Learn
+                                            </button>
+                                        {/*</NavLink>*/}
+
+                                    </div>
+                                     :      //<NavLink to={`/learn/${pack._id}`}>
                                         <button className={s.buttonWrapper}
                                                 onClick={() => onLearnButtonClick(pack)}>Learn
                                         </button>
-                                    </div>
-                                    : <button className={s.buttonWrapper}
-                                              onClick={() => onLearnButtonClick(pack)}>Learn
-                                    </button>
+                                    // </NavLink>
                                 }
                             </td>
                         </tr>)

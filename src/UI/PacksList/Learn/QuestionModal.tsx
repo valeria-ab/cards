@@ -13,6 +13,7 @@ type  LearnPackPropsType = {
     learnModeOn: () => void
     questionModeOff: () => void
     pack: cardPacksType
+    card: CardResponseType
     // questions: Array<QuestionType>
 }
 
@@ -54,7 +55,7 @@ export const QuestionModal = (props: LearnPackPropsType) => {
     const currentCardIndex = useSelector<IAppStore, number>(state => state.cardsReducer.currentCardIndex)
     const grade = useSelector<IAppStore, number>(state => state.cardsReducer.myCurrentGrade)
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
-    const questions = cards.map(c => ({question: c.question, answer: c.answer}))
+    // const questions = cards.map(c => ({question: c.question, answer: c.answer}))
 
     return (
 
@@ -65,14 +66,18 @@ export const QuestionModal = (props: LearnPackPropsType) => {
                         <h2 className={styles.title}>Learn "{props.pack.name}"</h2>
                     </div>
                     <div className={styles.questionBody}>
-                        {questions.length
-                            ? <>
-                                <div className={styles.bold}>Question:
-                                    <span className={styles.regular}> {questions[currentCardIndex].question}</span>
-                                </div>
-                            </>
-                            : <div>There are no questions yet</div>
-                        }
+                        {/*{questions.length*/}
+                        {/*    ? <>*/}
+                        {/*        <div className={styles.bold}>Question:*/}
+                        {/*            <span className={styles.regular}> {props.card}</span>*/}
+                        {/*        </div>*/}
+                        {/*    </>*/}
+                        {/*    : <div>There are no questions yet</div>*/}
+                        {/*}*/}
+
+                        <div className={styles.bold}>Question:
+                            <span className={styles.regular}> {props.card.question}</span>
+                        </div>
                     </div>
 
                     <div className={styles.wrapBtn}>
