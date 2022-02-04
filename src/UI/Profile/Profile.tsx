@@ -76,7 +76,7 @@ export const Profile = () => {
             
                 {tableOff
                     
-                    ? <Table onClickCardsHandler={onClickCardsHandler} isfromProfile={true}/>
+                    ? <Table onClickCardsHandler={onClickCardsHandler}/>
                     : <Cards id={packID}
                             tableOffHandler={tableOffHandler}
                             cardsModeOff={cardsModeOff}/>}

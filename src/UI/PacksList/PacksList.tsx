@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import {ChooseOwner} from './ChooseOwner/ChooseOwner';
 import RangeSlider from '../PacksList/Range/RangeSlider';
 import s from '../Profile/ProfilePage.module.scss';
-import {Learn} from './Learn/Learn';
 
 
 export const PacksList = () => {
@@ -31,7 +30,7 @@ export const PacksList = () => {
             </div>
             <div className={s.profile__main}>
                 {tableOff
-                    ? <Table onClickCardsHandler={onClickCardsHandler} isfromProfile={false}/>
+                    ? <Table onClickCardsHandler={onClickCardsHandler}/>
                     : <Cards id={packID}
                              tableOffHandler={tableOffHandler}
                              cardsModeOff={cardsModeOff}/>}

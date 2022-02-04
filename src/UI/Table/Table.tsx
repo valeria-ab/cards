@@ -18,7 +18,6 @@ import {getPacksTC} from '../../BLL/packs/packs-reducer';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
-    isfromProfile: boolean
 }
 
 
@@ -32,6 +31,7 @@ export const Table = React.memo((props: CardsPropsType) => {
     const dispatch = useDispatch()
 
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
+    const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
 
     const getCard = (cards: CardResponseType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -109,10 +109,10 @@ export const Table = React.memo((props: CardsPropsType) => {
     }
 
     useEffect(() => {
-        props.isfromProfile
+        withMyId
         ? dispatch(getPacksTC({user_id: id}))
        : dispatch(getPacksTC())
-    }, [])
+    }, [withMyId])
 
     return (
         <div className={s.table}>

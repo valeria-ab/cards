@@ -82,7 +82,7 @@ export const ProfilePage = () => {
             
                 {tableOff
                     
-                    ? <Table onClickCardsHandler={onClickCardsHandler} isfromProfile={true}/>
+                    ? <Table onClickCardsHandler={onClickCardsHandler} />
                     : <Cards id={packID}
                             tableOffHandler={tableOffHandler}
                             cardsModeOff={cardsModeOff}/>}
