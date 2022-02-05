@@ -14,16 +14,13 @@ import Search from '../PacksList/Search/Search';
 export const Profile = () => {
     const dispatch = useDispatch()
 
-    const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
     const isLoggedIn = useSelector<IAppStore, boolean>(
         (state) => state.login.isLoggedIn
     );
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
-    const packs = useSelector<IAppStore, InitialStateType>(
-        (state) => state.packs
-    );
+
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
@@ -43,27 +40,6 @@ export const Profile = () => {
         setTableOff(false)
 
     }
-
-    //
-    // useEffect(() => {
-    //     if (isLoggedIn) {
-    //         dispatch(getPacksTC({
-    //             user_id: currentUserID
-    //
-    //         }))
-    //         setTableOff(true)
-    //     }
-    // }, [isLoggedIn]);
-
-
-    // useEffect(() => {
-    //     dispatch(getPacksTC(packs.withMyId ? {user_id: currentUserID} : {}))
-    // }, [packs.withMyId])
-    // [dispatch, packs.page, packs.pageCount, packs.withMyId]
-
-    // useEffect(() => {
-    //
-    // }, [])
 
     useEffect(() => {
         if (isLoggedIn)  dispatch(getPacksTC({user_id: currentUserID}))
