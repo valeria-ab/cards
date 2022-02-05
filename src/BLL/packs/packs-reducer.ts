@@ -132,7 +132,9 @@ export const deletedPacks = (packID: string, user_id?: string): ThunkAction<void
         .then((res) => {
             dispatch(getPacksTC({user_id}))
         })
-
+        .catch((err)=> {
+            dispatch(setErrorAC(err))
+        })
 }
 
 
@@ -143,6 +145,9 @@ export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore
     packsApi.updatePack(updatePack)
         .then((res) => {
             dispatch(getPacksTC({user_id: payload.user_id}))
+        })
+        .catch((err)=> {
+            dispatch(setErrorAC(err))
         })
 }
 

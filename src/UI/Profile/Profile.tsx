@@ -1,18 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Navigate} from 'react-router-dom';
 import {InitialProfileStateType} from '../../BLL/profile/profileInitialState';
 import {IAppStore} from '../../BLL/store/store';
-import {getPacksTC, InitialStateType} from '../../BLL/packs/packs-reducer';
+import {getPacksTC, InitialStateType, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import s from './ProfilePage.module.scss';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
-import {ChooseOwner} from "../PacksList/ChooseOwner/ChooseOwner";
-import RangeSlider from "../PacksList/Range/RangeSlider";
-import Search from "../PacksList/Search/Search";
+import {ChooseOwner} from '../PacksList/ChooseOwner/ChooseOwner';
+import RangeSlider from '../PacksList/Range/RangeSlider';
+import Search from '../PacksList/Search/Search';
 
 export const Profile = () => {
     const dispatch = useDispatch()
+
+    const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
     const isLoggedIn = useSelector<IAppStore, boolean>(
         (state) => state.login.isLoggedIn
     );
@@ -54,9 +56,22 @@ export const Profile = () => {
     // }, [isLoggedIn]);
 
 
+    // useEffect(() => {
+    //     dispatch(getPacksTC(packs.withMyId ? {user_id: currentUserID} : {}))
+    // }, [packs.withMyId])
+    // [dispatch, packs.page, packs.pageCount, packs.withMyId]
+
+    // useEffect(() => {
+    //
+    // }, [])
+
     useEffect(() => {
-        dispatch(getPacksTC(packs.withMyId ? {user_id: currentUserID} : {}))
-    }, [dispatch, packs.page, packs.pageCount, packs.withMyId])
+        if (isLoggedIn)  dispatch(getPacksTC({user_id: currentUserID}))
+    }, [])
+
+    useMemo(() => {
+        if (isLoggedIn) dispatch(setWithMyIdAC(false))
+    }, [])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>;
@@ -70,16 +85,16 @@ export const Profile = () => {
                 <div className={s.profile__textName}> Name: <i>{profile.name}</i></div>
                 <div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>
 
-            <RangeSlider/>
+                <RangeSlider/>
             </div>
             <div className={s.profile__main}>
-            
+
                 {tableOff
-                    
+
                     ? <Table onClickCardsHandler={onClickCardsHandler}/>
                     : <Cards id={packID}
-                            tableOffHandler={tableOffHandler}
-                            cardsModeOff={cardsModeOff}/>}
+                             tableOffHandler={tableOffHandler}
+                             cardsModeOff={cardsModeOff}/>}
             </div>
         </div>
     );

@@ -23,7 +23,6 @@ export const RateYourself = () => {
                            checked={grade===1}
                            onClick={() => {
                                dispatch(setMyCurrentGradeAC(1))
-
                            }}
                     />
                     <span>Did not know</span>
@@ -33,7 +32,6 @@ export const RateYourself = () => {
                            checked={grade===2}
                            onClick={() => {
                                dispatch(setMyCurrentGradeAC(2))
-
                            }}
                     />
                     <span>Forgot</span>
@@ -43,7 +41,6 @@ export const RateYourself = () => {
                            checked={grade===3}
                            onClick={() => {
                                dispatch(setMyCurrentGradeAC(3))
-
                            }}
                     />
                     <span>A lot of thoughts</span>
@@ -53,7 +50,6 @@ export const RateYourself = () => {
                            checked={grade===4}
                            onClick={() => {
                                dispatch(setMyCurrentGradeAC(4))
-
                            }}
                     />
                     <span>Confused</span>
@@ -63,7 +59,6 @@ export const RateYourself = () => {
                            checked={grade===5}
                            onClick={() => {
                                dispatch(setMyCurrentGradeAC(5))
-
                            }}
                     />
                     <span>Knew the answer</span>

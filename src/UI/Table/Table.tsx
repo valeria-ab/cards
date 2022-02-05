@@ -41,7 +41,7 @@ export const Table = React.memo((props: CardsPropsType) => {
                 return {sum: newSum, id: newSum < rand ? i : acc.id}
             }
             , {sum: 0, id: -1});
-        console.log('test: ', sum, rand, res)
+        // console.log('test: ', sum, rand, res)
 
         return cards[res.id + 1];
     }
@@ -108,11 +108,12 @@ export const Table = React.memo((props: CardsPropsType) => {
         dispatch(getCardsTC({ cardsPack_id: pack._id }))
     }
 
-    useEffect(() => {
-        withMyId
-        ? dispatch(getPacksTC({user_id: id}))
-       : dispatch(getPacksTC())
-    }, [withMyId])
+    // useEffect(() => {
+    //     console.log("with my id: " + withMyId)
+    //     withMyId
+    //     ? dispatch(getPacksTC({user_id: id}))
+    //    : dispatch(getPacksTC())
+    // }, [withMyId])
 
     return (
         <div className={s.table}>

@@ -43,6 +43,7 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
             dispatch(setUserProfile(res.data))
         })
         .catch((err)=> {
+            dispatch(setErrorAC(err))
         })
 }
 
