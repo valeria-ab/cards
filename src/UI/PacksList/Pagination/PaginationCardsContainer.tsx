@@ -7,11 +7,11 @@ import {getCardsTC, setCardsCurrentPageAC, setCardsPageCountAC} from '../../../B
 export const PaginationCardsContainer = (props: {id: string}) => {
     const dispatch = useDispatch()
 
-    let pageCount = useSelector<IAppStore, number>(state => state.cardsReducer.pageCount)
+    let pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
 
-    let cardPacksTotalCount = useSelector<IAppStore, number>(state => state.cardsReducer.cardsTotalCount)
+    let cardPacksTotalCount = useSelector<IAppStore, number>(state => state.cards.cardsTotalCount)
     // selected page
-    let page = useSelector<IAppStore, number>(state => state.cardsReducer.page)
+    let page = useSelector<IAppStore, number>(state => state.cards.page)
 
 
     const currentPageHandler = (page: number) => {

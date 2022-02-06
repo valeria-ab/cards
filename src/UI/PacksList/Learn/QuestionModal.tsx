@@ -12,7 +12,6 @@ type  LearnPackPropsType = {
 }
 
 export const QuestionModal = (props: LearnPackPropsType) => {
-
     useEffect(() => {
         const body = document.querySelector('body');
         if (body) body.style.overflow = 'hidden';
@@ -21,14 +20,22 @@ export const QuestionModal = (props: LearnPackPropsType) => {
         };
     }, []);
 
-
+    if (!props.card || !props.pack) {
+        return <div className={styles.modal}>
+            <div className={styles.wrapper}>
+                <div className={styles.wrap}>
+                    <div className={styles.questionBody}>error in questionModal props</div>
+                </div>
+            </div>
+        </div>
+    }
     return (
 
         <div className={styles.modal}>
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Learn "{props.pack.name}"</h2>
+                        <h2 className={styles.title}>Learn {props.pack.name}</h2>
                     </div>
                     <div className={styles.questionBody}>
                         <div className={styles.bold}>Question:
@@ -50,4 +57,5 @@ export const QuestionModal = (props: LearnPackPropsType) => {
             </div>
         </div>
     )
+
 }

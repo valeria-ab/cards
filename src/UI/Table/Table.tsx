@@ -15,6 +15,8 @@ import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {CardResponseType} from '../../DAL/CardsAPI';
 import {NavLink, useParams} from 'react-router-dom';
 import {getPacksTC} from '../../BLL/packs/packs-reducer';
+import {log} from 'util';
+import styles from '../PacksList/Learn/Learn.module.scss';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -30,21 +32,24 @@ export const Table = React.memo((props: CardsPropsType) => {
     const [card, setCard] = useState<CardResponseType>({} as CardResponseType);
     const dispatch = useDispatch()
 
-    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
+    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
+
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
+    const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
 
     const getCard = (cards: CardResponseType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
         const rand = Math.random() * sum;
-        const res = cards.reduce((acc: { sum: number, id: number}, card, i) => {
+        const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
                 const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
                 return {sum: newSum, id: newSum < rand ? i : acc.id}
             }
             , {sum: 0, id: -1});
         // console.log('test: ', sum, rand, res)
-
         return cards[res.id + 1];
     }
+
+    // if (cards)  setCard(getCard(cards))
 
     // конкретный пак с карточками которые можно учить
     const [pack, setPack] = useState<cardPacksType | null>(null);
@@ -95,33 +100,37 @@ export const Table = React.memo((props: CardsPropsType) => {
     }
 
     const questionModeOn = (pack: cardPacksType) => {
-        setPack(pack)
+
+
         setQuestionMode(true)
-        setCard(getCard(cards))
     }
     const questionModeOff = () => {
         setQuestionMode(false)
     }
 
     const onLearnButtonClick = (pack: cardPacksType) => {
-        questionModeOn(pack)
-        dispatch(getCardsTC({ cardsPack_id: pack._id }))
+        setPack(pack)
+        dispatch(getCardsTC({cardsPack_id: pack._id}))
+        setQuestionMode(true)
     }
 
-    // useEffect(() => {
-    //     console.log("with my id: " + withMyId)
-    //     withMyId
-    //     ? dispatch(getPacksTC({user_id: id}))
-    //    : dispatch(getPacksTC())
-    // }, [withMyId])
+    useEffect(() => {
+        setCard(getCard(cards))
+    }, [cards])
 
+
+    if (isLoading) {
+        return <div className={s.table}>loading...</div>
+    }
     return (
         <div className={s.table}>
             {addMode && <Add addModeOff={addModeOff}/>}
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
-            {pack && questionMode && <QuestionModal card={card} pack={pack} learnModeOn={() => learnModeOn(pack)} questionModeOff={questionModeOff}/>}
-            {pack && learnMode  && <Learn card={card} pack={pack} learnModeOff={learnModeOff} questionModeOn={() => questionModeOn(pack)}/>}
+            {pack && questionMode && <QuestionModal card={card} pack={pack} learnModeOn={() => learnModeOn(pack)}
+                                                    questionModeOff={questionModeOff}/>}
+            {pack && learnMode && <Learn card={card} pack={pack} learnModeOff={learnModeOff}
+                                         questionModeOn={() => questionModeOn(pack)}/>}
 
 
             <h2 className={s.Table__name}>Packs List</h2>
@@ -161,16 +170,19 @@ export const Table = React.memo((props: CardsPropsType) => {
                                                 onClick={() => editModeOn(pack)}>Edit
                                         </button>
                                         {/*<NavLink to={`/learn/${pack._id}`}>*/}
-                                            <button className={s.buttonWrapper}
-                                                    onClick={() => onLearnButtonClick(pack)}>Learn
+                                        {
+                                            pack.cardsCount > 0 && <button className={s.buttonWrapper}
+                                                                           onClick={() => onLearnButtonClick(pack)}>Learn
                                             </button>
+                                        }
                                         {/*</NavLink>*/}
 
                                     </div>
-                                     :      //<NavLink to={`/learn/${pack._id}`}>
-                                        <button className={s.buttonWrapper}
-                                                onClick={() => onLearnButtonClick(pack)}>Learn
-                                        </button>
+                                    : pack.cardsCount > 0 &&
+                                    //<NavLink to={`/learn/${pack._id}`}>
+                                    <button className={s.buttonWrapper}
+                                            onClick={() => onLearnButtonClick(pack)}>Learn
+                                    </button>
                                     // </NavLink>
                                 }
                             </td>

@@ -14,7 +14,7 @@ export const NewPassword = React.memo(() => {
     const dispatch = useDispatch();
     const {token} = useParams<"token">();
     const isSend = useSelector<IAppStore, boolean>(
-        (state) => state.newPasswordReducer.isSend
+        (state) => state.newPassword.isSend
     );
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {

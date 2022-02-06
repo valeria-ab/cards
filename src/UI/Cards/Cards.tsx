@@ -18,7 +18,7 @@ type CardsPropsType = {
 
 export const Cards = (props: CardsPropsType) => {
     const dispatch = useDispatch()
-    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
+    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [cardsCurrent, setCardsCurrent] = useState<CardResponseType | null>(null);
     const [addEditMode, setAddEditMode] = useState<boolean>(false);
