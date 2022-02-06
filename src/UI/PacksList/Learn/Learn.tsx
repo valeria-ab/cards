@@ -41,7 +41,7 @@ export const Learn = (props: LearnPackPropsType) => {
         props.questionModeOn()
     }
 
-    const grade = useSelector<IAppStore, number>(state => state.cardsReducer.myCurrentGrade)
+    const grade = useSelector<IAppStore, number>(state => state.cards.myCurrentGrade)
 
     return (
 

@@ -63,9 +63,9 @@ export const Learning = () => {
 
 
 
-    const grade = useSelector<IAppStore, number>(state => state.cardsReducer.myCurrentGrade)
+    const grade = useSelector<IAppStore, number>(state => state.cards.myCurrentGrade)
     // const currentCardIndex = useSelector<IAppStore, number>(state => state.cardsReducer.currentCardIndex)
-    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cardsReducer.cards)
+    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
     const packs = useSelector<IAppStore, cardPacksType[]>(state => state.packs.cardPacks)
     const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
     const pack = packs.find(p => p._id === learningPackId)

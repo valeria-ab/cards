@@ -9,8 +9,9 @@ import {
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {IAppStore} from '../store/store';
 import {UpdatePacksType} from '../../DAL/Packs-api';
-import {setErrorAC, SetErrorActionType} from "../Error/errorReducer";
+import {setErrorAC, SetErrorActionType} from '../Error/errorReducer';
 import {GradeType, rateAPI} from '../../DAL/rateAPI';
+import {setAppLoading} from '../app/app-reducer';
 
 export type InitialCardsStateType = {
     cards: CardResponseType[],
@@ -77,7 +78,7 @@ export const setCardsPageCountAC = (pageCount: number) =>
     ({type: 'CARDS/SET-CARDS-PAGE-COUNT', pageCount} as const)
 export const setMyCurrentGradeAC = (value: number) =>
     ({type: 'CARDS/SET-MY-CURRENT-GRADE', value} as const)
-export const updateGradeAC = (grade: number, id: string) => ({type: "CARDS/UPDATE-GRADE", grade, id} as const)
+export const updateGradeAC = (grade: number, id: string) => ({type: 'CARDS/UPDATE-GRADE', grade, id} as const)
 
 export type GetCardsActionType = ReturnType<typeof getCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
@@ -89,7 +90,7 @@ type ActionsType =
     | ReturnType<typeof setMyCurrentGradeAC>
     | ReturnType<typeof updateGradeAC>
     | SetErrorActionType
-
+    | ReturnType<typeof setAppLoading>
 
 // thunk
 
@@ -97,8 +98,8 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
     const {
         page,
         pageCount,
-    } = getState().cardsReducer;
-
+    } = getState().cards;
+    dispatch(setAppLoading(true))
     cardsApi.getCards({
         page,
         pageCount,
@@ -110,9 +111,11 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading(true))
     cardsApi.sendCard({...payload})
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
@@ -120,11 +123,12 @@ export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): Thun
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 
 export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-
+    dispatch(setAppLoading(true))
     cardsApi.deleteCard(id)
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
@@ -132,17 +136,22 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
-export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    cardsApi.updateCard(payload)
-        .then((res) => {
-            dispatch(getCardsTC({cardsPack_id}))
-        })
-        .catch((err) => {
-            dispatch(setErrorAC(err))
-        })
-}
+export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType)
+    : ThunkAction<void, IAppStore, unknown, AnyAction> =>
+    (dispatch) => {
+        dispatch(setAppLoading(true))
+        cardsApi.updateCard(payload)
+            .then((res) => {
+                dispatch(getCardsTC({cardsPack_id}))
+            })
+            .catch((err) => {
+                dispatch(setErrorAC(err))
+            })
+            .finally(() => dispatch(setAppLoading(false)))
+    }
 
 
 // export const sendCardGradeTC = (card_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
@@ -161,19 +170,16 @@ export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType): Th
 //         })
 // }
 
-export const updateGradeTC = (grade: number, card_id: string) => (dispatch: ThunkDispatch<IAppStore, unknown, ActionsType>) => {
-    // dispatch(setAppStatusAC('loading'))
-    return rateAPI.updateGrade(grade, card_id)
-        .then((res) => {
-            dispatch(updateGradeAC(grade, card_id))
-            console.log("success res.data.grade = " + res.data.updatedGrade.grade)
-        }).catch(e => {
+export const updateGradeTC = (grade: number, card_id: string) =>
+    (dispatch: ThunkDispatch<IAppStore, unknown, ActionsType>) => {
+        rateAPI.updateGrade(grade, card_id)
+            .then((res) => {
+                dispatch(updateGradeAC(grade, card_id))
+                // console.log('success res.data.grade = ' + res.data.updatedGrade.grade)
+            }).catch(e => {
             dispatch(setErrorAC(e.response.data.error))
         })
-        .finally(() => {
-            // dispatch(setAppStatusAC('succeeded'))
-        })
-}
+    }
 
 
 

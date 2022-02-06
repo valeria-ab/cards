@@ -3,6 +3,7 @@ import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
 import {setErrorAC} from "../Error/errorReducer";
+import {setAppLoading} from '../app/app-reducer';
 
 
 export type InitialStateType = {
@@ -89,7 +90,7 @@ type ActionsType =
     | ReturnType<typeof setCardsPacksCountFromRangeAC>
     // | ReturnType<typeof setMaxCardsCountAC>
     // | ReturnType<typeof setMinCardsCountAC>
-
+    | ReturnType<typeof setAppLoading>
 
 // thunk
 
@@ -101,7 +102,7 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         cardsValuesFromRange,
         packName,
     } = getState().packs;
-
+    dispatch(setAppLoading(true))
     packsApi.getPacks({
         page,
         pageCount,
@@ -113,10 +114,12 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         .then((res) => {
             dispatch(GetPacksAC(res.data))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 
 export const createPacks = (name: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading(true))
     packsApi.createPack({name})
         .then((res) => {
             dispatch(getPacksTC({user_id}))
@@ -124,10 +127,12 @@ export const createPacks = (name: string, user_id?: string): ThunkAction<void, I
         .catch((err)=> {
             dispatch(setErrorAC(err))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 
 export const deletedPacks = (packID: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading(true))
     packsApi.deletePack(packID)
         .then((res) => {
             dispatch(getPacksTC({user_id}))
@@ -135,6 +140,7 @@ export const deletedPacks = (packID: string, user_id?: string): ThunkAction<void
         .catch((err)=> {
             dispatch(setErrorAC(err))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 
@@ -142,6 +148,7 @@ export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore
     const pack = getState().packs.cardPacks.find((pack) => pack._id === payload._id)
 
     const updatePack = {...pack, ...payload};
+    dispatch(setAppLoading(true))
     packsApi.updatePack(updatePack)
         .then((res) => {
             dispatch(getPacksTC({user_id: payload.user_id}))
@@ -149,6 +156,7 @@ export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore
         .catch((err)=> {
             dispatch(setErrorAC(err))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 
