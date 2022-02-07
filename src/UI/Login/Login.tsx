@@ -23,12 +23,12 @@ const Login = React.memo(() => {
     dispatch(signIn({ email, password, rememberMe }));
   };
 
-  useEffect(() => {
-    if(!isLoggedIn){
-      dispatch(checkAuthMe())
-    }
-
-  }, [isLoggedIn])
+  // useEffect(() => {
+  //   if(!isLoggedIn){
+  //     dispatch(checkAuthMe())
+  //   }
+  //
+  // }, [isLoggedIn])
 
 
  if(isLoggedIn){

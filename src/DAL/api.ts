@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-baseURL: "http://localhost:7542/2.0/",
+    baseURL: 'http://localhost:7542/2.0/',
 // baseURL: 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 });
@@ -76,6 +76,11 @@ type SetNewPasswordType = {
     resetPasswordToken: string;
 };
 
+type ChangeNamePayloadType = {
+    name?: string
+    avatar?: string // url or base64
+}
+
 // api
 export const api = {
     login(payload: LoginDataType) {
@@ -107,6 +112,17 @@ export const api = {
         return instance.post<SetNewPasswordAnswerType>('auth/set-new-password', {
             password,
             resetPasswordToken: token,
+        });
+    },
+    changeName(payload: ChangeNamePayloadType) {
+        return instance.put<{
+            token: string
+            tokenDeathTime: string
+            updatedUser: UserDomainType
+        }>
+        ('auth/me', {
+            name: payload.name,
+            avatar: payload.avatar
         });
     },
 };
