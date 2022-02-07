@@ -15,12 +15,14 @@ export type PacksResponseType = {
 export type cardPacksType = {
     _id: string
     user_id: string
+    user_name: string
     name: string
     path: string
     cardsCount: number
     grade: number
     shots: number
     rating: number
+    private: false
     type: string
     created: string
     updated: string

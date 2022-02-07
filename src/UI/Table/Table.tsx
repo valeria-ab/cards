@@ -159,7 +159,8 @@ export const Table = React.memo((props: CardsPropsType) => {
                                 }}>{pack.name}</td>
                             <td className={s.table__data}>{pack.cardsCount}</td>
                             <td className={s.table__data}>{pack.updated}</td>
-                            <td className={s.table__data}>{pack.created}</td>
+                            <td className={s.table__data}>{pack.user_name}</td>
+                            {/*<td className={s.table__data}>{pack.created}</td>*/}
                             <td className={s.table__data}>
                                 {id === pack.user_id ?
                                     <div className={s.buttons}>
