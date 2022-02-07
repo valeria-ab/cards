@@ -10,6 +10,8 @@ import {Cards} from '../Cards/Cards';
 import {ChooseOwner} from '../PacksList/ChooseOwner/ChooseOwner';
 import RangeSlider from '../PacksList/Range/RangeSlider';
 import Search from '../PacksList/Search/Search';
+import {changeUserNameOrAvatar} from '../../BLL/profile/profileReducer';
+import {EditableSpan} from '../../BLL/profile/EditableSpan/EditableSpan';
 
 export const Profile = () => {
     const dispatch = useDispatch()
@@ -43,6 +45,8 @@ export const Profile = () => {
         setTableOff(false)
 
     }
+
+    const onChangeNameClick = (newName:string) => dispatch(changeUserNameOrAvatar(newName))
 
     //
     // useEffect(() => {
@@ -82,7 +86,12 @@ export const Profile = () => {
             <div className={s.profile__info}>
                 <h3 className={s.profile__text}>Profile</h3>
                 E-mail: <i>{profile.email}</i>
-                <div className={s.profile__textName}> Name: <i>{profile.name}</i></div>
+                <div className={s.profile__textName}> Name:
+                    <EditableSpan title={profile.name} onChange={onChangeNameClick}/>
+
+                    {/*<i>{profile.name}</i>*/}
+                    {/*<button onClick={onChangeNameClick}>change name</button>*/}
+                </div>
                 <div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>
 
                 <RangeSlider/>

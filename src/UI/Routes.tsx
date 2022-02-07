@@ -33,7 +33,7 @@ const RoutesComponent: React.FC = () => {
             <Route path={PACKS_LIST_PATH} element={<PacksList/>}/>
             <Route path={'404'} element={<Error404/>}/>
             <Route path={'*'} element={<Navigate to="/404"/>}/>
-            <Route path={'/cards'} element={<Navigate to="/profile"/>}/>
+            {/*<Route path={'/cards'} element={<Navigate to="/profile"/>}/>*/}
             <Route path={'/learn/:packId'} element={<Learning />}/>
         </Routes>
     );
