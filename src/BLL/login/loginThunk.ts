@@ -4,7 +4,7 @@ import {api, LoginDataType} from "../../DAL/api";
 import { setErrorAC } from "../Error/errorReducer";
 import {setUserProfile} from "../profile/profileActions";
 import {IAppStore} from "../store/store";
-import {LoginActions, loginError, loginSuccess} from "./loginActions";
+import {LoginActions, loginError, loginSuccess, logoutSuccess} from './loginActions';
 
 type Return = void;
 type ExtraArgument = {};
@@ -48,6 +48,42 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
 }
 
 
+export const logOut = (): ThunkAction<Return, IAppStore, ExtraArgument, LoginActions> =>
+        (
+            dispatch: ThunkDispatch<IAppStore, ExtraArgument, LoginActions>,
+            getStore: IGetStore
+        ) => {
+            api
+                .logOut()
+                .then((res ) => {
+                   dispatch(logoutSuccess(false))
+
+                 dispatch(setUserProfile({
+                     _id: "",
+                     email: "",
+                     name: "",
+                     avatar: "",
+                     publicCardPacksCount: 0,
+                     created: "",
+                     updated: "",
+                     isAdmin: false,
+                     verified: false,
+                     rememberMe: false,
+                     error: "",
+                     token: "",
+                     tokenDeathTime: 0,
+                     __v: 0
+                 }));
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("Error: ", {...err});
+                    dispatch(loginError(error, false));
+                    dispatch(setErrorAC(error))
+                });
+        };
 
 
 

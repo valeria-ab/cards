@@ -1,4 +1,4 @@
-import {LoginActions, LOGIN_ERROR, LOGIN_SUCCESS} from './loginActions';
+import {LoginActions, LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT_SUCCESS} from './loginActions';
 import {loginInitialState, LoginState} from './loginInitialState';
 
 export const loginReducer = (
@@ -11,6 +11,9 @@ export const loginReducer = (
         }
         case LOGIN_ERROR: {
             return {...state, isLoggedIn: action.isLoggedIn, error: action.error};
+        }
+        case LOGOUT_SUCCESS: {
+            return {...state, isLoggedIn: action.isLoggedIn};
         }
         default: {
             return state;

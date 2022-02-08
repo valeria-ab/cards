@@ -4,9 +4,11 @@ import ProfileIcon from '../../image/ProfileImg.png'
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React from 'react';
+import {logOut} from '../../BLL/login/loginThunk';
+import {useDispatch} from 'react-redux';
 
 export default function MainHeader() {
-
+    const dispatch = useDispatch()
 
     return (
         <div className={s.MainHeader}>
@@ -25,6 +27,12 @@ export default function MainHeader() {
                             <span className={s.btnText}>Profile</span>
                         </button>
                     </NavLink>
+                    <button className={s.btn}
+                    onClick={() => dispatch(logOut())}
+                    >
+                        <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"></img>
+                        <span className={s.btnText}>Logout</span>
+                    </button>
                 </div>
             </div>
         </div>
