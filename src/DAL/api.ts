@@ -37,7 +37,7 @@ type updateMeType = {
     error?: string;
 };
 
-type unLoginType = {
+export type LogOutType = {
     info: string;
     error: string;
 };
@@ -98,8 +98,8 @@ export const api = {
     updateMe(payload: updateMeDataType) {
         return instance.put<updateMeType>('auth/me', {payload});
     },
-    unLoginMe() {
-        return instance.delete<unLoginType>('auth/me');
+    logOut() {
+        return instance.delete<LogOutType>('auth/me');
     },
     forgotPassword(email: string) {
         return instance.post<SendMessageType>('auth/forgot', {

@@ -65,9 +65,6 @@ export const Profile = () => {
     // }, [packs.withMyId])
     // [dispatch, packs.page, packs.pageCount, packs.withMyId]
 
-    // useEffect(() => {
-    //
-    // }, [])
 
     useEffect(() => {
         if (isLoggedIn)  dispatch(getPacksTC({user_id: currentUserID}))
