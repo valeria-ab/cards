@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {api} from "../../DAL/api";
+import {forgotApi} from '../../DAL/forgot-api';
 
 export type InitialStateType = {
     isSend: boolean
@@ -36,7 +36,7 @@ type ActionsType = SendPasswordRequestActionType
 // thunk
 
 export const sendNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {
-    api.newPassword(password, token)
+    forgotApi.newPassword(password, token)
         .then(() => {
            dispatch(sendPasswordRequestAC(true))
         })

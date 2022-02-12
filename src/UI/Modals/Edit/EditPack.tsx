@@ -1,23 +1,19 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './EditPack.module.scss';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {updatePacks} from "../../../BLL/packs/packs-reducer";
-import {IAppStore} from "../../../BLL/store/store";
-import {cardPacksType} from "../../../DAL/Packs-api";
+import {CardPacksType} from '../../../DAL/packs-api';
 
 type  EditPackPropsType = {
     editModeOff: () => void
-    pack: cardPacksType
+    pack: CardPacksType
 }
 
 
 export const EditPack = React.memo((props: EditPackPropsType) => {
 
-
     const [name, setname] = useState<string>(props.pack.name);
-
     const dispatch = useDispatch()
-    const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
     useEffect(() => {

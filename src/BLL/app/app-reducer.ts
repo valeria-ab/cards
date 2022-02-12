@@ -2,10 +2,14 @@
 
 type InitialAppStateType = {
    isLoading: boolean
+    error: string | null
+    isInitialized: boolean
 }
 
 const initialState: InitialAppStateType = {
-    isLoading: false
+    isLoading: false,
+    error: null,
+    isInitialized: false
 };
 
 export const appReducer = (state: InitialAppStateType = initialState, action: ActionsType): InitialAppStateType => {
@@ -13,6 +17,11 @@ export const appReducer = (state: InitialAppStateType = initialState, action: Ac
         case 'APP/SET-LOADING': {
             return {...state, isLoading: action.value}
         }
+        case 'APP/SET-IS_INITIALIZED': {
+            return {...state, isInitialized: action.value}
+        }
+        case 'APP/SET-ERROR':
+            return { ...state, error: action.error };
         default:
             return state;
     }
@@ -24,9 +33,21 @@ export const setAppLoading = (value: boolean) => ({
     value
 } as const);
 
+export const setErrorAC = (error: string | null) => ( {
+    type: 'APP/SET-ERROR',
+    error
+} as const );
 
+export const setInitializedAC = (value: boolean) => ( {
+    type: 'APP/SET-IS_INITIALIZED',
+    value
+} as const );
+
+export type SetErrorActionType = ReturnType<typeof setErrorAC>
 
 type ActionsType = ReturnType<typeof setAppLoading>
+    | SetErrorActionType
+| ReturnType<typeof setInitializedAC>
 
 
 

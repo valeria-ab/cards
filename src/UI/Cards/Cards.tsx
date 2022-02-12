@@ -3,12 +3,12 @@ import s from "../Table/Table.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getCardsTC } from "../../BLL/cards/cards-reducer";
 import { IAppStore } from "../../BLL/store/store";
-import { CardResponseType, cardsApi } from "../../DAL/CardsAPI";
 import { DeleteCard } from "../Modals/DeleteCard/DeleteCard";
 import { AddUpdate } from "../Modals/AddUpdateCard/AddUpdate";
 import {PaginationCardsContainer} from '../PacksList/Pagination/PaginationCardsContainer';
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from "../Error/ErrorSnackbar";
+import {CardResponseType, cardsApi} from '../../DAL/cards-api';
 
 type CardsPropsType = {
     id: string

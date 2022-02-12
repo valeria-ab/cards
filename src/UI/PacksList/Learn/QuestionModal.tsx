@@ -1,13 +1,13 @@
-import {cardPacksType} from '../../../DAL/Packs-api';
 import React, {useEffect} from 'react';
 import styles from './Learn.module.scss';
-import {CardResponseType} from '../../../DAL/CardsAPI';
+import {CardResponseType} from '../../../DAL/cards-api';
+import {CardPacksType} from '../../../DAL/packs-api';
 
 
 type  LearnPackPropsType = {
     learnModeOn: () => void
     questionModeOff: () => void
-    pack: cardPacksType
+    pack: CardPacksType
     card: CardResponseType
 }
 

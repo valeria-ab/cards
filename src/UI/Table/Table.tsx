@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
-import {cardPacksType} from '../../DAL/Packs-api';
 import {EditPack} from '../Modals/Edit/EditPack';
 import {Delete} from '../Modals/Delete/Delete';
 import {Add} from '../Modals/Add/Add';
@@ -12,11 +11,8 @@ import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {Learn} from '../PacksList/Learn/Learn';
 import {QuestionModal} from '../PacksList/Learn/QuestionModal';
 import {getCardsTC} from '../../BLL/cards/cards-reducer';
-import {CardResponseType} from '../../DAL/CardsAPI';
-import {NavLink, useParams} from 'react-router-dom';
-import {getPacksTC} from '../../BLL/packs/packs-reducer';
-import {log} from 'util';
-import styles from '../PacksList/Learn/Learn.module.scss';
+import {CardResponseType} from '../../DAL/cards-api';
+import {CardPacksType} from '../../DAL/packs-api';
 
 type  CardsPropsType = {
     onClickCardsHandler: (id: string) => void
@@ -52,17 +48,17 @@ export const Table = React.memo((props: CardsPropsType) => {
     // if (cards)  setCard(getCard(cards))
 
     // конкретный пак с карточками которые можно учить
-    const [pack, setPack] = useState<cardPacksType | null>(null);
+    const [pack, setPack] = useState<CardPacksType | null>(null);
 
 
     //список всех паков
-    const cardPacks = useSelector<IAppStore, cardPacksType[]>((state) => state.packs.cardPacks);
+    const cardPacks = useSelector<IAppStore, CardPacksType[]>((state) => state.packs.cardPacks);
 
 
     const id = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
-    const editModeOn = (pack: cardPacksType) => {
+    const editModeOn = (pack: CardPacksType) => {
         setPack(pack)
         setEditMode(true)
 
@@ -72,7 +68,7 @@ export const Table = React.memo((props: CardsPropsType) => {
     }
 
 
-    const deleteModeOn = (pack: cardPacksType) => {
+    const deleteModeOn = (pack: CardPacksType) => {
         setPack(pack)
         setDeleteMode(true)
 
@@ -89,7 +85,7 @@ export const Table = React.memo((props: CardsPropsType) => {
         setAddMode(false)
     }
 
-    const learnModeOn = (pack: cardPacksType) => {
+    const learnModeOn = (pack: CardPacksType) => {
         setPack(pack)
         setLearnMode(true)
 
@@ -99,7 +95,7 @@ export const Table = React.memo((props: CardsPropsType) => {
         setQuestionMode(false)
     }
 
-    const questionModeOn = (pack: cardPacksType) => {
+    const questionModeOn = (pack: CardPacksType) => {
 
 
         setQuestionMode(true)
@@ -108,7 +104,7 @@ export const Table = React.memo((props: CardsPropsType) => {
         setQuestionMode(false)
     }
 
-    const onLearnButtonClick = (pack: cardPacksType) => {
+    const onLearnButtonClick = (pack: CardPacksType) => {
         setPack(pack)
         dispatch(getCardsTC({cardsPack_id: pack._id}))
         setQuestionMode(true)

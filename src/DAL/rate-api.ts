@@ -27,7 +27,7 @@ type UpdatedGrade = {
 
 // api
 
-export const rateAPI = {
+export const rateApi = {
     updateGrade(grade: number, card_id: string) {
         return instance.put<ResponseType>(`/cards/grade`, {
             grade,

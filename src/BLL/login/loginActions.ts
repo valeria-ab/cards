@@ -1,5 +1,5 @@
 import {SetUserProfileType} from '../profile/profileActions';
-import {setErrorAC, SetErrorActionType} from '../Error/errorReducer';
+import {SetErrorActionType} from '../app/app-reducer';
 
 export const LOGIN_LOADING = 'LOGIN/LOADING';
 export const LOGIN_ERROR = 'LOGIN/ERROR';
@@ -18,11 +18,6 @@ export const loginError = (
     isLoggedIn,
 });
 
-export const logoutSuccess = (isLoggedIn: boolean):LogoutSuccessType => ({
-    type: LOGOUT_SUCCESS,
-    isLoggedIn,
-    // logoutSuccessMessage,
-});
 
 //types
 type LoginSuccessType = {
@@ -33,16 +28,12 @@ type LoginErrorType = {
     error: string;
     isLoggedIn: boolean;
 };
-type LogoutSuccessType = {
-    type: typeof LOGOUT_SUCCESS;
-    // logoutSuccessMessage: string;
-    isLoggedIn: boolean;
-};
+
 
 export type LoginActions =
     | LoginSuccessType
     | SetUserProfileType
     | LoginErrorType
     | SetErrorActionType
-    | LogoutSuccessType
+
 

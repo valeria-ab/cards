@@ -1,12 +1,12 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from './Delete.module.scss';
 import {useDispatch} from "react-redux";
-import {cardPacksType} from "../../../DAL/Packs-api";
-import {deletedPacks, updatePacks} from '../../../BLL/packs/packs-reducer';
+import {deletedPacks} from '../../../BLL/packs/packs-reducer';
+import {CardPacksType} from '../../../DAL/packs-api';
 
 type  DeletePackPropsType = {
     deleteModeOff: () => void
-    pack: cardPacksType
+    pack: CardPacksType
 }
 
 

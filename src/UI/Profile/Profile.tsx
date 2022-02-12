@@ -7,25 +7,19 @@ import {getPacksTC, InitialStateType, setWithMyIdAC} from '../../BLL/packs/packs
 import s from './ProfilePage.module.scss';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
-import {ChooseOwner} from '../PacksList/ChooseOwner/ChooseOwner';
 import RangeSlider from '../PacksList/Range/RangeSlider';
-import Search from '../PacksList/Search/Search';
-import {changeUserNameOrAvatar} from '../../BLL/profile/profileReducer';
-import {EditableSpan} from '../../BLL/profile/EditableSpan/EditableSpan';
+import {EditableSpan} from './EditableSpan/EditableSpan';
+import {checkAuthMe} from '../../BLL/login/loginThunk';
+import {changeUserNameOrAvatar} from '../../BLL/profile/profile-reducer';
 
 export const Profile = () => {
     const dispatch = useDispatch()
+    const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
 
-    const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
-    const isLoggedIn = useSelector<IAppStore, boolean>(
-        (state) => state.login.isLoggedIn
-    );
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
-    const packs = useSelector<IAppStore, InitialStateType>(
-        (state) => state.packs
-    );
+
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
@@ -48,35 +42,35 @@ export const Profile = () => {
 
     const onChangeNameClick = (newName:string) => dispatch(changeUserNameOrAvatar(newName))
 
-    //
-    // useEffect(() => {
-    //     if (isLoggedIn) {
-    //         dispatch(getPacksTC({
-    //             user_id: currentUserID
-    //
-    //         }))
-    //         setTableOff(true)
-    //     }
-    // }, [isLoggedIn]);
-
-
-    // useEffect(() => {
-    //     dispatch(getPacksTC(packs.withMyId ? {user_id: currentUserID} : {}))
-    // }, [packs.withMyId])
-    // [dispatch, packs.page, packs.pageCount, packs.withMyId]
-
 
     useEffect(() => {
-        if (isLoggedIn)  dispatch(getPacksTC({user_id: currentUserID}))
+        if (isInitialized)  dispatch(getPacksTC({user_id: currentUserID}))
     }, [])
 
     useMemo(() => {
-        if (isLoggedIn) dispatch(setWithMyIdAC(false))
+        if (isInitialized) dispatch(setWithMyIdAC(false))
     }, [])
 
-    if (!isLoggedIn) {
+
+    if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
+
+    // if (!isInitialized) {
+    //     return (
+    //         <div
+    //             style={{
+    //                 position: "fixed",
+    //                 top: "30%",
+    //                 textAlign: "center",
+    //                 width: "100%",
+    //             }}
+    //         >
+    //             <CircularProgress />
+    //         </div>
+    //     );
+    // }
+
 
     return (
         <div className={s.container}>

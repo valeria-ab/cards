@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registrationTC } from "../../BLL/register/registerReducer";
 import { IAppStore } from "../../BLL/store/store";
 import { Navigate } from "react-router-dom";
 import s from "./Register.module.scss";
 import {Alert} from "@mui/material";
 import {ErrorSnackbar} from "../Error/ErrorSnackbar";
+import {registrationTC} from '../../BLL/register/register-reducer';
 
 //Add my branch
 interface IRegisterProps {

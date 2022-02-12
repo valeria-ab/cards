@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from "./AddUpdate.module.scss";
-import {CardResponseType} from "../../../DAL/CardsAPI";
+import {CardResponseType} from '../../../DAL/cards-api';
 
 
 type  AddUpdatePropsType = {

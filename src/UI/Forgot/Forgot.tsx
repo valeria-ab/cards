@@ -6,8 +6,8 @@ import {forgotPasswordTC} from "../../BLL/forgot/forgot-reducer";
 import {IAppStore} from "../../BLL/store/store";
 import {CheckEmail} from "./CheckEmail";
 import {Alert} from "@mui/material";
-import {setErrorAC} from "../../BLL/Error/errorReducer";
 import {ErrorSnackbar} from "../Error/ErrorSnackbar";
+import {setErrorAC} from '../../BLL/app/app-reducer';
 
 export const Forgot = React.memo(() => {
 

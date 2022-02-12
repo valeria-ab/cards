@@ -1,14 +1,13 @@
-import {cardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/Packs-api';
+import {CardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/packs-api';
 import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
-import {setErrorAC} from "../Error/errorReducer";
-import {setAppLoading} from '../app/app-reducer';
+import {setAppLoading, setErrorAC} from '../app/app-reducer';
 
 
 export type InitialStateType = {
 
-    cardPacks: cardPacksType[]
+    cardPacks: CardPacksType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -20,7 +19,7 @@ export type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    cardPacks: [] as cardPacksType[],
+    cardPacks: [] as CardPacksType[],
     cardPacksTotalCount: 1,
     maxCardsCount: Infinity as number,
     minCardsCount: 0,
@@ -72,11 +71,6 @@ export const setWithMyIdAC = (withMyId: boolean) =>
 
 export const setCardsPacksCountFromRangeAC = (numbers: Array<number> ) =>  // min and max cardsPacks
     ({type: 'PACKS/RANGE-SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
-
-// export const setMaxCardsCountAC = (maxCardsCount: number) =>
-//     ({type: 'PACKS/SET-MAX-CARDS-COUNT', maxCardsCount} as const)
-// export const setMinCardsCountAC = (minCardsCount: number) =>
-//     ({type: 'PACKS/SET-MIN-CARDS-COUNT', minCardsCount} as const)
 
 export type GetPacksActionType = ReturnType<typeof GetPacksAC>
 
@@ -144,7 +138,7 @@ export const deletedPacks = (packID: string, user_id?: string): ThunkAction<void
 }
 
 
-export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch, getState: () => IAppStore) => {
+export const updatePacks = (payload: CardPacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch, getState: () => IAppStore) => {
     const pack = getState().packs.cardPacks.find((pack) => pack._id === payload._id)
 
     const updatePack = {...pack, ...payload};

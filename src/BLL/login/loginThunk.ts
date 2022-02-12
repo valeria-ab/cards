@@ -1,89 +1,85 @@
-import {Dispatch} from "redux";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {api, LoginDataType} from "../../DAL/api";
-import { setErrorAC } from "../Error/errorReducer";
-import {setUserProfile} from "../profile/profileActions";
-import {IAppStore} from "../store/store";
-import {LoginActions, loginError, loginSuccess, logoutSuccess} from './loginActions';
+import {Dispatch} from 'redux';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {setUserProfile} from '../profile/profileActions';
+import {IAppStore} from '../store/store';
+import {LoginActions, loginError, loginSuccess} from './loginActions';
+import {setAppLoading, setErrorAC, setInitializedAC} from '../app/app-reducer';
+import {authApi, LoginDataType} from '../../DAL/auth-api';
 
 type Return = void;
 type ExtraArgument = {};
 type IGetStore = () => IAppStore;
 
-export const signIn =
-    (
-        payload: LoginDataType
-    ): ThunkAction<Return, IAppStore, ExtraArgument, LoginActions> =>
-        (
-            dispatch: ThunkDispatch<IAppStore, ExtraArgument, LoginActions>,
-            getStore: IGetStore
-        ) => {
-            api
+
+
+export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
+            dispatch(setAppLoading(true))
+            authApi
                 .login(payload)
                 .then((res) => {
                     dispatch(loginSuccess());
                     dispatch(setUserProfile(res.data));
-                    dispatch(loginError("", true));
+                    dispatch(loginError('', true));
                 })
                 .catch((err) => {
                     const error = err.response
                         ? err.response.data.error
-                        : err.message + ", more details in the console";
-                    console.log("Error: ", {...err});
+                        : err.message + ', more details in the console';
+                    console.log('Error: ', {...err});
                     dispatch(loginError(error, false));
                     dispatch(setErrorAC(error))
-                });
+                })
+                .finally(() => dispatch(setAppLoading(false)))
         };
 
 
 export const checkAuthMe = () => (dispatch: Dispatch) => {
-    api.me()
-        .then((res)=> {
-            dispatch( loginSuccess() );
+    dispatch(setAppLoading(true))
+    authApi.me()
+        .then((res) => {
+            dispatch(setAppLoading(false))
+            dispatch(setInitializedAC(true));
             dispatch(setUserProfile(res.data))
         })
-        .catch((err)=> {
-            dispatch(setErrorAC(err))
+        .catch((err) => {
+            dispatch(setAppLoading(false))
         })
 }
 
 
-export const logOut = (): ThunkAction<Return, IAppStore, ExtraArgument, LoginActions> =>
-        (
-            dispatch: ThunkDispatch<IAppStore, ExtraArgument, LoginActions>,
-            getStore: IGetStore
-        ) => {
-            api
-                .logOut()
-                .then((res ) => {
-                   dispatch(logoutSuccess(false))
-
-                 dispatch(setUserProfile({
-                     _id: "",
-                     email: "",
-                     name: "",
-                     avatar: "",
-                     publicCardPacksCount: 0,
-                     created: "",
-                     updated: "",
-                     isAdmin: false,
-                     verified: false,
-                     rememberMe: false,
-                     error: "",
-                     token: "",
-                     tokenDeathTime: 0,
-                     __v: 0
-                 }));
-                })
-                .catch((err) => {
-                    const error = err.response
-                        ? err.response.data.error
-                        : err.message + ", more details in the console";
-                    console.log("Error: ", {...err});
-                    dispatch(loginError(error, false));
-                    dispatch(setErrorAC(error))
-                });
-        };
+export const logOut = () => (dispatch: Dispatch) => {
+        dispatch(setAppLoading(true))
+        authApi
+            .logOut()
+            .then((res) => {
+                dispatch(setAppLoading(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+            })
+            .catch((err) => {
+                dispatch(setAppLoading(false))
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ', more details in the console';
+                console.log('Error: ', {...err});
+                dispatch(loginError(error, false));
+                dispatch(setErrorAC(error))
+            });
+    };
 
 
 

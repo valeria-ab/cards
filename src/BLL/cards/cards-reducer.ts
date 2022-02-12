@@ -5,13 +5,12 @@ import {
     cardsApi,
     CardsResponseType,
     CardsType
-} from '../../DAL/CardsAPI';
+} from '../../DAL/cards-api';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {IAppStore} from '../store/store';
-import {UpdatePacksType} from '../../DAL/Packs-api';
-import {setErrorAC, SetErrorActionType} from '../Error/errorReducer';
-import {GradeType, rateAPI} from '../../DAL/rateAPI';
-import {setAppLoading} from '../app/app-reducer';
+import {UpdatePacksType} from '../../DAL/packs-api';
+import {rateApi} from '../../DAL/rate-api';
+import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
 
 export type InitialCardsStateType = {
     cards: CardResponseType[],
@@ -172,7 +171,7 @@ export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType)
 
 export const updateGradeTC = (grade: number, card_id: string) =>
     (dispatch: ThunkDispatch<IAppStore, unknown, ActionsType>) => {
-        rateAPI.updateGrade(grade, card_id)
+        rateApi.updateGrade(grade, card_id)
             .then((res) => {
                 dispatch(updateGradeAC(grade, card_id))
                 // console.log('success res.data.grade = ' + res.data.updatedGrade.grade)
