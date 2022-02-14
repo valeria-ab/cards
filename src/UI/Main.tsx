@@ -1,19 +1,13 @@
-import React from "react";
-import Header from "./Header";
-import RoutesComponent from "./Routes";
-import {useDispatch} from "react-redux";
+import React from 'react';
+import RoutesComponent from './Routes';
 import MainHeader from './MainHeader/MainHeader';
 
 // headers, routes, footers
 const Main: React.FC = () => {
-    const dispatch = useDispatch()
-
 
     return (
         <>
             <MainHeader/>
-            <Header/>
-
             <RoutesComponent/>
         </>
     );

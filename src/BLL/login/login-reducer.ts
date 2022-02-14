@@ -6,11 +6,11 @@ export const loginReducer = (
     action: LoginActions
 ) => {
     switch (action.type) {
-        case LOGIN_SUCCESS: {
-            return {...state, isLoggedIn: true};
-        }
+        // case LOGIN_SUCCESS: {
+        //     return {...state, isLoggedIn: true};
+        // }
         case LOGIN_ERROR: {
-            return {...state, isLoggedIn: action.isLoggedIn, error: action.error};
+            return {...state, error: action.error};
         }
         default: {
             return state;

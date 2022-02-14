@@ -15,7 +15,7 @@ import {changeUserNameOrAvatar} from '../../BLL/profile/profile-reducer';
 export const Profile = () => {
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
-
+    const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
@@ -44,17 +44,20 @@ export const Profile = () => {
 
 
     useEffect(() => {
-        if (isInitialized)  dispatch(getPacksTC({user_id: currentUserID}))
+        dispatch(getPacksTC({user_id: currentUserID}))
+        console.log('getPacksTC')
     }, [])
 
-    useMemo(() => {
-        if (isInitialized) dispatch(setWithMyIdAC(false))
-    }, [])
+    // useMemo(() => {
+    //     if (isInitialized) dispatch(setWithMyIdAC(false))
+    // }, [isInitialized])
 
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
+
+    if(isLoading) return <div>loading</div>
 
     // if (!isInitialized) {
     //     return (

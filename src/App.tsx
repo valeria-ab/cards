@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {HashRouter} from "react-router-dom";
+import {HashRouter, Navigate} from 'react-router-dom';
 import './App.css';
 import Main from './UI/Main';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,23 +10,24 @@ import {IAppStore} from './BLL/store/store';
 const App: React.FC = () => {
     const dispatch = useDispatch();
 
-    const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
+   const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
+    // const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
 
     useEffect(() => {
             dispatch(checkAuthMe())
     }, [])
 
-    if(isLoading) return <div>loading</div>
+   // if(isLoading) return <div>loading</div>
+
+    // if (!isInitialized) {
+    //     return <Navigate to={'/login'}/>;
+    // }
 
     return (
         <div className="App">
-
             <HashRouter>
-
                 <Main/>
-
             </HashRouter>
-
         </div>
     );
 };

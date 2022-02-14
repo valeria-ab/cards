@@ -2,7 +2,7 @@ import {Dispatch} from 'redux';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {setUserProfile} from '../profile/profileActions';
 import {IAppStore} from '../store/store';
-import {LoginActions, loginError, loginSuccess} from './loginActions';
+import {LoginActions, loginError} from './loginActions';
 import {setAppLoading, setErrorAC, setInitializedAC} from '../app/app-reducer';
 import {authApi, LoginDataType} from '../../DAL/auth-api';
 
@@ -17,16 +17,17 @@ export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
             authApi
                 .login(payload)
                 .then((res) => {
-                    dispatch(loginSuccess());
+                    // dispatch(loginSuccess());
                     dispatch(setUserProfile(res.data));
-                    dispatch(loginError('', true));
+                    dispatch(setInitializedAC(true))
+                    dispatch(loginError(''));
                 })
                 .catch((err) => {
                     const error = err.response
                         ? err.response.data.error
                         : err.message + ', more details in the console';
                     console.log('Error: ', {...err});
-                    dispatch(loginError(error, false));
+                    dispatch(loginError(error));
                     dispatch(setErrorAC(error))
                 })
                 .finally(() => dispatch(setAppLoading(false)))
@@ -37,13 +38,13 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
     dispatch(setAppLoading(true))
     authApi.me()
         .then((res) => {
-            dispatch(setAppLoading(false))
             dispatch(setInitializedAC(true));
             dispatch(setUserProfile(res.data))
         })
         .catch((err) => {
-            dispatch(setAppLoading(false))
+
         })
+        .finally(() =>   dispatch(setAppLoading(false)))
 }
 
 
@@ -69,15 +70,16 @@ export const logOut = () => (dispatch: Dispatch) => {
                     tokenDeathTime: 0,
                     __v: 0
                 }));
+                dispatch(setInitializedAC(false))
             })
             .catch((err) => {
-                dispatch(setAppLoading(false))
                 const error = err.response
                     ? err.response.data.error
                     : err.message + ', more details in the console';
                 console.log('Error: ', {...err});
-                dispatch(loginError(error, false));
+                dispatch(loginError(error));
                 dispatch(setErrorAC(error))
+                dispatch(setAppLoading(false))
             });
     };
 
