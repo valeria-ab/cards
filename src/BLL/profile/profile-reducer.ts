@@ -1,13 +1,28 @@
 import {ProfileActions, setUserProfile} from './profileActions';
-import {
-    initialProfileState,
-    InitialProfileStateType,
-} from './profileInitialState';
 import {ThunkAction} from 'redux-thunk';
 import {IAppStore} from '../store/store';
 import {AnyAction} from 'redux';
 import {setAppLoading, setErrorAC} from '../app/app-reducer';
 import {authApi} from '../../DAL/auth-api';
+
+export type InitialProfileStateType = typeof initialProfileState;
+
+const initialProfileState = {
+    _id: "",
+    email: "",
+    name: "",
+    avatar: "",
+    publicCardPacksCount: 0,
+    created: "",
+    updated: "",
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
+    error: "",
+    token: "",
+    tokenDeathTime: 0,
+    __v: 0,
+};
 
 export const profileReducer = (
     state: InitialProfileStateType = initialProfileState,
@@ -31,7 +46,6 @@ export const changeUserNameOrAvatar = (name?: string, avatar?: string): ThunkAct
     dispatch(setAppLoading(true))
     authApi.changeName({name, avatar})
         .then((res) => {
-            debugger
             dispatch(setUserProfile(res.data.updatedUser))
         })
         .catch((err) => {

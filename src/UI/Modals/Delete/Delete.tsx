@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import styles from './Delete.module.scss';
 import {useDispatch} from "react-redux";
-import {deletedPacks} from '../../../BLL/packs/packs-reducer';
+import {deletePack} from '../../../BLL/packs/packs-reducer';
 import {CardPacksType} from '../../../DAL/packs-api';
 
 type  DeletePackPropsType = {
@@ -30,7 +30,7 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
 
 
     const onSaveClick = () => {
-        dispatch(deletedPacks(
+        dispatch(deletePack(
             props.pack._id, props.pack.user_id
         ))
         props.deleteModeOff()

@@ -26,7 +26,7 @@ const dispatch=useDispatch()
         onChange && onChange(e)
         onChangeOption && onChangeOption(e.currentTarget.value)
         dispatch(setCardPacksPageCountAC(+e.currentTarget.value))
-        dispatch(getPacksTC())
+        // dispatch(getPacksTC())
     }
 
     return (

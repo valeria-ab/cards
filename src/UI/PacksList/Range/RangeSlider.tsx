@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
 import {getPacksTC, setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
 import s from './Range.module.css'
+import {useEffect, useState} from 'react';
 
 
 const CustomSlider = styled(Slider)({
@@ -42,38 +43,32 @@ const CustomSlider = styled(Slider)({
 export default function RangeSlider() {
     const dispatch = useDispatch()
 
-    const min = useSelector<IAppStore, number>(state => state.packs.cardsValuesFromRange[0])
-    const max = useSelector<IAppStore, number>(state => state.packs.cardsValuesFromRange[1])
     const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
     const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
-
-    const withMyId = useSelector<IAppStore, boolean>(
-        (state) => state.packs.withMyId
-    );
-    const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
+    const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount])
+    console.log(values)
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (maxCardsCount > 0) {
-            dispatch(setCardsPacksCountFromRangeAC(newValue as number[]))
+            setValues(newValue as number[])
         }
     };
+    const onChangeCommitted = () => {
+        if (maxCardsCount > 0) {   dispatch(setCardsPacksCountFromRangeAC(values))    }
+    }
 
-
+    // useEffect(() => {
+    //     setValues([minCardsCount, maxCardsCount])
+    //     console.log("я вызвался")
+    // }, [])
     return (<div className={s.range}>
             <Box sx={{width: 200}}>
                 <div className={s.rangeTitle}><b>Number of cards</b></div>
                 <CustomSlider
                     getAriaLabel={() => 'Number of cards'}
-                    value={[min, max]}
+                    value={values}
                     onChange={handleChange}
-                    onChangeCommitted={() => {
-                        if (maxCardsCount > 0) {
-                            dispatch(getPacksTC(withMyId
-                                ? {user_id: currentUserID}
-                                : {}))
-                        }
-                    }
-                    }
+                    onChangeCommitted={onChangeCommitted}
                     valueLabelDisplay="on"
                     min={minCardsCount}
                     max={maxCardsCount}

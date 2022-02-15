@@ -6,6 +6,7 @@ import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React from 'react';
 import {logOut} from '../../BLL/login/loginThunk';
 import {useDispatch} from 'react-redux';
+import {setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 
 export default function MainHeader() {
     const dispatch = useDispatch()
@@ -16,21 +17,21 @@ export default function MainHeader() {
                 <h1 className={s.title}>It-incubator</h1>
                 <div className={s.btnWrap}>
                     <NavLink to={PACKS_LIST_PATH}>
-                        <button className={s.btn}>
-                            <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"></img>
+                        <button className={s.btn} onClick={() => dispatch(setWithMyIdAC(false))}>
+                            <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"/>
                             <span className={s.btnText}>Packs List</span>
                         </button>
                     </NavLink>
                     <NavLink to={PROFILE_PATH}>
-                        <button className={s.btn}>
-                            <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"></img>
+                        <button className={s.btn} onClick={() => dispatch(setWithMyIdAC(true))}>
+                            <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
                             <span className={s.btnText}>Profile</span>
                         </button>
                     </NavLink>
                     <button className={s.btn}
                     onClick={() => dispatch(logOut())}
                     >
-                        <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"></img>
+                        <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
                         <span className={s.btnText}>Logout</span>
                     </button>
                 </div>

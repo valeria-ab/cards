@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Navigate} from 'react-router-dom';
-import {InitialProfileStateType} from '../../BLL/profile/profileInitialState';
 import {IAppStore} from '../../BLL/store/store';
 import {getPacksTC, InitialStateType, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import s from './ProfilePage.module.scss';
@@ -10,7 +9,8 @@ import {Cards} from '../Cards/Cards';
 import RangeSlider from '../PacksList/Range/RangeSlider';
 import {EditableSpan} from './EditableSpan/EditableSpan';
 import {checkAuthMe} from '../../BLL/login/loginThunk';
-import {changeUserNameOrAvatar} from '../../BLL/profile/profile-reducer';
+import {changeUserNameOrAvatar, InitialProfileStateType} from '../../BLL/profile/profile-reducer';
+import {CardPacksType} from '../../DAL/packs-api';
 
 export const Profile = () => {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ export const Profile = () => {
     );
 
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
-
+    const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
 
     const [tableOff, setTableOff] = useState<boolean>(true);
     const [packID, setPackID] = useState<string>('');
@@ -39,25 +39,21 @@ export const Profile = () => {
         setTableOff(false)
 
     }
+    const cardPacks = useSelector<IAppStore, CardPacksType[]>((state) => state.packs.cardPacks);
 
     const onChangeNameClick = (newName:string) => dispatch(changeUserNameOrAvatar(newName))
 
 
     useEffect(() => {
-        dispatch(getPacksTC({user_id: currentUserID}))
-        console.log('getPacksTC')
+        dispatch(getPacksTC())
     }, [])
-
-    // useMemo(() => {
-    //     if (isInitialized) dispatch(setWithMyIdAC(false))
-    // }, [isInitialized])
 
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
 
-    if(isLoading) return <div>loading</div>
+    // if(isLoading) return <div>loading</div>
 
     // if (!isInitialized) {
     //     return (

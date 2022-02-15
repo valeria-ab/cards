@@ -137,7 +137,7 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
-
+//тут сделать диспатч другой санки и доставание из стейта значения with my id
 export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType)
     : ThunkAction<void, IAppStore, unknown, AnyAction> =>
     (dispatch) => {

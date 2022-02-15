@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './EditPack.module.scss';
 import {useDispatch} from "react-redux";
-import {updatePacks} from "../../../BLL/packs/packs-reducer";
+import {updatePack} from "../../../BLL/packs/packs-reducer";
 import {CardPacksType} from '../../../DAL/packs-api';
 
 type  EditPackPropsType = {
@@ -29,7 +29,7 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
     }
 
     const onSaveClick = () => {
-        dispatch(updatePacks({
+        dispatch(updatePack({
             ...props.pack,
             name: name,
             user_id: props.pack.user_id,

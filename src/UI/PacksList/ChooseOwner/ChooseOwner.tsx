@@ -1,7 +1,6 @@
 import {setWithMyIdAC} from '../../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './ChooseOwner.module.scss';
-import {useState} from 'react';
 import {IAppStore} from '../../../BLL/store/store';
 
 export const ChooseOwner = () => {

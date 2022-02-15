@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {EditPack} from '../Modals/Edit/EditPack';
 import {Delete} from '../Modals/Delete/Delete';
-import {Add} from '../Modals/Add/Add';
+import {AddPack} from '../Modals/Add/Add';
 import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
@@ -44,8 +44,6 @@ export const Table = React.memo((props: CardsPropsType) => {
         // console.log('test: ', sum, rand, res)
         return cards[res.id + 1];
     }
-
-    // if (cards)  setCard(getCard(cards))
 
     // конкретный пак с карточками которые можно учить
     const [pack, setPack] = useState<CardPacksType | null>(null);
@@ -112,15 +110,15 @@ export const Table = React.memo((props: CardsPropsType) => {
 
     useEffect(() => {
         setCard(getCard(cards))
-    }, [cards])
+    }, [])
 
 
-    if (isLoading) {
-        return <div className={s.table}>loading...</div>
-    }
+    // if (isLoading) {
+    //     return <div className={s.table}>loading...</div>
+    // }
     return (
         <div className={s.table}>
-            {addMode && <Add addModeOff={addModeOff}/>}
+            {addMode && <AddPack addModeOff={addModeOff}/>}
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
             {pack && questionMode && <QuestionModal card={card} pack={pack} learnModeOn={() => learnModeOn(pack)}
