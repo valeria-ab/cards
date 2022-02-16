@@ -91,9 +91,11 @@
   color: #000000;
   overflow: hidden;
   text-overflow: ellipsis;
-  
-}
 
+}
+.table__data:first-child {
+  cursor: pointer;
+}
 
 .add {
   background: #21268F;
