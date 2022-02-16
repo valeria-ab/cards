@@ -1,6 +1,7 @@
 import s from './MainHeader.module.scss';
 import PackListIcon from '../../image/PacksListImg.png'
 import ProfileIcon from '../../image/ProfileImg.png'
+import LogoutIcon from '../../image/logout.png'
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React from 'react';
@@ -31,7 +32,7 @@ export default function MainHeader() {
                     <button className={s.btn}
                     onClick={() => dispatch(logOut())}
                     >
-                        <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
+                        <img className={`${s.btnImg} ${s.btnLogout}`} src={LogoutIcon} alt="ProfileIcon"/>
                         <span className={s.btnText}>Logout</span>
                     </button>
                 </div>
