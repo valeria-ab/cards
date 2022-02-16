@@ -20,20 +20,20 @@ export default function MainHeader() {
                     <NavLink to={PACKS_LIST_PATH}>
                         <button className={s.btn} onClick={() => dispatch(setWithMyIdAC(false))}>
                             <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"/>
-                            <span className={s.btnText}>Packs List</span>
+                            <span>Packs List</span>
                         </button>
                     </NavLink>
                     <NavLink to={PROFILE_PATH}>
                         <button className={s.btn} onClick={() => dispatch(setWithMyIdAC(true))}>
                             <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
-                            <span className={s.btnText}>Profile</span>
+                            <span>Profile</span>
                         </button>
                     </NavLink>
                     <button className={s.btn}
                     onClick={() => dispatch(logOut())}
                     >
                         <img className={`${s.btnImg} ${s.btnLogout}`} src={LogoutIcon} alt="ProfileIcon"/>
-                        <span className={s.btnText}>Logout</span>
+                        <span>Logout</span>
                     </button>
                 </div>
             </div>
