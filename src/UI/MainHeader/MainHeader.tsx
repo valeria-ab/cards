@@ -5,9 +5,9 @@ import LogoutIcon from '../../image/logout.png'
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React from 'react';
-import {logOut} from '../../BLL/login/loginThunk';
 import {useDispatch} from 'react-redux';
-import {setWithMyIdAC} from '../../BLL/packs/packs-reducer';
+import {setCardsPacksCountFromRangeAC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
+import {logOut} from '../../BLL/login/login-reducer';
 
 export default function MainHeader() {
     const dispatch = useDispatch()
@@ -15,16 +15,22 @@ export default function MainHeader() {
     return (
         <div className={s.MainHeader}>
             <div className={s.wrapper}>
-                <h1 className={s.title}>It-incubator</h1>
+                <h1 className={s.title}>PLAYING CARDS</h1>
                 <div className={s.btnWrap}>
                     <NavLink to={PACKS_LIST_PATH}>
-                        <button className={s.btn} onClick={() => dispatch(setWithMyIdAC(false))}>
+                        <button className={s.btn} onClick={() => {
+                            dispatch(setWithMyIdAC(false))
+                            dispatch(setCardsPacksCountFromRangeAC([0,1000]))
+                        }}>
                             <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"/>
                             <span>Packs List</span>
                         </button>
                     </NavLink>
                     <NavLink to={PROFILE_PATH}>
-                        <button className={s.btn} onClick={() => dispatch(setWithMyIdAC(true))}>
+                        <button className={s.btn} onClick={() => {
+                            dispatch(setWithMyIdAC(true))
+                            dispatch(setCardsPacksCountFromRangeAC([0,1000]))
+                        }}>
                             <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
                             <span>Profile</span>
                         </button>

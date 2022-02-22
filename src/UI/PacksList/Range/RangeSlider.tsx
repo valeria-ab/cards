@@ -4,7 +4,7 @@ import Slider from '@mui/material/Slider';
 import {styled} from '@mui/material/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {getPacksTC, setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
+import { setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
 import s from './Range.module.css'
 import {useEffect, useState} from 'react';
 
@@ -41,11 +41,13 @@ const CustomSlider = styled(Slider)({
 });
 
 export default function RangeSlider() {
+    // console.log("я слайдер я отрисовался")
     const dispatch = useDispatch()
 
     const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
     const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
     const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount])
+    console.log(minCardsCount, maxCardsCount)
     console.log(values)
 
     const handleChange = (event: Event, newValue: number | number[]) => {
@@ -57,10 +59,10 @@ export default function RangeSlider() {
         if (maxCardsCount > 0) {   dispatch(setCardsPacksCountFromRangeAC(values))    }
     }
 
-    // useEffect(() => {
-    //     setValues([minCardsCount, maxCardsCount])
-    //     console.log("я вызвался")
-    // }, [])
+    useEffect(() => {
+        setValues([0, 1000])
+    }, [minCardsCount, maxCardsCount])
+
     return (<div className={s.range}>
             <Box sx={{width: 200}}>
                 <div className={s.rangeTitle}><b>Number of cards</b></div>

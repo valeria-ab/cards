@@ -8,7 +8,6 @@ import {
 } from '../../DAL/cards-api';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {IAppStore} from '../store/store';
-import {UpdatePacksType} from '../../DAL/packs-api';
 import {rateApi} from '../../DAL/rate-api';
 import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
 
@@ -125,6 +124,23 @@ export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): Thun
         .finally(() => dispatch(setAppLoading(false)))
 }
 
+export const createCardTC = (cardsPack_id: string, question: string, answer: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
+    (dispatch) => {
+        dispatch(setAppLoading(true))
+        cardsApi.sendCard({
+            cardsPack_id,
+            question,
+            answer
+        })
+            .then(() => {
+                dispatch(getCardsTC({cardsPack_id}))
+            })
+            .catch((err) => {
+                dispatch(setErrorAC(err))
+            })
+            .finally(() => dispatch(setAppLoading(false)))
+    }
+
 
 export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     dispatch(setAppLoading(true))
@@ -137,12 +153,16 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
-//тут сделать диспатч другой санки и доставание из стейта значения with my id
-export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType)
+
+export const updateCardTC = (cardsPack_id: string, cardId: string, question: string, answer: string)
     : ThunkAction<void, IAppStore, unknown, AnyAction> =>
     (dispatch) => {
         dispatch(setAppLoading(true))
-        cardsApi.updateCard(payload)
+        cardsApi.updateCard({
+            _id: cardId,
+            question: question,
+            answer: answer
+        })
             .then((res) => {
                 dispatch(getCardsTC({cardsPack_id}))
             })
@@ -151,7 +171,6 @@ export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType)
             })
             .finally(() => dispatch(setAppLoading(false)))
     }
-
 
 // export const sendCardGradeTC = (card_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
 //     (dispatch: Dispatch, getState: () => IAppStore) => {
@@ -169,13 +188,18 @@ export const updateCardTC = (cardsPack_id: string, payload: UpdatePacksType)
 //         })
 // }
 
-export const updateGradeTC = (grade: number, card_id: string) =>
-    (dispatch: ThunkDispatch<IAppStore, unknown, ActionsType>) => {
-        rateApi.updateGrade(grade, card_id)
+export const updateGradeTC = (card_id: string) =>
+    (dispatch: Dispatch, getState: () => IAppStore) => {
+
+        const {
+            myCurrentGrade
+        } = getState().cards
+
+        rateApi.updateGrade(myCurrentGrade, card_id)
             .then((res) => {
-                dispatch(updateGradeAC(grade, card_id))
-                // console.log('success res.data.grade = ' + res.data.updatedGrade.grade)
-            }).catch(e => {
+                dispatch(updateGradeAC(myCurrentGrade, card_id))
+            })
+            .catch(e => {
             dispatch(setErrorAC(e.response.data.error))
         })
     }

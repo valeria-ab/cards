@@ -8,8 +8,8 @@ import {AddPack} from '../Modals/Add/Add';
 import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
-import {Learn} from '../PacksList/Learn/Learn';
-import {QuestionModal} from '../PacksList/Learn/QuestionModal';
+import {Learn} from '../Modals/Learn/Learn';
+import {QuestionModal} from '../Modals/Learn/QuestionModal';
 import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {CardResponseType} from '../../DAL/cards-api';
 import {CardPacksType} from '../../DAL/packs-api';
@@ -20,6 +20,7 @@ type  CardsPropsType = {
 
 
 export const Table = React.memo((props: CardsPropsType) => {
+    // console.log("я табле я отрисовался")
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
@@ -30,7 +31,6 @@ export const Table = React.memo((props: CardsPropsType) => {
 
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
 
-    const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
     const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
 
     const getCard = (cards: CardResponseType[]) => {
@@ -45,15 +45,12 @@ export const Table = React.memo((props: CardsPropsType) => {
         return cards[res.id + 1];
     }
 
-    // конкретный пак с карточками которые можно учить
     const [pack, setPack] = useState<CardPacksType | null>(null);
-
 
     //список всех паков
     const cardPacks = useSelector<IAppStore, CardPacksType[]>((state) => state.packs.cardPacks);
 
-
-    const id = useSelector<IAppStore, string>((state) => state.profile._id);
+    const userId = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
     const editModeOn = (pack: CardPacksType) => {
@@ -94,8 +91,6 @@ export const Table = React.memo((props: CardsPropsType) => {
     }
 
     const questionModeOn = (pack: CardPacksType) => {
-
-
         setQuestionMode(true)
     }
     const questionModeOff = () => {
@@ -113,9 +108,9 @@ export const Table = React.memo((props: CardsPropsType) => {
     }, [])
 
 
-    // if (isLoading) {
-    //     return <div className={s.table}>loading...</div>
-    // }
+    if (isLoading) {
+        return <div className={s.table}>loading...</div>
+    }
     return (
         <div className={s.table}>
             {addMode && <AddPack addModeOff={addModeOff}/>}
@@ -156,7 +151,7 @@ export const Table = React.memo((props: CardsPropsType) => {
                             <td className={s.table__data}>{pack.user_name}</td>
                             {/*<td className={s.table__data}>{pack.created}</td>*/}
                             <td className={s.table__data}>
-                                {id === pack.user_id ?
+                                {userId === pack.user_id ?
                                     <div className={s.buttons}>
                                         <button className={s.delButtonWrapper}
                                                 onClick={() => deleteModeOn(pack)}>Delete

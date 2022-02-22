@@ -36,12 +36,11 @@ export const Learn = (props: LearnPackPropsType) => {
         //зануляет setMyCurrentGradeAC
         dispatch(setMyCurrentGradeAC(1))
 
-        dispatch(updateGradeTC(grade, props.card._id))
+        dispatch(updateGradeTC(props.card._id))
         props.learnModeOff()
         props.questionModeOn()
     }
 
-    const grade = useSelector<IAppStore, number>(state => state.cards.myCurrentGrade)
 
     return (
 

@@ -7,11 +7,11 @@ import s from '../Profile/ProfilePage.module.scss';
 import {getPacksTC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
-import {checkAuthMe} from '../../BLL/login/loginThunk';
 import {Navigate} from 'react-router-dom';
 
 
 export const PacksList = () => {
+    // console.log("я пакслист я отрисовался")
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)

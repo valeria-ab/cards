@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from "./AddUpdate.module.scss";
 import {CardResponseType} from '../../../DAL/cards-api';
+import {useDispatch} from 'react-redux';
 
 
 type  AddUpdatePropsType = {
@@ -11,7 +12,6 @@ type  AddUpdatePropsType = {
 }
 
 export const AddUpdate = React.memo((props: AddUpdatePropsType) => {
-
 
     const [answer, setAnswer] = useState<string>(props.card ? props.card.answer : "");
     const [question, setQuestion] = useState<string>(props.card ? props.card.question : "");

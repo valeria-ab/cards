@@ -1,4 +1,4 @@
-import {setWithMyIdAC} from '../../../BLL/packs/packs-reducer';
+import {setCardsPacksCountFromRangeAC, setWithMyIdAC} from '../../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './ChooseOwner.module.scss';
 import {IAppStore} from '../../../BLL/store/store';
@@ -16,6 +16,7 @@ export const ChooseOwner = () => {
         }
                 onClick={() => {
                     dispatch(setWithMyIdAC(true))
+                    dispatch(setCardsPacksCountFromRangeAC([0,1000]))
                 }
                 }>My
         </button>
@@ -26,6 +27,7 @@ export const ChooseOwner = () => {
         }
                 onClick={() => {
                     dispatch(setWithMyIdAC(false))
+                    dispatch(setCardsPacksCountFromRangeAC([0,1000]))
                 }}>All
         </button>
     </div>
