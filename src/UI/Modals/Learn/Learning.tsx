@@ -1,14 +1,14 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {cardPacksType} from '../../../DAL/Packs-api';
 import React, {useEffect, useState} from 'react';
 import styles from './Learn.module.scss';
 import {
     getCardsTC,
     setMyCurrentGradeAC
 } from '../../../BLL/cards/cards-reducer';
-import {CardResponseType} from '../../../DAL/CardsAPI';
 import {useParams} from 'react-router-dom';
+import {CardResponseType} from '../../../DAL/cards-api';
+import {CardPacksType} from '../../../DAL/packs-api';
 
 export const Learning = () => {
     const {learningPackId} = useParams()
@@ -66,7 +66,7 @@ export const Learning = () => {
     const grade = useSelector<IAppStore, number>(state => state.cards.myCurrentGrade)
     // const currentCardIndex = useSelector<IAppStore, number>(state => state.cardsReducer.currentCardIndex)
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
-    const packs = useSelector<IAppStore, cardPacksType[]>(state => state.packs.cardPacks)
+    const packs = useSelector<IAppStore, CardPacksType[]>(state => state.packs.cardPacks)
     const questions = cards.map(c => ({question: c.question, answer: c.answer, id: c._id}))
     const pack = packs.find(p => p._id === learningPackId)
 

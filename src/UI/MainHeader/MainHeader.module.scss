@@ -1,3 +1,6 @@
+a {
+    text-decoration: none;
+}
 .title {
     font-family: 'Poppins';
     font-style: normal;
@@ -31,7 +34,6 @@
     letter-spacing: 0.4px;
     color: #2D2E46;
     opacity: 0.4;
-
 }
 .btn:hover{
     background-color:#DCCCDB;
@@ -42,4 +44,7 @@
 }
 .btnImg{
     margin-right: 10px;
+}
+.btnLogout {
+    height: 23px;
 }

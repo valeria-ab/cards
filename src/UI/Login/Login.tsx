@@ -1,41 +1,34 @@
-import React, {FormEvent, useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import {checkAuthMe, signIn} from "../../BLL/login/loginThunk";
-import { IAppStore } from "../../BLL/store/store";
-import { FORGOT_PATH, REGISTER_PATH } from "../Routes";
-import s from "./LogIn.module.scss";
-import { Alert } from "@mui/material";
-import {ErrorSnackbar} from "../Error/ErrorSnackbar";
+import React, {FormEvent, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {NavLink} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
+import {IAppStore} from '../../BLL/store/store';
+import {FORGOT_PATH, REGISTER_PATH} from '../Routes';
+import s from './LogIn.module.scss';
+import {Alert} from '@mui/material';
+import {ErrorSnackbar} from '../Error/ErrorSnackbar';
+import {signIn} from '../../BLL/login/login-reducer';
 
 const Login = React.memo(() => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const isLoggedIn = useSelector<IAppStore, boolean>(
-    (state) => state.login.isLoggedIn
-  );
-  const error = useSelector<IAppStore, string>((state) => state.login.error);
-  const dispatch = useDispatch();
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(signIn({ email, password, rememberMe }));
-  };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
 
-  // useEffect(() => {
-  //   if(!isLoggedIn){
-  //     dispatch(checkAuthMe())
-  //   }
-  //
-  // }, [isLoggedIn])
+    const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
+    const error = useSelector<IAppStore, string>((state) => state.login.error);
+    const appError = useSelector<IAppStore, string | null>((state) => state.app.error);
+    const dispatch = useDispatch();
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(signIn({email, password, rememberMe}));
+    };
 
-
- if(isLoggedIn){
-   return <Navigate to={'/profile'}/>
- }
-
-
+    if (isInitialized) {
+        return <Navigate to={'/profile'}/>
+    }
+if(appError) {
+    alert(appError)
+}
 
     return (
         <div className={s.signIn}>

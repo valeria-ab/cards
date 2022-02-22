@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import styles from './DeleteCard.module.scss';
 import {useDispatch} from "react-redux";
-import {CardResponseType} from "../../../DAL/CardsAPI";
 import {deleteCardTC} from "../../../BLL/cards/cards-reducer";
+import {CardResponseType} from '../../../DAL/cards-api';
 
 type  DeleteCardsPropsType = {
     deleteModeOff: () => void

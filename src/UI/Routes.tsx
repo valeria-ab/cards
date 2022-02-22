@@ -1,14 +1,12 @@
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {ProfilePage} from './Profile/ProfilePage';
 import RegisterPage from './Register/RegisterPage';
 import Login from './Login/Login';
 import {NewPassword} from './Forgot/NewPassword';
 import {Error404} from './Error404';
 import {Forgot} from './Forgot/Forgot';
 import {PacksList} from './PacksList/PacksList';
-import {Learn} from './PacksList/Learn/Learn';
-import {Learning} from './PacksList/Learn/Learning';
+import {Learning} from './Modals/Learn/Learning';
 import {Profile} from './Profile/Profile';
 
 // all project paths
@@ -33,7 +31,7 @@ const RoutesComponent: React.FC = () => {
             <Route path={PACKS_LIST_PATH} element={<PacksList/>}/>
             <Route path={'404'} element={<Error404/>}/>
             <Route path={'*'} element={<Navigate to="/404"/>}/>
-            {/*<Route path={'/cards'} element={<Navigate to="/profile"/>}/>*/}
+            <Route path={'/cards'} element={<Navigate to="/profile"/>}/>
             <Route path={'/learn/:packId'} element={<Learning />}/>
         </Routes>
     );

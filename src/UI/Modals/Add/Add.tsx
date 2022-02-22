@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './Add.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {createPacks, updatePacks} from "../../../BLL/packs/packs-reducer";
+import {createPack} from "../../../BLL/packs/packs-reducer";
 import {IAppStore} from "../../../BLL/store/store";
 
 type  AddPackPropsType = {
@@ -9,7 +9,7 @@ type  AddPackPropsType = {
 }
 
 
-export const Add = React.memo((props: AddPackPropsType) => {
+export const AddPack = React.memo((props: AddPackPropsType) => {
 
 
     const [name, setName] = useState<string>("");
@@ -31,7 +31,7 @@ export const Add = React.memo((props: AddPackPropsType) => {
     }
 
     const onSaveClick = () => {
-        dispatch(createPacks(name, currentUserID))
+        dispatch(createPack(name, currentUserID))
         props.addModeOff()
     }
 

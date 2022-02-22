@@ -5,7 +5,7 @@ import {
     REGISTER_PATH,
     FORGOT_PATH,
     PROFILE_PATH, PACKS_LIST_PATH,
-} from './Routes';
+} from '../UI/Routes';
 
 const Header: React.FC = () => {
   const [show, setShow] = useState(false);

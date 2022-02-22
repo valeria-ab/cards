@@ -4,7 +4,7 @@ import {instance} from './api';
 // response form server
 export type PacksResponseType = {
 
-    cardPacks: cardPacksType[]
+    cardPacks: CardPacksType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -12,7 +12,7 @@ export type PacksResponseType = {
     pageCount: number
 }
 
-export type cardPacksType = {
+export type CardPacksType = {
     _id: string
     user_id: string
     user_name: string

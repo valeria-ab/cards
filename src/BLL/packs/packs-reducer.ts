@@ -1,14 +1,13 @@
-import {cardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/Packs-api';
+import {CardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/packs-api';
 import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
-import {setErrorAC} from "../Error/errorReducer";
-import {setAppLoading} from '../app/app-reducer';
+import {setAppLoading, setErrorAC} from '../app/app-reducer';
 
 
 export type InitialStateType = {
 
-    cardPacks: cardPacksType[]
+    cardPacks: CardPacksType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -20,7 +19,7 @@ export type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    cardPacks: [] as cardPacksType[],
+    cardPacks: [] as CardPacksType[],
     cardPacksTotalCount: 1,
     maxCardsCount: Infinity as number,
     minCardsCount: 0,
@@ -33,9 +32,8 @@ const initialState: InitialStateType = {
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'PACKS/GET-PACKS': {
+        case 'PACKS/SET-PACKS':
             return {...state, ...action.payload}
-        }
         case 'PACKS/SET-CARD-PACKS-CURRENT-PAGE':
             return {...state, page: action.page}
         case 'PACKS/SET-CARD-PACKS-PAGE-COUNT':
@@ -45,7 +43,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
         case 'PACKS/SET-WITH-MY-ID':
             return {...state, withMyId: action.withMyId}
         case 'PACKS/RANGE-SET-CARDS-PACKS-COUNT':
-            return {...state,  cardsValuesFromRange: [action.min,  action.max] }
+            return {...state, cardsValuesFromRange: [action.min, action.max]}
         // case 'PACKS/SET-MAX-CARDS-COUNT':
         //     return {...state, maxCardsCount: action.maxCardsCount}
         // case 'PACKS/SET-MIN-CARDS-COUNT':
@@ -56,9 +54,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 };
 
 
-export const GetPacksAC = (payload: PacksResponseType) => ({
-    type: 'PACKS/GET-PACKS',
-    payload
+export const setPacksAC = (payload: PacksResponseType) => ({
+    type: 'PACKS/SET-PACKS', payload
 } as const);
 
 export const setCardPacksCurrentPageAC = (page: number) =>
@@ -70,15 +67,10 @@ export const setSearchPackNameAC = (packName: string) =>
 export const setWithMyIdAC = (withMyId: boolean) =>
     ({type: 'PACKS/SET-WITH-MY-ID', withMyId} as const)
 
-export const setCardsPacksCountFromRangeAC = (numbers: Array<number> ) =>  // min and max cardsPacks
+export const setCardsPacksCountFromRangeAC = (numbers: Array<number>) =>  // min and max cardsPacks
     ({type: 'PACKS/RANGE-SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
 
-// export const setMaxCardsCountAC = (maxCardsCount: number) =>
-//     ({type: 'PACKS/SET-MAX-CARDS-COUNT', maxCardsCount} as const)
-// export const setMinCardsCountAC = (minCardsCount: number) =>
-//     ({type: 'PACKS/SET-MIN-CARDS-COUNT', minCardsCount} as const)
-
-export type GetPacksActionType = ReturnType<typeof GetPacksAC>
+export type GetPacksActionType = ReturnType<typeof setPacksAC>
 
 
 type ActionsType =
@@ -92,8 +84,8 @@ type ActionsType =
     // | ReturnType<typeof setMinCardsCountAC>
     | ReturnType<typeof setAppLoading>
 
-// thunk
 
+// thunk
 export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState: () => IAppStore) => {
 
     const {
@@ -101,50 +93,71 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         pageCount,
         cardsValuesFromRange,
         packName,
+        withMyId
     } = getState().packs;
+
+    const id = getState().profile._id
+
+    const mainPayload = withMyId
+        ? {
+            user_id: id,
+            page,
+            pageCount,
+            min: cardsValuesFromRange[0],
+            max: cardsValuesFromRange[1],
+            packName: packName,
+        }
+        : {
+            page,
+            pageCount,
+            min: cardsValuesFromRange[0],
+            max: cardsValuesFromRange[1],
+            packName: packName,
+        }
+
     dispatch(setAppLoading(true))
+
     packsApi.getPacks({
-        page,
-        pageCount,
-        min: cardsValuesFromRange[0],
-        max: cardsValuesFromRange[1],
-        packName: packName,
+        ...mainPayload,
         ...payload
     })
         .then((res) => {
-            dispatch(GetPacksAC(res.data))
+            dispatch(setPacksAC(res.data))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err))
         })
         .finally(() => dispatch(setAppLoading(false)))
+
 }
 
-
-export const createPacks = (name: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+export const createPack = (name: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     dispatch(setAppLoading(true))
     packsApi.createPack({name})
         .then((res) => {
             dispatch(getPacksTC({user_id}))
         })
-        .catch((err)=> {
+        .catch((err) => {
             dispatch(setErrorAC(err))
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
 
 
-export const deletedPacks = (packID: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+export const deletePack = (packID: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     dispatch(setAppLoading(true))
     packsApi.deletePack(packID)
         .then((res) => {
             dispatch(getPacksTC({user_id}))
         })
-        .catch((err)=> {
+        .catch((err) => {
             dispatch(setErrorAC(err))
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
 
 
-export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch, getState: () => IAppStore) => {
+export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch, getState: () => IAppStore) => {
     const pack = getState().packs.cardPacks.find((pack) => pack._id === payload._id)
 
     const updatePack = {...pack, ...payload};
@@ -153,7 +166,7 @@ export const updatePacks = (payload: cardPacksType): ThunkAction<void, IAppStore
         .then((res) => {
             dispatch(getPacksTC({user_id: payload.user_id}))
         })
-        .catch((err)=> {
+        .catch((err) => {
             dispatch(setErrorAC(err))
         })
         .finally(() => dispatch(setAppLoading(false)))

@@ -1,21 +1,21 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
 import {RateYourself} from '../../Rate/RateYourself';
-import {cardPacksType} from '../../../DAL/Packs-api';
 import React, {useEffect} from 'react';
 import styles from './Learn.module.scss';
 import {
     setMyCurrentGradeAC,
     updateGradeTC
 } from '../../../BLL/cards/cards-reducer';
-import {CardResponseType} from '../../../DAL/CardsAPI';
 import {useParams} from 'react-router-dom';
+import {CardResponseType} from '../../../DAL/cards-api';
+import {CardPacksType} from '../../../DAL/packs-api';
 
 
 type  LearnPackPropsType = {
     learnModeOff: () => void
     questionModeOn: () => void
-    pack: cardPacksType
+    pack: CardPacksType
     card: CardResponseType
 }
 
@@ -36,12 +36,11 @@ export const Learn = (props: LearnPackPropsType) => {
         //зануляет setMyCurrentGradeAC
         dispatch(setMyCurrentGradeAC(1))
 
-        dispatch(updateGradeTC(grade, props.card._id))
+        dispatch(updateGradeTC(props.card._id))
         props.learnModeOff()
         props.questionModeOn()
     }
 
-    const grade = useSelector<IAppStore, number>(state => state.cards.myCurrentGrade)
 
     return (
 
