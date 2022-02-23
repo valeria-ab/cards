@@ -9,28 +9,36 @@ import {PaginationCardsContainer} from '../PacksList/Pagination/PaginationCardsC
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {CardResponseType, cardsApi} from '../../DAL/cards-api';
+import {Navigate, NavLink, useParams} from 'react-router-dom';
+import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 
 type CardsPropsType = {
-    id: string
-    cardsModeOff: () => void
-    tableOffHandler: () => void
+    refresh: () => void
+    // id: string
+    // cardsModeOff: () => void
+    // tableOffHandler: () => void
 }
 
 export const Cards = (props: CardsPropsType) => {
+
     const dispatch = useDispatch()
+    const {packId} = useParams()
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
+    // const packId = useSelector<IAppStore, string>(state => state.cards.packId)
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [cardsCurrent, setCardsCurrent] = useState<CardResponseType | null>(null);
     const [addEditMode, setAddEditMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
     let page = useSelector<IAppStore, number>(state => state.cards.page)
     const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
+    const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
 
     useEffect(() => {
-        dispatch(getCardsTC({cardsPack_id: props.id}))
-        props.tableOffHandler()
-    }, [page, props.id])
-
+        if (packId) {
+            dispatch(getCardsTC({cardsPack_id: packId}))
+            // props.tableOffHandler()
+        }
+    }, [page, packId])
 
     const deleteModeOn = (cards: CardResponseType) => {
         setCardsCurrent(cards)
@@ -58,18 +66,18 @@ export const Cards = (props: CardsPropsType) => {
     }
 
     const updateCard = (cardId: string, question: string, answer: string,) => {
-        dispatch(updateCardTC(props.id, cardId, question, answer))
+        if (packId) dispatch(updateCardTC(packId, cardId, question, answer))
         setAddEditMode(false)
 
     }
 
 
     const createCard = (question: string, answer: string) => {
-        dispatch(createCardTC(props.id, question, answer))
+        if (packId) dispatch(createCardTC(packId, question, answer))
         setAddMode(false)
         setCardsCurrent(null)
     }
-if(isLoading) return <div>loading...</div>
+    if (isLoading) return <div>loading...</div>
 
     return (
         <div className={s.table}>
@@ -82,11 +90,14 @@ if(isLoading) return <div>loading...</div>
                 <AddUpdate addUpdateOff={addUpdateOff} updateCard={updateCard}
                            card={cardsCurrent}/>}
             {addMode && <AddUpdate createCard={createCard} addUpdateOff={addUpdateOff}/>}
-            <div onClick={() => {
-                props.cardsModeOff()
-            }} className={s.back}>Back to Packs
-            </div>
-
+            <NavLink to={
+                layout === 'packs-list'
+                    ? PACKS_LIST_PATH
+                    : PROFILE_PATH
+            }>
+                <button className={s.back} onClick={props.refresh}>Back to Packs
+                </button>
+            </NavLink>
             <button className={s.add} onClick={addCardOn}> Add Card</button>
             <div className={s.tableMain}>
                 <table className={s.tableWrapper}>
@@ -122,7 +133,7 @@ if(isLoading) return <div>loading...</div>
                     </tbody>
                 </table>
             </div>
-            <PaginationCardsContainer id={props.id}/>
+            {/*<PaginationCardsContainer id={packId}/>*/}
             <ErrorSnackbar/>
         </div>
     );

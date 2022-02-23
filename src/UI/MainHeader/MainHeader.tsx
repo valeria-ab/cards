@@ -8,6 +8,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {setCardsPacksCountFromRangeAC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import {logOut} from '../../BLL/login/login-reducer';
+import {changeLayoutAC} from '../../BLL/cards/cards-reducer';
 
 export default function MainHeader() {
     const dispatch = useDispatch()
@@ -21,6 +22,7 @@ export default function MainHeader() {
                         <button className={s.btn} onClick={() => {
                             dispatch(setWithMyIdAC(false))
                             dispatch(setCardsPacksCountFromRangeAC([0,1000]))
+                            dispatch(changeLayoutAC("packs-list"))
                         }}>
                             <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"/>
                             <span>Packs List</span>
@@ -30,6 +32,7 @@ export default function MainHeader() {
                         <button className={s.btn} onClick={() => {
                             dispatch(setWithMyIdAC(true))
                             dispatch(setCardsPacksCountFromRangeAC([0,1000]))
+                            dispatch(changeLayoutAC("profile"))
                         }}>
                             <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
                             <span>Profile</span>

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {RateYourself} from '../../Rate/RateYourself';
+import {RateYourself} from '../Rate/RateYourself';
 import React, {useEffect} from 'react';
 import styles from './Learn.module.scss';
 import {
