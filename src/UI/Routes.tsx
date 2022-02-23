@@ -8,6 +8,7 @@ import {Forgot} from './Forgot/Forgot';
 import {PacksList} from './PacksList/PacksList';
 import {Learning} from './Modals/Learn/Learning';
 import {Profile} from './Profile/Profile';
+import {Cards} from './Cards/Cards';
 
 // all project paths
 export const SIGN_IN_PATH = '/login';
@@ -22,17 +23,19 @@ const RoutesComponent: React.FC = () => {
 
     return (
         <Routes>
-            <Route path={'/'} element={<Profile/>}/>
-            <Route path={PROFILE_PATH} element={<Profile/>}/>
+            <Route path={'/'} element={<Profile isTableMode={true}/>}/>
+            <Route path={PROFILE_PATH} element={<Profile isTableMode={true}/>}/>
             <Route path={SIGN_IN_PATH} element={<Login/>}/>
             <Route path={REGISTER_PATH} element={<RegisterPage/>}/>
             <Route path={FORGOT_PATH} element={<Forgot/>}/>
             <Route path={RECOVERY_PATH} element={<NewPassword/>}/>
-            <Route path={PACKS_LIST_PATH} element={<PacksList/>}/>
+            <Route path={PACKS_LIST_PATH} element={<PacksList isTableMode={true}/>}/>
             <Route path={'404'} element={<Error404/>}/>
             <Route path={'*'} element={<Navigate to="/404"/>}/>
             <Route path={'/cards'} element={<Navigate to="/profile"/>}/>
             <Route path={'/learn/:packId'} element={<Learning />}/>
+            <Route path={'/packs-list/:packId'} element={<PacksList isTableMode={false}/>}/>
+            <Route path={'/profile/:packId'} element={<Profile isTableMode={false} />}/>
         </Routes>
     );
 };

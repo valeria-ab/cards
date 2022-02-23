@@ -13,9 +13,10 @@ import {QuestionModal} from '../Modals/Learn/QuestionModal';
 import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {CardResponseType} from '../../DAL/cards-api';
 import {CardPacksType} from '../../DAL/packs-api';
+import {NavLink} from 'react-router-dom';
 
 type  CardsPropsType = {
-    onClickCardsHandler: (id: string) => void
+    // onClickCardsHandler: (id: string) => void
 }
 
 
@@ -30,6 +31,7 @@ export const Table = React.memo((props: CardsPropsType) => {
     const dispatch = useDispatch()
 
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
+    const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
 
     const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
 
@@ -142,10 +144,17 @@ export const Table = React.memo((props: CardsPropsType) => {
                     {cardPacks.map((pack) => {
 
                         return (<tr key={pack._id} className={s.table__row}>
-                            <td className={s.table__data}
-                                onClick={() => {
-                                    props.onClickCardsHandler(pack._id)
-                                }}>{pack.name}</td>
+                            <NavLink to={
+                                layout === 'packs-list'
+                                    ? `/packs-list/${pack._id}`
+                                    : `/profile/${pack._id}`
+                            }>
+                                <td className={s.table__data}
+                                    onClick={() => {
+                                        // props.onClickCardsHandler(pack._id)
+                                        // dispatch(setCurrentPackIdAC(pack._id))
+                                    }}>{pack.name}</td>
+                            </NavLink>
                             <td className={s.table__data}>{pack.cardsCount}</td>
                             <td className={s.table__data}>{pack.updated}</td>
                             <td className={s.table__data}>{pack.user_name}</td>
