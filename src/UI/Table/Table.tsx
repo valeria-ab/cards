@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
@@ -8,44 +8,22 @@ import {AddPack} from '../Modals/Add/Add';
 import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
-import {Learn} from '../Modals/Learn/Learn';
-import {QuestionModal} from '../Modals/Learn/QuestionModal';
-import {getCardsTC} from '../../BLL/cards/cards-reducer';
-import {CardResponseType} from '../../DAL/cards-api';
+import {getCardsTC, setCurrentPackAC} from '../../BLL/cards/cards-reducer';
 import {CardPacksType} from '../../DAL/packs-api';
 import {NavLink} from 'react-router-dom';
 
-type  CardsPropsType = {
-    // onClickCardsHandler: (id: string) => void
-}
 
 
-export const Table = React.memo((props: CardsPropsType) => {
+export const Table = React.memo(() => {
     // console.log("я табле я отрисовался")
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
-    const [learnMode, setLearnMode] = useState<boolean>(false);
-    const [questionMode, setQuestionMode] = useState<boolean>(false);
-    const [card, setCard] = useState<CardResponseType>({} as CardResponseType);
     const dispatch = useDispatch()
 
-    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
 
     const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
-
-    const getCard = (cards: CardResponseType[]) => {
-        const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
-        const rand = Math.random() * sum;
-        const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
-                const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-                return {sum: newSum, id: newSum < rand ? i : acc.id}
-            }
-            , {sum: 0, id: -1});
-        // console.log('test: ', sum, rand, res)
-        return cards[res.id + 1];
-    }
 
     const [pack, setPack] = useState<CardPacksType | null>(null);
 
@@ -82,32 +60,11 @@ export const Table = React.memo((props: CardsPropsType) => {
         setAddMode(false)
     }
 
-    const learnModeOn = (pack: CardPacksType) => {
-        setPack(pack)
-        setLearnMode(true)
-
-    }
-    const learnModeOff = () => {
-        setLearnMode(false)
-        setQuestionMode(false)
-    }
-
-    const questionModeOn = (pack: CardPacksType) => {
-        setQuestionMode(true)
-    }
-    const questionModeOff = () => {
-        setQuestionMode(false)
-    }
 
     const onLearnButtonClick = (pack: CardPacksType) => {
-        setPack(pack)
+        dispatch(setCurrentPackAC(pack))
         dispatch(getCardsTC({cardsPack_id: pack._id}))
-        setQuestionMode(true)
     }
-
-    useEffect(() => {
-        setCard(getCard(cards))
-    }, [])
 
 
     if (isLoading) {
@@ -118,10 +75,6 @@ export const Table = React.memo((props: CardsPropsType) => {
             {addMode && <AddPack addModeOff={addModeOff}/>}
             {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
             {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
-            {pack && questionMode && <QuestionModal card={card} pack={pack} learnModeOn={() => learnModeOn(pack)}
-                                                    questionModeOff={questionModeOff}/>}
-            {pack && learnMode && <Learn card={card} pack={pack} learnModeOff={learnModeOff}
-                                         questionModeOn={() => questionModeOn(pack)}/>}
 
 
             <h2 className={s.Table__name}>Packs List</h2>
@@ -149,16 +102,11 @@ export const Table = React.memo((props: CardsPropsType) => {
                                     ? `/packs-list/${pack._id}`
                                     : `/profile/${pack._id}`
                             }>
-                                <td className={s.table__data}
-                                    onClick={() => {
-                                        // props.onClickCardsHandler(pack._id)
-                                        // dispatch(setCurrentPackIdAC(pack._id))
-                                    }}>{pack.name}</td>
+                                <td className={s.table__data}>{pack.name}</td>
                             </NavLink>
                             <td className={s.table__data}>{pack.cardsCount}</td>
                             <td className={s.table__data}>{pack.updated}</td>
                             <td className={s.table__data}>{pack.user_name}</td>
-                            {/*<td className={s.table__data}>{pack.created}</td>*/}
                             <td className={s.table__data}>
                                 {userId === pack.user_id ?
                                     <div className={s.buttons}>
@@ -168,21 +116,22 @@ export const Table = React.memo((props: CardsPropsType) => {
                                         <button className={s.buttonWrapper}
                                                 onClick={() => editModeOn(pack)}>Edit
                                         </button>
-                                        {/*<NavLink to={`/learn/${pack._id}`}>*/}
-                                        {
-                                            pack.cardsCount > 0 && <button className={s.buttonWrapper}
-                                                                           onClick={() => onLearnButtonClick(pack)}>Learn
-                                            </button>
-                                        }
-                                        {/*</NavLink>*/}
+                                        <NavLink to={`/learn/${pack._id}`}>
+                                            {
+                                                pack.cardsCount > 0 && <button className={s.buttonWrapper}
+                                                                               onClick={() => onLearnButtonClick(pack)}
+                                                >Learn
+                                                </button>
+                                            }
+                                        </NavLink>
 
                                     </div>
                                     : pack.cardsCount > 0 &&
-                                    //<NavLink to={`/learn/${pack._id}`}>
-                                    <button className={s.buttonWrapper}
-                                            onClick={() => onLearnButtonClick(pack)}>Learn
-                                    </button>
-                                    // </NavLink>
+                                    <NavLink to={`/learn/${pack._id}`}>
+                                        <button className={s.buttonWrapper}
+                                                onClick={() => onLearnButtonClick(pack)}>Learn
+                                        </button>
+                                    </NavLink>
                                 }
                             </td>
                         </tr>)

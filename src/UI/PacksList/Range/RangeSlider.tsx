@@ -48,6 +48,7 @@ export default function RangeSlider() {
     const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
     const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount])
 
+
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (maxCardsCount > 0) {
             setValues(newValue as number[])

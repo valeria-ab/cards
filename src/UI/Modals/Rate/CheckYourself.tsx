@@ -1,54 +1,37 @@
+import {setMyCurrentGradeAC, updateGradeTC} from '../../../BLL/cards/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
+import React, {FormEvent} from 'react';
 import {IAppStore} from '../../../BLL/store/store';
-import {RateYourself} from '../Rate/RateYourself';
-import React, {useEffect} from 'react';
-import styles from './Learn.module.scss';
-import {
-    setMyCurrentGradeAC,
-    updateGradeTC
-} from '../../../BLL/cards/cards-reducer';
-import {useParams} from 'react-router-dom';
+import styles from '../Learning/Learning.module.scss';
+import s from './Rate.module.scss';
 import {CardResponseType} from '../../../DAL/cards-api';
 import {CardPacksType} from '../../../DAL/packs-api';
+import {NavLink} from 'react-router-dom';
+import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
+import {RateYourself} from './RateYourself';
 
 
-type  LearnPackPropsType = {
-    learnModeOff: () => void
-    questionModeOn: () => void
-    pack: CardPacksType
+export const CheckYourself = (props: {
     card: CardResponseType
-}
-
-export const Learn = (props: LearnPackPropsType) => {
-    const {learningCardId} = useParams()
+    pack: CardPacksType
+    checkYourselfModeOff: () => void
+    questionMode: (value: boolean) => void
+}) => {
+    const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
-
     const onNextClick = () => {
-
+        dispatch(updateGradeTC(props.card._id))
+        props.checkYourselfModeOff()
         //зануляет setMyCurrentGradeAC
         dispatch(setMyCurrentGradeAC(1))
-
-        dispatch(updateGradeTC(props.card._id))
-        props.learnModeOff()
-        props.questionModeOn()
     }
-
-
     return (
 
         <div className={styles.modal}>
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Learn "pack.name"</h2>
+                        <h2 className={styles.title}>Learn {props.pack.name}</h2>
                     </div>
                     <div className={styles.questionBody}>
                         <div className={styles.bold}>Question:
@@ -60,9 +43,15 @@ export const Learn = (props: LearnPackPropsType) => {
                     </div>
                     <RateYourself/>
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.learnModeOff}>
-                            Cancel
-                        </button>
+                        <NavLink to={
+                            layout === 'packs-list'
+                                ? PACKS_LIST_PATH
+                                : PROFILE_PATH
+                        }>
+                            <button className={styles.btnCancel} onClick={() => props.questionMode(false)}>
+                                Cancel
+                            </button>
+                        </NavLink>
                         <button onClick={onNextClick}
                                 className={styles.btnNext}
                         >

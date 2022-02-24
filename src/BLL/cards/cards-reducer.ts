@@ -10,6 +10,7 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {IAppStore} from '../store/store';
 import {rateApi} from '../../DAL/rate-api';
 import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
+import {CardPacksType} from '../../DAL/packs-api';
 
 export type InitialCardsStateType = {
     cards: CardResponseType[],
@@ -21,6 +22,7 @@ export type InitialCardsStateType = {
     packUserId: string | null
     myCurrentGrade: number
     layout: "profile" | "packs-list"
+    currentPack: CardPacksType | null
 }
 
 const initialState: InitialCardsStateType = {
@@ -32,7 +34,8 @@ const initialState: InitialCardsStateType = {
     pageCount: 10,
     packUserId: null,
     myCurrentGrade: 1,
-    layout: "profile"
+    layout: "profile",
+    currentPack: null
 };
 
 export const cardsReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -56,6 +59,9 @@ export const cardsReducer = (state: InitialCardsStateType = initialState, action
             }
         case 'CARDS/CHANGE-LAYOUT': {
             return {...state, layout: action.value}
+        }
+        case 'CARDS/SET-CURRENT-PACK': {
+            return {...state, currentPack: action.value}
         }
         default:
             return state;
@@ -83,6 +89,8 @@ export const setMyCurrentGradeAC = (value: number) =>
 export const updateGradeAC = (grade: number, id: string) => ({type: 'CARDS/UPDATE-GRADE', grade, id} as const)
 export const changeLayoutAC = (value: "profile" | "packs-list") =>
     ({type: 'CARDS/CHANGE-LAYOUT', value} as const)
+export const setCurrentPackAC = (value: CardPacksType) =>
+    ({type: 'CARDS/SET-CURRENT-PACK', value} as const)
 
 export type GetCardsActionType = ReturnType<typeof getCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
@@ -96,6 +104,7 @@ type ActionsType =
     | SetErrorActionType
     | ReturnType<typeof setAppLoading>
     | ReturnType<typeof changeLayoutAC>
+    | ReturnType<typeof setCurrentPackAC>
 
 // thunk
 
