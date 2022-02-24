@@ -1,8 +1,8 @@
 import {setMyCurrentGradeAC} from '../../../BLL/cards/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {FormEvent} from 'react';
+import React, {FormEvent} from 'react';
 import {IAppStore} from '../../../BLL/store/store';
-import styles from './Rate.module.scss';
+import s from './Rate.module.scss';
 
 
 export const RateYourself = () => {
@@ -12,9 +12,9 @@ export const RateYourself = () => {
         e.preventDefault();
     };
 
-    return <div className={styles.rateYourselfBlock}>
-        <div className={styles.title}>Rate yourself:</div>
-        <div className={styles.radioButtons}>
+    return <div className={s.rateYourselfBlock}>
+        <div className={s.title}>Rate yourself:</div>
+        <div className={s.radioButtons}>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>

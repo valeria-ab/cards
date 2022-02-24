@@ -6,7 +6,7 @@ import {NewPassword} from './Forgot/NewPassword';
 import {Error404} from './Error404';
 import {Forgot} from './Forgot/Forgot';
 import {PacksList} from './PacksList/PacksList';
-import {Learning} from './Modals/Learn/Learning';
+import {Learning} from './Modals/Learning/Learning';
 import {Profile} from './Profile/Profile';
 import {Cards} from './Cards/Cards';
 
