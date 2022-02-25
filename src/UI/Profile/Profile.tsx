@@ -13,16 +13,20 @@ import {changeUserNameOrAvatar, InitialProfileStateType} from '../../BLL/profile
 export const Profile = (props: { isTableMode: boolean }) => {
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
+    const pageCount = useSelector<IAppStore, number>((state) => state.packs.pageCount);
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
+    const page = useSelector<IAppStore, number>(state => state.packs.page)
+    const packName = useSelector<IAppStore, string>(state => state.packs.packName)
+    const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
 
     const onChangeNameClick = (newName: string) => dispatch(changeUserNameOrAvatar(newName))
 
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [])
+    }, [page, pageCount, cardsValuesFromRange, packName])
 
 
     if (!isInitialized) {

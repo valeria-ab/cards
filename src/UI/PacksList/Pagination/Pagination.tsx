@@ -2,6 +2,14 @@ import React, {useState} from 'react';
 import s from './Paginations.module.scss'
 import Select from './Select';
 
+type PropsType = {
+    cardPacksTotalCount: number
+    pageCount: number
+    onChangeOption: (value: number) => void
+    page: number
+    currentPageHandler(page: number): void
+}
+
 export const Pagination: React.FC<PropsType> = (props) => {
 
     let pagesCount = Math.ceil(props.cardPacksTotalCount / props.pageCount); // count of all pages, before pagination
@@ -64,21 +72,19 @@ export const Pagination: React.FC<PropsType> = (props) => {
                 </>
             }
             {portionCount > portion &&
-                <button disabled={portion===portionCount}
+                <button disabled={portion === portionCount}
                         className={s.btnRight}
                         onClick={() => {
-                    setPortion(portion + 1)
-                    props.currentPageHandler(portionSize * portion + 1)
-                }}>&gt;</button>}
+                            setPortion(portion + 1)
+                            props.currentPageHandler(portionSize * portion + 1)
+                        }}>&gt;</button>}
             <div className={s.selectBlock}>
 
 
                 <span className={s.label1}>Show</span>
                 <Select
-                    options={props.select.arr}
-                    value={props.select.valueForSelect}
-                    onChangeOption={props.select.onChangeOption}
-                    onClick={props.onClickSelectHandler}
+                    pageCount={props.pageCount}
+                    onChangeOption={props.onChangeOption}
                     className={`${s.select} ${s.superSelect}`}
                 />
                 <span className={s.label2}>Cards per Page</span>
@@ -89,16 +95,3 @@ export const Pagination: React.FC<PropsType> = (props) => {
     )
 }
 
-type PropsType = {
-    cardPacksTotalCount: number
-    pageCount: number
-    onClickSelectHandler: () => void
-    select: {
-        valueForSelect: string
-        onChangeOption: (value: string) => void
-        // onChangeOption: React.Dispatch<React.SetStateAction<string>>
-        arr: Array<string>
-    }
-    page: number
-    currentPageHandler(page: number): void
-}
