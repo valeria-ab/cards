@@ -97,11 +97,14 @@ export const Table = React.memo(() => {
                     {cardPacks.map((pack) => {
 
                         return (<tr key={pack._id} className={s.table__row}>
-                            <NavLink to={
-                                layout === 'packs-list'
-                                    ? `/packs-list/${pack._id}`
-                                    : `/profile/${pack._id}`
-                            }>
+                            {/*<NavLink to={*/}
+                            {/*    layout === 'packs-list'*/}
+                            {/*        ? `/packs-list/${pack._id}`*/}
+                            {/*        : `/profile/${pack._id}`*/}
+                            {/*}>*/}
+                            {/*    <td className={s.table__data}>{pack.name}</td>*/}
+                            {/*</NavLink>*/}
+                            <NavLink to={`/pack/${pack._id}`}>
                                 <td className={s.table__data}>{pack.name}</td>
                             </NavLink>
                             <td className={s.table__data}>{pack.cardsCount}</td>

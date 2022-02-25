@@ -10,7 +10,7 @@ import RangeSlider from '../PacksList/Range/RangeSlider';
 import {EditableSpan} from './EditableSpan/EditableSpan';
 import {changeUserNameOrAvatar, InitialProfileStateType} from '../../BLL/profile/profile-reducer';
 
-export const Profile = (props: { isTableMode: boolean }) => {
+export const Profile = () => {
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const pageCount = useSelector<IAppStore, number>((state) => state.packs.pageCount);
@@ -29,14 +29,14 @@ export const Profile = (props: { isTableMode: boolean }) => {
     }, [page, pageCount, cardsValuesFromRange, packName])
 
 
-    if (!isInitialized) {
-        return <Navigate to={'/login'}/>;
-    }
     const refresh = async () => {
         await dispatch(getPacksTC())
     }
 
 
+    if (!isInitialized) {
+        return <Navigate to={'/login'}/>;
+    }
     return (
         <div className={s.container}>
             <div className={s.profile__info}>
@@ -50,9 +50,8 @@ export const Profile = (props: { isTableMode: boolean }) => {
                 <RangeSlider/>
             </div>
             <div className={s.profile__main}>
-                {props.isTableMode
-                    ? <Table/>
-                    : <Cards refresh={refresh}/>}
+                {/*{props.isTableMode && <Table/>}*/}
+                <Table/>
             </div>
         </div>
     );

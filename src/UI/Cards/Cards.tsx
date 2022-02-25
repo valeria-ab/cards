@@ -13,7 +13,7 @@ import {Navigate, NavLink, useParams} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 
 type CardsPropsType = {
-    refresh: () => void
+    // refresh: () => void
     // id: string
     // cardsModeOff: () => void
     // tableOffHandler: () => void
@@ -79,6 +79,7 @@ export const Cards = (props: CardsPropsType) => {
     if (isLoading) return <div>loading...</div>
 
     return (
+        <div className={s.container}>
         <div className={s.table}>
             <Search/>
             {cards && cardsCurrent && deleteMode &&
@@ -94,7 +95,9 @@ export const Cards = (props: CardsPropsType) => {
                     ? PACKS_LIST_PATH
                     : PROFILE_PATH
             }>
-                <button className={s.back} onClick={props.refresh}>Back to Packs
+                <button className={s.back}
+                        // onClick={props.refresh}
+                > стрелка назад
                 </button>
             </NavLink>
             <button className={s.add} onClick={addCardOn}> Add Card</button>
@@ -134,6 +137,7 @@ export const Cards = (props: CardsPropsType) => {
             </div>
             <PaginationCardsContainer/>
             <ErrorSnackbar/>
+        </div>
         </div>
     );
 };

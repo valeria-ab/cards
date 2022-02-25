@@ -10,7 +10,9 @@ import {IAppStore} from '../../BLL/store/store';
 import {Navigate} from 'react-router-dom';
 
 
-export const PacksList = (props: { isTableMode: boolean }) => {
+export const PacksList = (
+    // props: { isTableMode: boolean }
+) => {
     // console.log("я пакслист я отрисовался")
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
@@ -38,12 +40,11 @@ export const PacksList = (props: { isTableMode: boolean }) => {
                 <div className={s.profile__ChooseOwner}>
                     <ChooseOwner/>
                 </div>
-                <RangeSlider/>
+                <RangeSlider />
             </div>
             <div className={s.profile__main}>
-                {props.isTableMode
-                    ? <Table/>
-                    : <Cards refresh={refresh}/>}
+                {/*{props.isTableMode && <Table/>}*/}
+                <Table/>
             </div>
         </div>
     </div>

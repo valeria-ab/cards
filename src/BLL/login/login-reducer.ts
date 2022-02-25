@@ -74,7 +74,7 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
             dispatch(setUserProfile(res.data))
         })
         .catch((err) => {
-
+            console.log(err)
         })
         .finally(() =>   dispatch(setAppLoading(false)))
 }
