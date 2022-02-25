@@ -27,7 +27,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 42px;
+  margin-bottom: 20px;
 }
 
 .wrapBtn {
@@ -54,7 +54,7 @@
   height: 36px;
   border-radius: 30px;
   color: #f9f9fe;
- background-color: red;
+ background-color: #e2001b;
   cursor: pointer;
 }
 
@@ -69,5 +69,6 @@
 }
 
 .text {
-  opacity: 0.5;
+  //opacity: 0.5;
+  margin-bottom: 20px;
 }

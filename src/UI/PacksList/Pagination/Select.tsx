@@ -25,8 +25,8 @@ const dispatch=useDispatch()
     const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
         onChange && onChange(e)
         onChangeOption && onChangeOption(e.currentTarget.value)
-        dispatch(setCardPacksPageCountAC(+e.currentTarget.value))
-        // dispatch(getPacksTC())
+        // dispatch(setCardPacksPageCountAC(+e.currentTarget.value))
+
     }
 
     return (

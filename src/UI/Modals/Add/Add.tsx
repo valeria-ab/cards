@@ -11,20 +11,11 @@ type  AddPackPropsType = {
 
 export const AddPack = React.memo((props: AddPackPropsType) => {
 
-
     const [name, setName] = useState<string>("");
 
     const dispatch = useDispatch()
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
-
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
 
     const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value)

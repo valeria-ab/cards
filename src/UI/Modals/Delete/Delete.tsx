@@ -20,13 +20,6 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
     // const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     //     setName(e.currentTarget.value)
     // }
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
 
 
     const onSaveClick = () => {
@@ -41,7 +34,7 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Delete pack name</h2>
+                        <h2 className={styles.title}>Delete pack</h2>
                     </div>
                     <p className={styles.text}>Do you really want to remove the pack "{props.pack.name}" ?
                         All cards will be excluded from this course.</p>

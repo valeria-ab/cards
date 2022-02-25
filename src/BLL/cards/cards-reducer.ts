@@ -35,7 +35,7 @@ const initialState: InitialCardsStateType = {
     packUserId: null,
     myCurrentGrade: 1,
     layout: "profile",
-    currentPack: null
+    currentPack: null,
 };
 
 export const cardsReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {

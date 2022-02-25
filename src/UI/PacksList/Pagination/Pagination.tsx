@@ -95,7 +95,8 @@ type PropsType = {
     onClickSelectHandler: () => void
     select: {
         valueForSelect: string
-        onChangeOption: React.Dispatch<React.SetStateAction<string>>
+        onChangeOption: (value: string) => void
+        // onChangeOption: React.Dispatch<React.SetStateAction<string>>
         arr: Array<string>
     }
     page: number

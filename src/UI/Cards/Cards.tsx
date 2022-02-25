@@ -24,7 +24,7 @@ export const Cards = (props: CardsPropsType) => {
     const dispatch = useDispatch()
     const {packId} = useParams()
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
-    // const packId = useSelector<IAppStore, string>(state => state.cards.packId)
+    const pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [cardsCurrent, setCardsCurrent] = useState<CardResponseType | null>(null);
     const [addEditMode, setAddEditMode] = useState<boolean>(false);
@@ -36,9 +36,8 @@ export const Cards = (props: CardsPropsType) => {
     useEffect(() => {
         if (packId) {
             dispatch(getCardsTC({cardsPack_id: packId}))
-            // props.tableOffHandler()
         }
-    }, [page, packId])
+    }, [page, packId, pageCount])
 
     const deleteModeOn = (cards: CardResponseType) => {
         setCardsCurrent(cards)
@@ -133,7 +132,7 @@ export const Cards = (props: CardsPropsType) => {
                     </tbody>
                 </table>
             </div>
-            {/*<PaginationCardsContainer id={packId}/>*/}
+            <PaginationCardsContainer/>
             <ErrorSnackbar/>
         </div>
     );

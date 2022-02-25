@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Pagination} from "./Pagination";
 import {IAppStore} from '../../../BLL/store/store';
 import {setCardsCurrentPageAC, setCardsPageCountAC} from '../../../BLL/cards/cards-reducer';
 
-export const PaginationCardsContainer = (props: {id: string}) => {
+export const PaginationCardsContainer = () => {
     const dispatch = useDispatch()
 
     let pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
@@ -20,7 +20,12 @@ export const PaginationCardsContainer = (props: {id: string}) => {
 
     const arr = ['5', '10', '20', '50', '100'] // for Select
 
-    const [valueForSelect, onChangeOption] = useState(arr[1]) // for Select
+    const [valueForSelect, setValueForSelect] = useState(arr[1]) // for Select
+
+    const onChangeOption = (value: string) => {
+        setValueForSelect(value)
+        dispatch(setCardsPageCountAC(+value))
+    }
 
     const onClickSelectHandler = () => {
         dispatch(setCardsPageCountAC(+valueForSelect))

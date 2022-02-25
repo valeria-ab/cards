@@ -1,6 +1,6 @@
 import {setMyCurrentGradeAC, updateGradeTC} from '../../../BLL/cards/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import React, {FormEvent} from 'react';
+import React from 'react';
 import {IAppStore} from '../../../BLL/store/store';
 import styles from '../Learning/Learning.module.scss';
 import s from './Rate.module.scss';

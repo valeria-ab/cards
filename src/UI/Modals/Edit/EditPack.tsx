@@ -16,14 +16,6 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
     const dispatch = useDispatch()
 
 
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
-
     const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
         setname(e.currentTarget.value)
     }
