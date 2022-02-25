@@ -164,7 +164,7 @@ export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore,
     dispatch(setAppLoading(true))
     packsApi.updatePack(updatePack)
         .then((res) => {
-            dispatch(getPacksTC({user_id: payload.user_id}))
+            dispatch(getPacksTC())
         })
         .catch((err) => {
             dispatch(setErrorAC(err))
