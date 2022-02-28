@@ -20,7 +20,8 @@ export const Pagination: React.FC<PropsType> = (props) => {
     const portionSize = 5; // по 5 страниц показывать до точек
     const portionCount = Math.ceil(pagesCount / portionSize) // сколько всего pagination кнопок
 
-    const [portion, setPortion] = useState(1)
+    const [portion, setPortion] = useState(Math.ceil(props.page / portionSize))
+
     const leftNumber = (portion - 1) * portionSize + 1
     const rightNumber = portion * portionSize
 

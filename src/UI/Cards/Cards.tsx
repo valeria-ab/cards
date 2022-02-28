@@ -121,7 +121,7 @@ export const Cards = (props: CardsPropsType) => {
                         return (<tr key={card._id} className={s.table__row}>
                             <td className={s.table__data}>{card.question}</td>
                             <td className={s.table__data}>{card.answer}</td>
-                            <td className={s.table__data}>{card.updated}</td>
+                            <td className={s.table__data}>{card.updated.slice(0,10)}</td>
                             <td className={s.table__data}>{card.grade}</td>
                             <td className={s.buttons}>
                                 <button className={s.delButtonWrapper} onClick={() => {

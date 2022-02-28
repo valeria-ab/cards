@@ -15,7 +15,7 @@ import {NavLink} from 'react-router-dom';
 
 
 export const Table = React.memo(() => {
-    // console.log("я табле я отрисовался")
+
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
@@ -108,7 +108,7 @@ export const Table = React.memo(() => {
                                 <td className={s.table__data}>{pack.name}</td>
                             </NavLink>
                             <td className={s.table__data}>{pack.cardsCount}</td>
-                            <td className={s.table__data}>{pack.updated}</td>
+                            <td className={s.table__data}>{pack.updated.slice(0,10)}</td>
                             <td className={s.table__data}>{pack.user_name}</td>
                             <td className={s.table__data}>
                                 {userId === pack.user_id ?
