@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from '../Table/Table.module.scss';
+import ArrowBackIcon from '../../image/png-transparent-arrow-computer-icons-left-arrow-angle-text-rectangle.png'
 import {useDispatch, useSelector} from 'react-redux';
 import {createCardTC, getCardsTC, updateCardTC} from '../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../BLL/store/store';
@@ -11,6 +12,7 @@ import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {CardResponseType, cardsApi} from '../../DAL/cards-api';
 import {Navigate, NavLink, useParams} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
+import PackListIcon from '../../image/PacksListImg.png';
 
 type CardsPropsType = {
     // refresh: () => void
@@ -95,10 +97,11 @@ export const Cards = (props: CardsPropsType) => {
                     ? PACKS_LIST_PATH
                     : PROFILE_PATH
             }>
-                <button className={s.back}
-                        // onClick={props.refresh}
-                > стрелка назад
-                </button>
+<button >
+    <img className={s.back} src={ArrowBackIcon} alt="ArrowBack"/>
+</button>
+
+
             </NavLink>
             <button className={s.add} onClick={addCardOn}> Add Card</button>
             <div className={s.tableMain}>
