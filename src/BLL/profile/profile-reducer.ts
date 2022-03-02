@@ -42,9 +42,22 @@ export const profileReducer = (
 };
 
 
-export const changeUserNameOrAvatar = (name?: string, avatar?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+export const changeUserName = (name: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     dispatch(setAppLoading(true))
-    authApi.changeName({name, avatar})
+    authApi.changeName(name)
+        .then((res) => {
+            dispatch(setUserProfile(res.data.updatedUser))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err))
+        })
+        .finally(() => dispatch(setAppLoading(false)))
+}
+
+export const changeProfilePhoto = (avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading(true))
+
+    authApi.changeProfilePhoto(avatar)
         .then((res) => {
             dispatch(setUserProfile(res.data.updatedUser))
         })

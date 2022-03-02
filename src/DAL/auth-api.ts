@@ -9,7 +9,7 @@ export type LogOutType = {
     info: string;
     error: string;
 };
-type ChangeNamePayloadType = {
+type ChangeNameAvatarPayloadType = {
     name?: string
     avatar?: string // url or base64
 }
@@ -24,15 +24,22 @@ export const authApi = {
     me() {
         return instance.post<UserDomainType>('auth/me', {});
     },
-    changeName(payload: ChangeNamePayloadType) {
+    changeName(name: string) {
         return instance.put<{
-            token: string
-            tokenDeathTime: string
-            updatedUser: UserDomainType
+            // token: string
+            // tokenDeathTime: string
+            updatedUser: UserDomainType,
+            error?:string
         }>
-        ('auth/me', {
-            name: payload.name,
-            avatar: payload.avatar
-        });
+        ('auth/me', {name});
+    },
+    changeProfilePhoto(avatar: string | ArrayBuffer | null) {
+        return instance.put<{
+            // token: string
+            // tokenDeathTime: string
+            updatedUser: UserDomainType,
+            error?:string
+        }>
+        ('auth/me', {avatar});
     },
 };
