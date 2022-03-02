@@ -13,6 +13,7 @@ import {CardResponseType, cardsApi} from '../../DAL/cards-api';
 import {Navigate, NavLink, useParams} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import PackListIcon from '../../image/PacksListImg.png';
+import {Rating} from "react-simple-star-rating";
 
 type CardsPropsType = {
     // refresh: () => void
@@ -34,6 +35,13 @@ export const Cards = (props: CardsPropsType) => {
     let page = useSelector<IAppStore, number>(state => state.cards.page)
     const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
+
+
+    const [rating, setRating] = useState(0)
+    const handleRating = (rate: number) => {
+        setRating(rate)
+        // other logic
+    }
 
     useEffect(() => {
         if (packId) {
@@ -122,7 +130,18 @@ export const Cards = (props: CardsPropsType) => {
                             <td className={s.table__data}>{card.question}</td>
                             <td className={s.table__data}>{card.answer}</td>
                             <td className={s.table__data}>{card.updated.slice(0,10)}</td>
-                            <td className={s.table__data}>{card.grade}</td>
+                            <td className={s.table__data}>
+                                <Rating
+                                    readonly
+                                    emptyColor={'#D7D8EF'}
+                                    transition
+                                    fillColor={'#21268F'}
+                                    size={20}
+                                    ratingValue={card.grade * 20}
+                                />
+
+                            </td>
+                            {/*<td className={s.table__data}>{card.grade}</td>*/}
                             <td className={s.buttons}>
                                 <button className={s.delButtonWrapper} onClick={() => {
                                     deleteModeOn(card)

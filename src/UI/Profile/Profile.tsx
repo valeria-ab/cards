@@ -18,6 +18,11 @@ export const Profile = () => {
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
+
+
+
+
+
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const error = useSelector<IAppStore, string | null>(state => state.app.error)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
