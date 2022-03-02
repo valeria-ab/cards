@@ -16,7 +16,7 @@ const Login = React.memo(() => {
 
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const error = useSelector<IAppStore, string>((state) => state.login.error);
-    const appError = useSelector<IAppStore, string | null>((state) => state.app.error);
+    const loading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
     const dispatch = useDispatch();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,12 +26,10 @@ const Login = React.memo(() => {
     if (isInitialized) {
         return <Navigate to={'/profile'}/>
     }
-if(appError) {
-    alert(appError)
-}
 
     return (
         <div className={s.signIn}>
+            {loading && <div>loading...</div>}
             <h2 className={s.title}>It-incubator</h2>
             <h3 className={s.subtitle}>Sign In</h3>
             <form onSubmit={handleSubmit}>

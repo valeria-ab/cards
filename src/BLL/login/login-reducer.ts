@@ -60,7 +60,7 @@ export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
                 : err.message + ', more details in the console';
             console.log('Error: ', {...err});
             dispatch(loginError(error));
-            dispatch(setErrorAC(error))
+            // dispatch(setErrorAC(error))
         })
         .finally(() => dispatch(setAppLoading(false)))
 };

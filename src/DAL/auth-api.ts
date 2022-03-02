@@ -42,4 +42,13 @@ export const authApi = {
         }>
         ('auth/me', {avatar});
     },
+    changeProfileData(name: string, avatar: string | ArrayBuffer | null) {
+        return instance.put<{
+            // token: string
+            // tokenDeathTime: string
+            updatedUser: UserDomainType,
+            error?:string
+        }>
+        ('auth/me', {name, avatar});
+    },
 };

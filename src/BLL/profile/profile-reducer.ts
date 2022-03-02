@@ -66,3 +66,16 @@ export const changeProfilePhoto = (avatar: string | ArrayBuffer | null ): ThunkA
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
+
+export const changeProfileData = (name: string, avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading(true))
+
+    authApi.changeProfileData(name, avatar)
+        .then((res) => {
+            dispatch(setUserProfile(res.data.updatedUser))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err))
+        })
+        .finally(() => dispatch(setAppLoading(false)))
+}
