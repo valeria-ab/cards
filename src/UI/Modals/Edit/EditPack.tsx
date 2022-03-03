@@ -5,7 +5,7 @@ import {updatePack} from "../../../BLL/packs/packs-reducer";
 import {CardPacksType} from '../../../DAL/packs-api';
 
 type  EditPackPropsType = {
-    editModeOff: () => void
+    setEditMode: (value: boolean) => void
     pack: CardPacksType
 }
 
@@ -26,7 +26,7 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
             name: name,
             user_id: props.pack.user_id,
         }))
-        props.editModeOff()
+        props.setEditMode(false)
     }
 
     return (
@@ -44,7 +44,7 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
                         onChange={onChangeName}
                     />
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.editModeOff}>
+                        <button className={styles.btnCancel} onClick={() => props.setEditMode(false)}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>

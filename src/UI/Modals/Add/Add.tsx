@@ -5,7 +5,7 @@ import {createPack} from "../../../BLL/packs/packs-reducer";
 import {IAppStore} from "../../../BLL/store/store";
 
 type  AddPackPropsType = {
-    addModeOff: () => void
+    setAddMode: (value: boolean) => void
 }
 
 
@@ -23,7 +23,7 @@ export const AddPack = React.memo((props: AddPackPropsType) => {
 
     const onSaveClick = () => {
         dispatch(createPack(name, currentUserID))
-        props.addModeOff()
+        props.setAddMode(false)
     }
 
     return (
@@ -41,7 +41,7 @@ export const AddPack = React.memo((props: AddPackPropsType) => {
                         onChange={onChangeName}
                     />
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.addModeOff}>
+                        <button className={styles.btnCancel} onClick={() => props.setAddMode(false)}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>

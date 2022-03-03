@@ -45,18 +45,17 @@ export type UpdatePacksType = {
     name: string
 }
 
-
+export type SortingPacksType = "0cardsCount" | "1cardsCount" | "0name" | "1name" | "0updated" | "1updated"
 
 //request to server
 export type PacksType = {
     packName?: string
     min?: number
     max?: number
-    sortPacks?: string
+    sortPacks?: SortingPacksType
     page?: number
     pageCount?: number
     user_id?: string
-
 }
 
 export type CreatePacksResponseType = {

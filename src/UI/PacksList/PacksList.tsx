@@ -8,6 +8,7 @@ import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {Navigate} from 'react-router-dom';
+import {SortingPacksType} from '../../DAL/packs-api';
 
 
 export const PacksList = (
@@ -18,6 +19,7 @@ export const PacksList = (
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
+    const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
@@ -28,7 +30,7 @@ export const PacksList = (
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [withMyId, page, pageCount, cardsValuesFromRange, packName])
+    }, [withMyId, page, pageCount, cardsValuesFromRange, packName, sortingBy])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;

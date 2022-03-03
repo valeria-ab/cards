@@ -5,7 +5,7 @@ import {deletePack} from '../../../BLL/packs/packs-reducer';
 import {CardPacksType} from '../../../DAL/packs-api';
 
 type  DeletePackPropsType = {
-    deleteModeOff: () => void
+    setDeleteMode: (value: boolean) => void
     pack: CardPacksType
 }
 
@@ -26,7 +26,7 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
         dispatch(deletePack(
             props.pack._id, props.pack.user_id
         ))
-        props.deleteModeOff()
+        props.setDeleteMode(false)
     }
 
     return (
@@ -39,7 +39,7 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
                     <p className={styles.text}>Do you really want to remove the pack "{props.pack.name}" ?
                         All cards will be excluded from this course.</p>
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.deleteModeOff}>
+                        <button className={styles.btnCancel} onClick={() => props.setDeleteMode(false)}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>

@@ -18,6 +18,7 @@ import emptyProfilePhoto from '../../image/nophoto.jpg'
 import styles from '../Modals/Learning/Learning.module.scss';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import {EditProfileModal} from './EditProfileModal';
+import {SortingPacksType} from '../../DAL/packs-api';
 
 export const Profile = () => {
     const dispatch = useDispatch()
@@ -27,7 +28,7 @@ export const Profile = () => {
         (state) => state.profile
     );
 
-
+    const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const error = useSelector<IAppStore, string | null>(state => state.app.error)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
@@ -41,7 +42,7 @@ export const Profile = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [page, pageCount, cardsValuesFromRange, packName])
+    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
 
 
     // const refresh = async () => {

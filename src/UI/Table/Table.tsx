@@ -11,7 +11,8 @@ import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {getCardsTC, setCurrentPackAC} from '../../BLL/cards/cards-reducer';
 import {CardPacksType} from '../../DAL/packs-api';
 import {NavLink} from 'react-router-dom';
-
+import arrow from '../../image/vector down arrow icon.png';
+import {setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
 
 
 export const Table = React.memo(() => {
@@ -19,6 +20,7 @@ export const Table = React.memo(() => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
+    const [isArrowUp, setArrowUp] = useState<boolean>(false);
     const dispatch = useDispatch()
 
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
@@ -32,34 +34,19 @@ export const Table = React.memo(() => {
 
     const userId = useSelector<IAppStore, string>((state) => state.profile._id);
 
+    const styles = [{height: '15px'}, {height: '15px', transform: 'rotate(180deg)'}]
 
     const editModeOn = (pack: CardPacksType) => {
         setPack(pack)
         setEditMode(true)
 
     }
-    const editModeOff = () => {
-        setEditMode(false)
-    }
-
 
     const deleteModeOn = (pack: CardPacksType) => {
         setPack(pack)
         setDeleteMode(true)
 
     }
-    const deleteModeOff = () => {
-        setDeleteMode(false)
-    }
-
-    const addModeOn = () => {
-        setAddMode(true)
-
-    }
-    const addModeOff = () => {
-        setAddMode(false)
-    }
-
 
     const onLearnButtonClick = (pack: CardPacksType) => {
         dispatch(setCurrentPackAC(pack))
@@ -72,23 +59,69 @@ export const Table = React.memo(() => {
     }
     return (
         <div className={s.table}>
-            {addMode && <AddPack addModeOff={addModeOff}/>}
-            {pack && editMode && <EditPack pack={pack} editModeOff={editModeOff}/>}
-            {pack && deleteMode && <Delete pack={pack} deleteModeOff={deleteModeOff}/>}
+            {addMode && <AddPack setAddMode={setAddMode}/>}
+            {pack && editMode && <EditPack pack={pack} setEditMode={setEditMode}/>}
+            {pack && deleteMode && <Delete pack={pack} setDeleteMode={setDeleteMode}/>}
 
 
             <h2 className={s.Table__name}>Packs List</h2>
             <div className={s.Table__top}>
                 <Search/>
-                <button className={s.add} onClick={addModeOn}> Add Pack</button>
+                <button className={s.add} onClick={() => setAddMode(true)}> Add Pack</button>
             </div>
             <div className={s.tableMain}>
                 <table className={s.tableWrapper}>
                     <thead className={s.tableHeader}>
                     <tr className={s.table__headRow}>
-                        <th className={s.table__head}>Name</th>
-                        <th className={s.table__head}>Cards</th>
-                        <th className={s.table__head}>Last Updated</th>
+                        <th className={s.table__head}>
+                            Name
+                            <span>
+                               <button onClick={() => dispatch(setSortPacksValueAC('0name'))}>
+                                   <img src={arrow}
+                                        style={styles[0]}/>
+                               </button>
+                               <button onClick={() => dispatch(setSortPacksValueAC('1name'))}>
+                                   <img src={arrow}
+                                        style={styles[1]}/>
+                               </button>
+
+                            </span>
+                        </th>
+                        <th className={s.table__head}>
+                            Cards
+                            <span>
+                               <button onClick={() => dispatch(setSortPacksValueAC('0cardsCount'))}>
+                                   <img src={arrow}
+                                        style={styles[0]}/>
+                               </button>
+                               <button onClick={() => dispatch(setSortPacksValueAC('1cardsCount'))}>
+                                   <img src={arrow}
+                                        style={styles[1]}/>
+                               </button>
+
+                            </span>
+                            {/*<span onClick={() => {*/}
+                            {/*    setArrowUp(!isArrowUp)*/}
+                            {/*    isArrowUp*/}
+                            {/*        ? dispatch(setSortPacksValueAC('1cardsCount'))*/}
+                            {/*        : dispatch(setSortPacksValueAC('0cardsCount'))*/}
+                            {/*}*/}
+                            {/*}>*/}
+                            {/*    <img src={arrow} style={isArrowUp ? styles[1] : styles[0]}/>*/}
+                            {/*</span>*/}
+                        </th>
+                        <th className={s.table__head}>
+                            Last Updated
+                            <span onClick={() => {
+                                setArrowUp(!isArrowUp)
+                                isArrowUp
+                                    ? dispatch(setSortPacksValueAC('1updated'))
+                                    : dispatch(setSortPacksValueAC('0updated'))
+                            }
+                            }>
+                                <img src={arrow} style={isArrowUp ? styles[1] : styles[0]}/>
+                            </span>
+                        </th>
                         <th className={s.table__head}>Created by</th>
                         <th className={s.table__head}>Actions</th>
                     </tr>
@@ -97,18 +130,11 @@ export const Table = React.memo(() => {
                     {cardPacks.map((pack) => {
 
                         return (<tr key={pack._id} className={s.table__row}>
-                            {/*<NavLink to={*/}
-                            {/*    layout === 'packs-list'*/}
-                            {/*        ? `/packs-list/${pack._id}`*/}
-                            {/*        : `/profile/${pack._id}`*/}
-                            {/*}>*/}
-                            {/*    <td className={s.table__data}>{pack.name}</td>*/}
-                            {/*</NavLink>*/}
                             <NavLink to={`/pack/${pack._id}`}>
                                 <td className={s.table__data}>{pack.name}</td>
                             </NavLink>
                             <td className={s.table__data}>{pack.cardsCount}</td>
-                            <td className={s.table__data}>{pack.updated.slice(0,10)}</td>
+                            <td className={s.table__data}>{pack.updated.slice(0, 10)}</td>
                             <td className={s.table__data}>{pack.user_name}</td>
                             <td className={s.table__data}>
                                 {userId === pack.user_id ?
