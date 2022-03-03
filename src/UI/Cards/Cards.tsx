@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from '../Table/Table.module.scss';
+import ArrowBackIcon from '../../image/png-transparent-arrow-computer-icons-left-arrow-angle-text-rectangle.png'
 import {useDispatch, useSelector} from 'react-redux';
 import {createCardTC, getCardsTC, updateCardTC} from '../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../BLL/store/store';
@@ -11,9 +12,11 @@ import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {CardResponseType, cardsApi} from '../../DAL/cards-api';
 import {Navigate, NavLink, useParams} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
+import PackListIcon from '../../image/PacksListImg.png';
+import {Rating} from "react-simple-star-rating";
 
 type CardsPropsType = {
-    refresh: () => void
+    // refresh: () => void
     // id: string
     // cardsModeOff: () => void
     // tableOffHandler: () => void
@@ -24,7 +27,7 @@ export const Cards = (props: CardsPropsType) => {
     const dispatch = useDispatch()
     const {packId} = useParams()
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
-    // const packId = useSelector<IAppStore, string>(state => state.cards.packId)
+    const pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [cardsCurrent, setCardsCurrent] = useState<CardResponseType | null>(null);
     const [addEditMode, setAddEditMode] = useState<boolean>(false);
@@ -33,12 +36,18 @@ export const Cards = (props: CardsPropsType) => {
     const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
 
+
+    const [rating, setRating] = useState(0)
+    const handleRating = (rate: number) => {
+        setRating(rate)
+        // other logic
+    }
+
     useEffect(() => {
         if (packId) {
             dispatch(getCardsTC({cardsPack_id: packId}))
-            // props.tableOffHandler()
         }
-    }, [page, packId])
+    }, [page, packId, pageCount])
 
     const deleteModeOn = (cards: CardResponseType) => {
         setCardsCurrent(cards)
@@ -80,6 +89,7 @@ export const Cards = (props: CardsPropsType) => {
     if (isLoading) return <div>loading...</div>
 
     return (
+        <div className={s.container}>
         <div className={s.table}>
             <Search/>
             {cards && cardsCurrent && deleteMode &&
@@ -95,8 +105,11 @@ export const Cards = (props: CardsPropsType) => {
                     ? PACKS_LIST_PATH
                     : PROFILE_PATH
             }>
-                <button className={s.back} onClick={props.refresh}>Back to Packs
-                </button>
+<button >
+    <img className={s.back} src={ArrowBackIcon} alt="ArrowBack"/>
+</button>
+
+
             </NavLink>
             <button className={s.add} onClick={addCardOn}> Add Card</button>
             <div className={s.tableMain}>
@@ -116,8 +129,19 @@ export const Cards = (props: CardsPropsType) => {
                         return (<tr key={card._id} className={s.table__row}>
                             <td className={s.table__data}>{card.question}</td>
                             <td className={s.table__data}>{card.answer}</td>
-                            <td className={s.table__data}>{card.updated}</td>
-                            <td className={s.table__data}>{card.grade}</td>
+                            <td className={s.table__data}>{card.updated.slice(0,10)}</td>
+                            <td className={s.table__data}>
+                                <Rating
+                                    readonly
+                                    emptyColor={'#D7D8EF'}
+                                    transition
+                                    fillColor={'#21268F'}
+                                    size={20}
+                                    ratingValue={card.grade * 20}
+                                />
+
+                            </td>
+                            {/*<td className={s.table__data}>{card.grade}</td>*/}
                             <td className={s.buttons}>
                                 <button className={s.delButtonWrapper} onClick={() => {
                                     deleteModeOn(card)
@@ -133,8 +157,9 @@ export const Cards = (props: CardsPropsType) => {
                     </tbody>
                 </table>
             </div>
-            {/*<PaginationCardsContainer id={packId}/>*/}
+            <PaginationCardsContainer/>
             <ErrorSnackbar/>
+        </div>
         </div>
     );
 };

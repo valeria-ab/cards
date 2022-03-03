@@ -5,7 +5,7 @@ import {deletePack} from '../../../BLL/packs/packs-reducer';
 import {CardPacksType} from '../../../DAL/packs-api';
 
 type  DeletePackPropsType = {
-    deleteModeOff: () => void
+    setDeleteMode: (value: boolean) => void
     pack: CardPacksType
 }
 
@@ -20,20 +20,13 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
     // const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     //     setName(e.currentTarget.value)
     // }
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
 
 
     const onSaveClick = () => {
         dispatch(deletePack(
             props.pack._id, props.pack.user_id
         ))
-        props.deleteModeOff()
+        props.setDeleteMode(false)
     }
 
     return (
@@ -41,12 +34,12 @@ export const Delete = React.memo((props: DeletePackPropsType) => {
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Delete pack name</h2>
+                        <h2 className={styles.title}>Delete pack</h2>
                     </div>
                     <p className={styles.text}>Do you really want to remove the pack "{props.pack.name}" ?
                         All cards will be excluded from this course.</p>
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.deleteModeOff}>
+                        <button className={styles.btnCancel} onClick={() => props.setDeleteMode(false)}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>

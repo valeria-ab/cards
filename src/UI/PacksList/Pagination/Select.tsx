@@ -1,38 +1,44 @@
-import React, {ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, FormEvent, SelectHTMLAttributes} from 'react'
 import s from './Paginations.module.scss'
 import {getPacksTC, setCardPacksPageCountAC} from '../../../BLL/packs/packs-reducer';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {IAppStore} from '../../../BLL/store/store';
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
 
-type SuperSelectPropsType = DefaultSelectPropsType & {
-    options?: string[]
-    onChangeOption?: (option: string) => void
+type SelectPropsType = DefaultSelectPropsType & {
+    // options?: string[]
+    pageCount: number
+    onChangeOption: (option: number) => void
+    // onClickSelectHandler: () => void
 }
 
-const Select: React.FC<SuperSelectPropsType> = (
-    {
-        options,
-        onChange, onChangeOption,
-        ...restProps
-    }
-) => {
-const dispatch=useDispatch()
-    const mappedOptions: any[] = options ? options.map((o, i) => (
-        <option className={s.option} key={'option-' + i} value={o}>{o}</option>
-    )) : []
+const Select = (props: SelectPropsType ) => {
+
+    const arr = [5, 10, 20, 50, 100]
+
 
     const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
-        onChange && onChange(e)
-        onChangeOption && onChangeOption(e.currentTarget.value)
-        dispatch(setCardPacksPageCountAC(+e.currentTarget.value))
-        // dispatch(getPacksTC())
-    }
+        props.onChangeOption(+e.currentTarget.value)
+        }
 
     return (
-        <select className={s.select} onChange={onChangeCallback} {...restProps}>
-            {mappedOptions}
-        </select>
+
+            <select className={s.select}
+                    onChange={onChangeCallback}
+                    value={props.pageCount}
+                    // onClick={props.onClickSelectHandler}
+            >
+                {arr.map((o, i) => (
+                    <option className={s.option}
+                            key={'option-' + i}
+                            value={o}
+                        // onClick={props.onClickSelectHandler}
+                    >{o}</option>
+                ))}
+            </select>
+
+
     )
 }
 

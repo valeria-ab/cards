@@ -1,8 +1,9 @@
-import {CardPacksType, packsApi, PacksResponseType, PacksType} from '../../DAL/packs-api';
+import {CardPacksType, packsApi, PacksResponseType, PacksType, SortingPacksType} from '../../DAL/packs-api';
 import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
 import {setAppLoading, setErrorAC} from '../app/app-reducer';
+
 
 
 export type InitialStateType = {
@@ -16,6 +17,7 @@ export type InitialStateType = {
     packName: string
     cardsValuesFromRange: Array<number>
     withMyId: boolean
+    sortingBy: null | SortingPacksType
 }
 
 const initialState: InitialStateType = {
@@ -27,7 +29,8 @@ const initialState: InitialStateType = {
     pageCount: 10,
     packName: '', //for search
     cardsValuesFromRange: [0, 1000],
-    withMyId: true
+    withMyId: true,
+    sortingBy: null ,
 };
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -44,6 +47,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, withMyId: action.withMyId}
         case 'PACKS/RANGE-SET-CARDS-PACKS-COUNT':
             return {...state, cardsValuesFromRange: [action.min, action.max]}
+        case 'PACKS/SET-SORT-PACKS-COUNT':
+            return {...state, sortingBy: action.value}
         // case 'PACKS/SET-MAX-CARDS-COUNT':
         //     return {...state, maxCardsCount: action.maxCardsCount}
         // case 'PACKS/SET-MIN-CARDS-COUNT':
@@ -70,6 +75,9 @@ export const setWithMyIdAC = (withMyId: boolean) =>
 export const setCardsPacksCountFromRangeAC = (numbers: Array<number>) =>  // min and max cardsPacks
     ({type: 'PACKS/RANGE-SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
 
+export const setSortPacksValueAC = (value: SortingPacksType) =>
+    ({type: 'PACKS/SET-SORT-PACKS-COUNT', value} as const)
+
 export type GetPacksActionType = ReturnType<typeof setPacksAC>
 
 
@@ -83,6 +91,7 @@ type ActionsType =
     // | ReturnType<typeof setMaxCardsCountAC>
     // | ReturnType<typeof setMinCardsCountAC>
     | ReturnType<typeof setAppLoading>
+    | ReturnType<typeof setSortPacksValueAC>
 
 
 // thunk
@@ -93,12 +102,13 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
         pageCount,
         cardsValuesFromRange,
         packName,
-        withMyId
+        withMyId,
+        sortingBy,
     } = getState().packs;
 
     const id = getState().profile._id
 
-    const mainPayload = withMyId
+    let mainPayload = withMyId
         ? {
             user_id: id,
             page,
@@ -114,6 +124,8 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
             max: cardsValuesFromRange[1],
             packName: packName,
         }
+if (sortingBy) { // @ts-ignore
+    mainPayload = {...mainPayload, sortPacks: sortingBy}}
 
     dispatch(setAppLoading(true))
 
@@ -164,7 +176,7 @@ export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore,
     dispatch(setAppLoading(true))
     packsApi.updatePack(updatePack)
         .then((res) => {
-            dispatch(getPacksTC({user_id: payload.user_id}))
+            dispatch(getPacksTC())
         })
         .catch((err) => {
             dispatch(setErrorAC(err))

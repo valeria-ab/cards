@@ -5,12 +5,11 @@ import {createPack} from "../../../BLL/packs/packs-reducer";
 import {IAppStore} from "../../../BLL/store/store";
 
 type  AddPackPropsType = {
-    addModeOff: () => void
+    setAddMode: (value: boolean) => void
 }
 
 
 export const AddPack = React.memo((props: AddPackPropsType) => {
-
 
     const [name, setName] = useState<string>("");
 
@@ -18,21 +17,13 @@ export const AddPack = React.memo((props: AddPackPropsType) => {
     const currentUserID = useSelector<IAppStore, string>((state) => state.profile._id);
 
 
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
-
     const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value)
     }
 
     const onSaveClick = () => {
         dispatch(createPack(name, currentUserID))
-        props.addModeOff()
+        props.setAddMode(false)
     }
 
     return (
@@ -50,7 +41,7 @@ export const AddPack = React.memo((props: AddPackPropsType) => {
                         onChange={onChangeName}
                     />
                     <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={props.addModeOff}>
+                        <button className={styles.btnCancel} onClick={() => props.setAddMode(false)}>
                             Cancel
                         </button>
                         <button onClick={onSaveClick} className={styles.btnSave}>

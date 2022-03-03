@@ -16,14 +16,6 @@ export const AddUpdate = React.memo((props: AddUpdatePropsType) => {
     const [answer, setAnswer] = useState<string>(props.card ? props.card.answer : "");
     const [question, setQuestion] = useState<string>(props.card ? props.card.question : "");
 
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-    }, []);
-
 
     const onInputQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setQuestion(e.currentTarget.value)

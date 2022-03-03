@@ -3,6 +3,8 @@ import {setUserProfile, SetUserProfileType} from '../profile/profileActions';
 import {setAppLoading, setErrorAC, SetErrorActionType, setInitializedAC} from '../app/app-reducer';
 import {authApi, LoginDataType} from '../../DAL/auth-api';
 import {Dispatch} from 'redux';
+import {setCardPacksPageCountAC, setCardsPacksCountFromRangeAC} from '../packs/packs-reducer';
+import {setCardsPageCountAC} from '../cards/cards-reducer';
 
 
 export type LoginState = {
@@ -58,7 +60,7 @@ export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
                 : err.message + ', more details in the console';
             console.log('Error: ', {...err});
             dispatch(loginError(error));
-            dispatch(setErrorAC(error))
+            // dispatch(setErrorAC(error))
         })
         .finally(() => dispatch(setAppLoading(false)))
 };
@@ -72,14 +74,13 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
             dispatch(setUserProfile(res.data))
         })
         .catch((err) => {
-
+            console.log(err)
         })
         .finally(() =>   dispatch(setAppLoading(false)))
 }
 
 
 export const logOut = () => (dispatch: Dispatch) => {
-    debugger
     dispatch(setAppLoading(true))
     authApi
         .logOut()
@@ -101,6 +102,9 @@ export const logOut = () => (dispatch: Dispatch) => {
                 tokenDeathTime: 0,
                 __v: 0
             }));
+            dispatch(setCardPacksPageCountAC(10))
+            dispatch(setCardsPageCountAC(10))
+            dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
             dispatch(setInitializedAC(false))
         })
         .catch((err) => {

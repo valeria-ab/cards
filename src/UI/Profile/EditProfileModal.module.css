@@ -10,11 +10,12 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 10;
+  color: #2d2e46
 }
 
 .wrapper {
   width: 394px;
-  height: 220px;
+  //height: 220px;
   background: #f9f9fe;
   border-radius: 2px;
 }
@@ -22,12 +23,16 @@
 .wrap {
   padding: 15px 24px 32px;
 }
-
+.bold {
+  font-weight: bold;
+}
+.regular {
+  font-weight: normal;
+}
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .wrapBtn {
@@ -42,19 +47,24 @@
 .btnCancel {
   width: 124px;
   height: 36px;
-  background: #d7d8ef;
+  background: #d6d7ee;
+  color: #454aa1;
   border-radius: 30px;
   opacity: 0.8;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
+.questionBody {
+  margin: 30px auto;
+  text-align: start;
+}
 
-.btnSave {
+.btnNext {
   width: 127px;
   height: 36px;
   border-radius: 30px;
   color: #f9f9fe;
- background-color: #cd1414;
+ background-color: #21268F;
   cursor: pointer;
 }
 
@@ -69,6 +79,5 @@
 }
 
 .text {
-  //opacity: 0.5;
-  margin-bottom: 20px;
+  opacity: 0.5;
 }

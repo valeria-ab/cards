@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './Learning.module.scss';
 import {CardResponseType} from '../../../DAL/cards-api';
 import {CardPacksType} from '../../../DAL/packs-api';
 import s from '../../Table/Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {getCardsTC} from '../../../BLL/cards/cards-reducer';
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
 
@@ -23,33 +22,12 @@ export const QuestionModal = (props: LearnPackPropsType) => {
     const dispatch = useDispatch()
 
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (body) body.style.overflow = 'hidden';
-        return () => {
-            if (body) body.style.overflow = 'auto';
-        };
-        // dispatch(getCardsTC({cardsPack_id: pack._id}))
-    }, []);
 
-    // if (!props.card || !props.pack) {
-    //     return <div className={styles.modal}>
-    //         <div className={styles.wrapper}>
-    //             <div className={styles.wrap}>
-    //                 <div className={styles.questionBody}>error in questionModal props</div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // }
 
-    // if (isLoading) {
-    //     return <div className={s.table}>loading...</div>
-    // }
+    if (isLoading) {
+        return <div className={s.table}>loading...</div>
+    }
 
-    // const onShowAnswerButtonClick = () => {
-    //     props.questionMode(false)
-    //     props.setCheckYourselfMode(true)
-    // }
 
     if (!props.card || !props.pack) {
         return <div className={s.table}>loading...</div>
