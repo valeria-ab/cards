@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
@@ -9,10 +9,10 @@ import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksC
 import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {getCardsTC, setCurrentPackAC} from '../../BLL/cards/cards-reducer';
-import {CardPacksType} from '../../DAL/packs-api';
+import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
 import {NavLink} from 'react-router-dom';
 import arrow from '../../image/vector down arrow icon.png';
-import {setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
+import {getPacksTC, setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
 
 
 export const Table = React.memo(() => {
@@ -20,7 +20,7 @@ export const Table = React.memo(() => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
-    const [isArrowUp, setArrowUp] = useState<boolean>(false);
+
     const dispatch = useDispatch()
 
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
@@ -76,7 +76,7 @@ export const Table = React.memo(() => {
                         <th className={s.table__head}>
                             Name
                             <span>
-                               <button onClick={() => dispatch(setSortPacksValueAC('0name'))}>
+                               <button disabled={true} onClick={() => dispatch(setSortPacksValueAC('0name'))}>
                                    <img src={arrow}
                                         style={styles[0]}/>
                                </button>
@@ -112,14 +112,15 @@ export const Table = React.memo(() => {
                         </th>
                         <th className={s.table__head}>
                             Last Updated
-                            <span onClick={() => {
-                                setArrowUp(!isArrowUp)
-                                isArrowUp
-                                    ? dispatch(setSortPacksValueAC('1updated'))
-                                    : dispatch(setSortPacksValueAC('0updated'))
-                            }
-                            }>
-                                <img src={arrow} style={isArrowUp ? styles[1] : styles[0]}/>
+                            <span>
+                               <button onClick={() => dispatch(setSortPacksValueAC('0updated'))}>
+                                   <img src={arrow}
+                                        style={styles[0]}/>
+                               </button>
+                               <button onClick={() => dispatch(setSortPacksValueAC('1updated'))}>
+                                   <img src={arrow}
+                                        style={styles[1]}/>
+                               </button>
                             </span>
                         </th>
                         <th className={s.table__head}>Created by</th>

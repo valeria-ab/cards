@@ -6,7 +6,7 @@ import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setCardsPacksCountFromRangeAC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
+import {setCardsPacksCountFromRangeAC, setSortPacksValueAC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import {logOut} from '../../BLL/login/login-reducer';
 import {changeLayoutAC} from '../../BLL/cards/cards-reducer';
 
@@ -23,6 +23,7 @@ export default function MainHeader() {
                             dispatch(setWithMyIdAC(false))
                             dispatch(setCardsPacksCountFromRangeAC([0,1000]))
                             dispatch(changeLayoutAC("packs-list"))
+                            dispatch(setSortPacksValueAC(null))
                         }}>
                             <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"/>
                             <span>Packs List</span>
@@ -33,6 +34,7 @@ export default function MainHeader() {
                             dispatch(setWithMyIdAC(true))
                             dispatch(setCardsPacksCountFromRangeAC([0,1000]))
                             dispatch(changeLayoutAC("profile"))
+                            dispatch(setSortPacksValueAC(null))
                         }}>
                             <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
                             <span>Profile</span>

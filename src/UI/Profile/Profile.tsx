@@ -2,8 +2,8 @@ import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Navigate, NavLink} from 'react-router-dom';
 import {IAppStore} from '../../BLL/store/store';
-import {getPacksTC} from '../../BLL/packs/packs-reducer';
-import s from './ProfilePage.module.scss';
+import {getPacksTC, setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
+import s from './ProfilePage.module.css';
 import {Table} from '../Table/Table';
 import {Cards} from '../Cards/Cards';
 import RangeSlider from '../PacksList/Range/RangeSlider';
@@ -11,14 +11,12 @@ import {EditableSpan} from './EditableSpan/EditableSpan';
 import {
     changeProfileData,
     changeProfilePhoto,
-    changeUserName,
     InitialProfileStateType
 } from '../../BLL/profile/profile-reducer';
 import emptyProfilePhoto from '../../image/nophoto.jpg'
-import styles from '../Modals/Learning/Learning.module.scss';
-import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import {EditProfileModal} from './EditProfileModal';
 import {SortingPacksType} from '../../DAL/packs-api';
+import {Sorting} from '../PacksList/Sorting/Sorting';
 
 export const Profile = () => {
     const dispatch = useDispatch()
@@ -38,6 +36,7 @@ export const Profile = () => {
     const onDeleteClick = (avatar: string) => dispatch(changeProfilePhoto(avatar))
 
     const inRef = useRef<HTMLInputElement>(null)
+    const [isOpen, setIsOpen] = useState(false)
 
 
     useEffect(() => {
@@ -112,6 +111,8 @@ export const Profile = () => {
                 {/*<div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>*/}
 
                 <RangeSlider/>
+                <Sorting/>
+
             </div>
 
             <div className={s.profile__main}>
@@ -121,3 +122,6 @@ export const Profile = () => {
         </div>
     );
 };
+
+
+

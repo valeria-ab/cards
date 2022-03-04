@@ -75,7 +75,7 @@ export const setWithMyIdAC = (withMyId: boolean) =>
 export const setCardsPacksCountFromRangeAC = (numbers: Array<number>) =>  // min and max cardsPacks
     ({type: 'PACKS/RANGE-SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
 
-export const setSortPacksValueAC = (value: SortingPacksType) =>
+export const setSortPacksValueAC = (value: SortingPacksType | null) =>
     ({type: 'PACKS/SET-SORT-PACKS-COUNT', value} as const)
 
 export type GetPacksActionType = ReturnType<typeof setPacksAC>
