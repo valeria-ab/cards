@@ -6,13 +6,13 @@ import {EditPack} from '../Modals/Edit/EditPack';
 import {Delete} from '../Modals/Delete/Delete';
 import {AddPack} from '../Modals/Add/Add';
 import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
-import Search from '../PacksList/Search/Search';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {getCardsTC, setCurrentPackAC} from '../../BLL/cards/cards-reducer';
 import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
 import {NavLink} from 'react-router-dom';
 import arrow from '../../image/vector down arrow icon.png';
 import {getPacksTC, setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
+import SearchPacksContainer from '../PacksList/Search/SearchPacksContainer';
 
 
 export const Table = React.memo(() => {
@@ -66,7 +66,7 @@ export const Table = React.memo(() => {
 
             <h2 className={s.Table__name}>Packs List</h2>
             <div className={s.Table__top}>
-                <Search/>
+                <SearchPacksContainer/>
                 <button className={s.add} onClick={() => setAddMode(true)}> Add Pack</button>
             </div>
             <div className={s.tableMain}>

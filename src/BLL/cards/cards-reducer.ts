@@ -21,8 +21,9 @@ export type InitialCardsStateType = {
     pageCount: number
     packUserId: string | null
     myCurrentGrade: number
-    layout: "profile" | "packs-list"
+    layout: 'profile' | 'packs-list'
     currentPack: CardPacksType | null
+    cardQuestion: string, //for search
 }
 
 const initialState: InitialCardsStateType = {
@@ -34,8 +35,9 @@ const initialState: InitialCardsStateType = {
     pageCount: 10,
     packUserId: null,
     myCurrentGrade: 1,
-    layout: "profile",
+    layout: 'profile',
     currentPack: null,
+    cardQuestion: '', //for search
 };
 
 export const cardsReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -63,6 +65,8 @@ export const cardsReducer = (state: InitialCardsStateType = initialState, action
         case 'CARDS/SET-CURRENT-PACK': {
             return {...state, currentPack: action.value}
         }
+        case 'CARDS/SET-SEARCH-QUESTION-NAME':
+            return {...state, cardQuestion: action.cardQuestion}
         default:
             return state;
     }
@@ -87,10 +91,12 @@ export const setCardsPageCountAC = (pageCount: number) =>
 export const setMyCurrentGradeAC = (value: number) =>
     ({type: 'CARDS/SET-MY-CURRENT-GRADE', value} as const)
 export const updateGradeAC = (grade: number, id: string) => ({type: 'CARDS/UPDATE-GRADE', grade, id} as const)
-export const changeLayoutAC = (value: "profile" | "packs-list") =>
+export const changeLayoutAC = (value: 'profile' | 'packs-list') =>
     ({type: 'CARDS/CHANGE-LAYOUT', value} as const)
 export const setCurrentPackAC = (value: CardPacksType) =>
     ({type: 'CARDS/SET-CURRENT-PACK', value} as const)
+export const setSearchСardQuestionAC = (cardQuestion: string) =>
+    ({type: 'CARDS/SET-SEARCH-QUESTION-NAME', cardQuestion} as const)
 
 export type GetCardsActionType = ReturnType<typeof getCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
@@ -105,6 +111,7 @@ type ActionsType =
     | ReturnType<typeof setAppLoading>
     | ReturnType<typeof changeLayoutAC>
     | ReturnType<typeof setCurrentPackAC>
+    | ReturnType<typeof setSearchСardQuestionAC>
 
 // thunk
 
@@ -112,11 +119,13 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
     const {
         page,
         pageCount,
+        cardQuestion
     } = getState().cards;
     dispatch(setAppLoading(true))
     cardsApi.getCards({
         page,
         pageCount,
+        cardQuestion,
         ...payload
     })
         .then((res) => {
@@ -216,8 +225,8 @@ export const updateGradeTC = (card_id: string) =>
                 dispatch(updateGradeAC(myCurrentGrade, card_id))
             })
             .catch(e => {
-            dispatch(setErrorAC(e.response.data.error))
-        })
+                dispatch(setErrorAC(e.response.data.error))
+            })
     }
 
 

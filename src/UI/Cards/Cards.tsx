@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import s from '../Table/Table.module.scss';
 import ArrowBackIcon from '../../image/png-transparent-arrow-computer-icons-left-arrow-angle-text-rectangle.png'
 import {useDispatch, useSelector} from 'react-redux';
-import {createCardTC, getCardsTC, updateCardTC} from '../../BLL/cards/cards-reducer';
+import {createCardTC, getCardsTC, setSearchСardQuestionAC, updateCardTC} from '../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../BLL/store/store';
 import {DeleteCard} from '../Modals/DeleteCard/DeleteCard';
 import {AddUpdate} from '../Modals/AddUpdateCard/AddUpdate';
@@ -14,6 +14,8 @@ import {Navigate, NavLink, useParams} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import PackListIcon from '../../image/PacksListImg.png';
 import {Rating} from "react-simple-star-rating";
+import SearchCardsContainer from '../PacksList/Search/SearchCardsContainer';
+import {setSearchPackNameAC} from '../../BLL/packs/packs-reducer';
 
 type CardsPropsType = {
     // refresh: () => void
@@ -35,7 +37,7 @@ export const Cards = (props: CardsPropsType) => {
     let page = useSelector<IAppStore, number>(state => state.cards.page)
     const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
-
+    const cardQuestion = useSelector<IAppStore, string>(state => state.cards.cardQuestion)
 
     const [rating, setRating] = useState(0)
     const handleRating = (rate: number) => {
@@ -47,7 +49,7 @@ export const Cards = (props: CardsPropsType) => {
         if (packId) {
             dispatch(getCardsTC({cardsPack_id: packId}))
         }
-    }, [page, packId, pageCount])
+    }, [page, packId, pageCount, cardQuestion])
 
     const deleteModeOn = (cards: CardResponseType) => {
         setCardsCurrent(cards)
@@ -86,12 +88,14 @@ export const Cards = (props: CardsPropsType) => {
         setAddMode(false)
         setCardsCurrent(null)
     }
+
+
     if (isLoading) return <div>loading...</div>
 
     return (
         <div className={s.container}>
         <div className={s.table}>
-            <Search/>
+            <SearchCardsContainer/>
             {cards && cardsCurrent && deleteMode &&
                 <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
 
