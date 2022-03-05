@@ -40,7 +40,7 @@ export const Profile = () => {
 
 
     useEffect(() => {
-        dispatch(getPacksTC())
+       if(isInitialized) dispatch(getPacksTC())
     }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
 
 

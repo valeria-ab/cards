@@ -32,7 +32,7 @@ export const PacksList = (
     }
 
     useEffect(() => {
-        dispatch(getPacksTC())
+        if(isInitialized)  dispatch(getPacksTC())
     }, [withMyId, page, pageCount, cardsValuesFromRange, packName, sortingBy])
 
     if (!isInitialized) {

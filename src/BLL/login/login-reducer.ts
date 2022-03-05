@@ -1,10 +1,9 @@
-
-import {setUserProfile, SetUserProfileType} from '../profile/profileActions';
 import {setAppLoading, setErrorAC, SetErrorActionType, setInitializedAC} from '../app/app-reducer';
 import {authApi, LoginDataType} from '../../DAL/auth-api';
 import {Dispatch} from 'redux';
 import {setCardPacksPageCountAC, setCardsPacksCountFromRangeAC} from '../packs/packs-reducer';
 import {setCardsPageCountAC} from '../cards/cards-reducer';
+import {setUserProfile, SetUserProfileType} from '../profile/profile-reducer';
 
 
 export type LoginState = {
@@ -12,7 +11,7 @@ export type LoginState = {
 };
 
 export const loginInitialState: LoginState = {
-    error: ""
+    error: ''
 };
 
 export const loginReducer = (
@@ -41,7 +40,6 @@ export type LoginActions =
     | SetUserProfileType
     | ReturnType<typeof loginError>
     | SetErrorActionType
-
 
 
 export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
@@ -76,7 +74,7 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
         .catch((err) => {
             console.log(err)
         })
-        .finally(() =>   dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 
@@ -85,7 +83,7 @@ export const logOut = () => (dispatch: Dispatch) => {
     authApi
         .logOut()
         .then((res) => {
-            dispatch(setAppLoading(false))
+            dispatch(setInitializedAC(false))
             dispatch(setUserProfile({
                 _id: '',
                 email: '',
@@ -105,7 +103,7 @@ export const logOut = () => (dispatch: Dispatch) => {
             dispatch(setCardPacksPageCountAC(10))
             dispatch(setCardsPageCountAC(10))
             dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
-            dispatch(setInitializedAC(false))
+
         })
         .catch((err) => {
             const error = err.response
@@ -114,7 +112,7 @@ export const logOut = () => (dispatch: Dispatch) => {
             console.log('Error: ', {...err});
             dispatch(loginError(error));
             dispatch(setErrorAC(error))
-            dispatch(setAppLoading(false))
-        });
+        })
+        .finally(() => dispatch(setAppLoading(false)))
 };
 

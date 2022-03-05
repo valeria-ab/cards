@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {setErrorAC, SetErrorActionType} from '../app/app-reducer';
+import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
 import {registerApi} from '../../DAL/register-api';
 
 type InitialStateType = typeof initialState
@@ -27,6 +27,7 @@ export const successRegistrationAC = (isRegistration: boolean) => {
 }
 
 export const registrationTC = (payload : {email: string, password: string}) => (dispatch: Dispatch) => {
+    dispatch(setAppLoading(true))
     registerApi.register(payload)
       .then((res)=>{
         dispatch(successRegistrationAC(true))
@@ -34,6 +35,7 @@ export const registrationTC = (payload : {email: string, password: string}) => (
       .catch((error)=> {
           dispatch(setErrorAC(error))
       })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 type successRegistrationType = ReturnType<typeof successRegistrationAC>

@@ -220,6 +220,8 @@ export const updateGradeTC = (card_id: string) =>
             myCurrentGrade
         } = getState().cards
 
+        dispatch(setAppLoading(true))
+
         rateApi.updateGrade(myCurrentGrade, card_id)
             .then((res) => {
                 dispatch(updateGradeAC(myCurrentGrade, card_id))
@@ -227,6 +229,7 @@ export const updateGradeTC = (card_id: string) =>
             .catch(e => {
                 dispatch(setErrorAC(e.response.data.error))
             })
+            .finally(() => dispatch(setAppLoading(false)))
     }
 
 

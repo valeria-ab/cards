@@ -33,13 +33,13 @@ export const SortingItem = (props: SortingPropsType) => {
                 <ul>
                     <li className={s.dropdownItem}
                         onClick={() => props.dispatch(setSortPacksValueAC(props.setSortPacksValues[1]))}
-                    >возрастающая
+                    >по возрастанию
                     </li>
                     <li className={s.dropdownItem}
                         onClick={() => {
                             props.dispatch(setSortPacksValueAC(props.setSortPacksValues[0]))
                         }}
-                    >убывающая
+                    >по убыванию
                     </li>
                 </ul>
             </div>

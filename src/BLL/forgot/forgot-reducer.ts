@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {setErrorAC, SetErrorActionType} from '../app/app-reducer';
+import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
 import {forgotApi} from '../../DAL/forgot-api';
 
 export type InitialStateType = {
@@ -37,14 +37,15 @@ type ActionsType = SendRequestActionType | SetErrorActionType
 // thunk
 
 export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
+    dispatch(setAppLoading(true))
     forgotApi.forgotPassword(email)
         .then(() => {
            dispatch(sendRequestAC(true))
         })
         .catch((error) => {
-            console.log(error);
             dispatch(setErrorAC(error))
         })
+        .finally(() => dispatch(setAppLoading(false)))
 }
 
 

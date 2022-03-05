@@ -38,7 +38,7 @@ export const Cards = (props: CardsPropsType) => {
     const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
     const cardQuestion = useSelector<IAppStore, string>(state => state.cards.cardQuestion)
-
+    const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const [rating, setRating] = useState(0)
     const handleRating = (rate: number) => {
         setRating(rate)
@@ -46,7 +46,7 @@ export const Cards = (props: CardsPropsType) => {
     }
 
     useEffect(() => {
-        if (packId) {
+        if (packId && isInitialized) {
             dispatch(getCardsTC({cardsPack_id: packId}))
         }
     }, [page, packId, pageCount, cardQuestion])

@@ -75,31 +75,31 @@ export const Table = React.memo(() => {
                     <tr className={s.table__headRow}>
                         <th className={s.table__head}>
                             Name
-                            <span>
-                               <button disabled={true} onClick={() => dispatch(setSortPacksValueAC('0name'))}>
-                                   <img src={arrow}
-                                        style={styles[0]}/>
-                               </button>
-                               <button onClick={() => dispatch(setSortPacksValueAC('1name'))}>
-                                   <img src={arrow}
-                                        style={styles[1]}/>
-                               </button>
+                            {/*<span>*/}
+                            {/*   <button disabled={true} onClick={() => dispatch(setSortPacksValueAC('0name'))}>*/}
+                            {/*       <img src={arrow}*/}
+                            {/*            style={styles[0]}/>*/}
+                            {/*   </button>*/}
+                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('1name'))}>*/}
+                            {/*       <img src={arrow}*/}
+                            {/*            style={styles[1]}/>*/}
+                            {/*   </button>*/}
 
-                            </span>
+                            {/*</span>*/}
                         </th>
                         <th className={s.table__head}>
                             Cards
-                            <span>
-                               <button onClick={() => dispatch(setSortPacksValueAC('0cardsCount'))}>
-                                   <img src={arrow}
-                                        style={styles[0]}/>
-                               </button>
-                               <button onClick={() => dispatch(setSortPacksValueAC('1cardsCount'))}>
-                                   <img src={arrow}
-                                        style={styles[1]}/>
-                               </button>
+                            {/*<span>*/}
+                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('0cardsCount'))}>*/}
+                            {/*       <img src={arrow}*/}
+                            {/*            style={styles[0]}/>*/}
+                            {/*   </button>*/}
+                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('1cardsCount'))}>*/}
+                            {/*       <img src={arrow}*/}
+                            {/*            style={styles[1]}/>*/}
+                            {/*   </button>*/}
 
-                            </span>
+                            {/*</span>*/}
                             {/*<span onClick={() => {*/}
                             {/*    setArrowUp(!isArrowUp)*/}
                             {/*    isArrowUp*/}
@@ -112,16 +112,16 @@ export const Table = React.memo(() => {
                         </th>
                         <th className={s.table__head}>
                             Last Updated
-                            <span>
-                               <button onClick={() => dispatch(setSortPacksValueAC('0updated'))}>
-                                   <img src={arrow}
-                                        style={styles[0]}/>
-                               </button>
-                               <button onClick={() => dispatch(setSortPacksValueAC('1updated'))}>
-                                   <img src={arrow}
-                                        style={styles[1]}/>
-                               </button>
-                            </span>
+                            {/*<span>*/}
+                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('0updated'))}>*/}
+                            {/*       <img src={arrow}*/}
+                            {/*            style={styles[0]}/>*/}
+                            {/*   </button>*/}
+                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('1updated'))}>*/}
+                            {/*       <img src={arrow}*/}
+                            {/*            style={styles[1]}/>*/}
+                            {/*   </button>*/}
+                            {/*</span>*/}
                         </th>
                         <th className={s.table__head}>Created by</th>
                         <th className={s.table__head}>Actions</th>
