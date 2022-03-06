@@ -1,22 +1,22 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Navigate, NavLink} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {IAppStore} from '../../BLL/store/store';
-import {getPacksTC, setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
+import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import s from './ProfilePage.module.css';
 import {Table} from '../Table/Table';
-import {Cards} from '../Cards/Cards';
 import RangeSlider from '../PacksList/Range/RangeSlider';
-import {EditableSpan} from './EditableSpan/EditableSpan';
+
 import {
     changeProfileData,
-    changeProfilePhoto,
     InitialProfileStateType
 } from '../../BLL/profile/profile-reducer';
 import emptyProfilePhoto from '../../image/nophoto.jpg'
 import {EditProfileModal} from './EditProfileModal';
 import {SortingPacksType} from '../../DAL/packs-api';
 import {Sorting} from '../PacksList/Sorting/Sorting';
+import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
+
 
 export const Profile = () => {
     const dispatch = useDispatch()
@@ -28,19 +28,16 @@ export const Profile = () => {
 
     const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
-    const error = useSelector<IAppStore, string | null>(state => state.app.error)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
 
     const onChangeProfileDataClick = (newName: string, avatar: string | ArrayBuffer | null) => dispatch(changeProfileData(newName, avatar))
-    const onDeleteClick = (avatar: string) => dispatch(changeProfilePhoto(avatar))
 
-    const inRef = useRef<HTMLInputElement>(null)
-    const [isOpen, setIsOpen] = useState(false)
+    // const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
 
 
     useEffect(() => {
-       if(isInitialized) dispatch(getPacksTC())
+        if (isInitialized) dispatch(getPacksTC())
     }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
 
 
@@ -48,80 +45,60 @@ export const Profile = () => {
     //     await dispatch(getPacksTC())
     // }
 
-    const [file, setFile] = useState<File>()
-
-    const [file64, setFile64] = useState<string | ArrayBuffer | null>();
-    const [editProfileMode, setEditProfileMode] = useState(false);
-
-    const upload = (e: ChangeEvent<HTMLInputElement>) => {
-
-        const reader = new FileReader()
-
-        //у таргета files всегда массив, даже если инпуту не поставлен multiply там всего 1 файл
-        const newFile = e.target.files && e.target.files[0]
-
-
-        if (newFile) {
-            reader.onloadend = () => setFile64(reader.result);
-            reader.readAsDataURL(newFile)
-
-            // if (file64)  dispatch(changeProfilePhoto(file64))
-        }
-
-
-    }
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
 
+    // if (isLoading) {
+    //     return <div className={s.container}>loading...</div>
+    // }
+
     return (
         <div className={s.container}>
-            {editProfileMode && <EditProfileModal setEditProfileMode={setEditProfileMode}
-                                                  title={profile.name}
-                                                  onChangeProfileDataClick={onChangeProfileDataClick}
-            />}
             <div className={s.profile__info}>
-                <div className={s.qqqqqqq}>
-                    <h3 className={s.profile__text}>Profile</h3>
-                    <img src={profile.avatar ? profile.avatar : emptyProfilePhoto} style={{
-                        borderRadius: '50%'
-                    }}/>
-                    <div className={s.profile__textName}>
-                        <span>{profile.name}</span>
-                    </div>
-                    <button onClick={() => {
-                        setEditProfileMode(true)
-                    }}>edit profile
-                    </button>
-                </div>
-
-
-                {/*<input type={'file'} accept={'.jpg, .jpeg, .png'} ref={inRef} style={{display: 'none'}}*/}
-                {/*       onChange={upload}/>*/}
-                {/*<button onClick={() => inRef && inRef.current && inRef.current.click()}>change photo</button>*/}
-                {/*<button onClick={() => file64 && dispatch(changeProfilePhoto(file64))}>send</button>*/}
-
-
-                {/* если рефка была создана и была куда-то повешена то вызови событие клик. */}
-                {/* таким образом мы можем кликнуть на всё что угодно на что была повешена рефка */}
-
-                {/*E-mail: <i>{profile.email}</i>*/}
-
-                {/*<div>publicCardPacksCount: <i>{profile.publicCardPacksCount}</i></div>*/}
-
+                <ProfileInfo
+                    name={profile.name}
+                    avatar={profile.avatar}
+                    onChangeProfileDataClick={onChangeProfileDataClick}
+                />
                 <RangeSlider/>
                 <Sorting/>
-
             </div>
-
             <div className={s.profile__main}>
-                {/*{props.isTableMode && <Table/>}*/}
                 <Table/>
+
             </div>
         </div>
     );
 };
 
+type ProfileInfoType = {
+    avatar: string
+    name: string
+    onChangeProfileDataClick: (newName: string, avatar: string | ArrayBuffer | null) => void
+}
 
+const ProfileInfo = (props: ProfileInfoType) => {
 
+    const [editProfileMode, setEditProfileMode] = useState(false);
+    return (
+        <div className={s.qqqqqqq}>
+            {editProfileMode && <EditProfileModal setEditProfileMode={setEditProfileMode}
+                                                  title={props.name}
+                                                  onChangeProfileDataClick={props.onChangeProfileDataClick}
+            />}
+            <h3 className={s.profile__text}>Profile</h3>
+            <img src={props.avatar ? props.avatar : emptyProfilePhoto} style={{
+                borderRadius: '50%'
+            }}/>
+            <div className={s.profile__textName}>
+                <span>{props.name}</span>
+            </div>
+            <button onClick={() => {
+                setEditProfileMode(true)
+            }}>edit profile
+            </button>
+        </div>
+    )
+}

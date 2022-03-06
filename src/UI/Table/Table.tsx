@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
@@ -8,10 +8,8 @@ import {AddPack} from '../Modals/Add/Add';
 import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {getCardsTC, setCurrentPackAC} from '../../BLL/cards/cards-reducer';
-import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
+import {CardPacksType} from '../../DAL/packs-api';
 import {NavLink} from 'react-router-dom';
-import arrow from '../../image/vector down arrow icon.png';
-import {getPacksTC, setSortPacksValueAC} from '../../BLL/packs/packs-reducer';
 import SearchPacksContainer from '../PacksList/Search/SearchPacksContainer';
 
 
@@ -34,7 +32,6 @@ export const Table = React.memo(() => {
 
     const userId = useSelector<IAppStore, string>((state) => state.profile._id);
 
-    const styles = [{height: '15px'}, {height: '15px', transform: 'rotate(180deg)'}]
 
     const editModeOn = (pack: CardPacksType) => {
         setPack(pack)
@@ -75,40 +72,11 @@ export const Table = React.memo(() => {
                     <tr className={s.table__headRow}>
                         <th className={s.table__head}>
                             Name
-                            {/*<span>*/}
-                            {/*   <button disabled={true} onClick={() => dispatch(setSortPacksValueAC('0name'))}>*/}
-                            {/*       <img src={arrow}*/}
-                            {/*            style={styles[0]}/>*/}
-                            {/*   </button>*/}
-                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('1name'))}>*/}
-                            {/*       <img src={arrow}*/}
-                            {/*            style={styles[1]}/>*/}
-                            {/*   </button>*/}
 
-                            {/*</span>*/}
                         </th>
                         <th className={s.table__head}>
                             Cards
-                            {/*<span>*/}
-                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('0cardsCount'))}>*/}
-                            {/*       <img src={arrow}*/}
-                            {/*            style={styles[0]}/>*/}
-                            {/*   </button>*/}
-                            {/*   <button onClick={() => dispatch(setSortPacksValueAC('1cardsCount'))}>*/}
-                            {/*       <img src={arrow}*/}
-                            {/*            style={styles[1]}/>*/}
-                            {/*   </button>*/}
 
-                            {/*</span>*/}
-                            {/*<span onClick={() => {*/}
-                            {/*    setArrowUp(!isArrowUp)*/}
-                            {/*    isArrowUp*/}
-                            {/*        ? dispatch(setSortPacksValueAC('1cardsCount'))*/}
-                            {/*        : dispatch(setSortPacksValueAC('0cardsCount'))*/}
-                            {/*}*/}
-                            {/*}>*/}
-                            {/*    <img src={arrow} style={isArrowUp ? styles[1] : styles[0]}/>*/}
-                            {/*</span>*/}
                         </th>
                         <th className={s.table__head}>
                             Last Updated

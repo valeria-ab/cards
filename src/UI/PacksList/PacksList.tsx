@@ -24,7 +24,7 @@ export const PacksList = (
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
-
+    const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
 
 
     const refresh = async () => {
@@ -39,7 +39,9 @@ export const PacksList = (
         return <Navigate to={'/login'}/>;
     }
 
-
+    if (isLoading) {
+        return <div className={s.PacksList}>loading...</div>
+    }
 
     return <div className={s.PacksList}>
         <div className={s.container}>

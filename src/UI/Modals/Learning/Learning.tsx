@@ -1,15 +1,13 @@
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
 import {CardResponseType} from '../../../DAL/cards-api';
 import {CardPacksType} from '../../../DAL/packs-api';
 import {QuestionModal} from './QuestionModal';
 import {CheckYourself} from '../Rate/CheckYourself';
 
 export const Learning = () => {
-    const {learningPackId} = useParams()
-    const dispatch = useDispatch()
+
     const [card, setCard] = useState<CardResponseType>({} as CardResponseType);
     const [checkYourselfMode, setCheckYourselfMode] = useState<boolean>(false);
     const [questionMode, setQuestionMode] = useState<boolean>(true);
@@ -37,28 +35,27 @@ export const Learning = () => {
     const checkYourselfModeOff = () => {
         setCheckYourselfMode(false)
         setQuestionMode(true)
-        setCard(getCard(cards))
+        // setCard(getCard(cards))
     }
 
-
     useEffect(() => {
-        setCard(getCard(cards))
-    }, [])
+        console.log("useEff")
+        questionMode && setCard(getCard(cards))
+    }, [cards, questionMode])
 
     if (appLoading) return <div>loading...</div>
 
     return (
         <>
-            {pack && questionMode && <QuestionModal card={card}
+            {card && pack && questionMode && <QuestionModal card={card}
                                                     pack={pack}
                                                     checkYourselfModeOn={checkYourselfModeOn}
                                                     questionMode={setQuestionMode}/>}
-            {pack && checkYourselfMode && <CheckYourself questionMode={setQuestionMode}
+            {card && pack && checkYourselfMode && <CheckYourself questionMode={setQuestionMode}
                                                          checkYourselfModeOff={checkYourselfModeOff}
                                                          card={card}
                                                          pack={pack}
             />}
-
         </>
 
     )

@@ -38,9 +38,9 @@ export const EditProfileModal = (props: {
                     <div className={styles.header}>
                         <h2 className={styles.title}>Personal information</h2>
                     </div>
-                    <input     value={title}
-                               autoFocus
-                               onChange={onChangeTitleHandler}
+                    <input value={title}
+                           autoFocus
+                           onChange={onChangeTitleHandler}
                     />
                     <input type="file"
                            ref={inRef}
@@ -48,18 +48,11 @@ export const EditProfileModal = (props: {
                            accept=".jpg, .jpeg, .png"
                     />
 
-                    {/*<input type={'file'} accept={'.jpg, .jpeg, .png'} ref={inRef} style={{display: 'none'}}*/}
-                    {/*       onChange={upload}/>*/}
-                    {/*<button onClick={() => inRef && inRef.current && inRef.current.click()}>change photo</button>*/}
-                    {/*<button onClick={() => file64 && dispatch(changeProfilePhoto(file64))}>send</button>*/}
-
-
-
                     <div className={styles.wrapBtn}>
 
-                            <button className={styles.btnCancel} onClick={() => props.setEditProfileMode(false)}>
-                                Cancel
-                            </button>
+                        <button className={styles.btnCancel} onClick={() => props.setEditProfileMode(false)}>
+                            Cancel
+                        </button>
 
                         <button onClick={() => {
                             file64 && props.onChangeProfileDataClick(title, file64)
