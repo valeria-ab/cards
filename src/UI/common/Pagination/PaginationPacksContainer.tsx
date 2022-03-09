@@ -2,23 +2,21 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Pagination} from './Pagination';
 import {IAppStore} from '../../../BLL/store/store';
-import {setCardsCurrentPageAC, setCardsPageCountAC} from '../../../BLL/cards/cards-reducer';
+import {setCardPacksCurrentPageAC, setCardPacksPageCountAC} from '../../../BLL/packs/packs-reducer';
 
-export const PaginationCardsContainer = () => {
+export const PaginationPacksContainer = React.memo(() => {
     const dispatch = useDispatch()
-    let pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
-    let cardPacksTotalCount = useSelector<IAppStore, number>(state => state.cards.cardsTotalCount)
-    let page = useSelector<IAppStore, number>(state => state.cards.page)
-
+    const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
+    const cardPacksTotalCount = useSelector<IAppStore, number>(state => state.packs.cardPacksTotalCount)
+    const page = useSelector<IAppStore, number>(state => state.packs.page)
 
     const currentPageHandler = (page: number) => {
-        dispatch(setCardsCurrentPageAC(page))
+        dispatch(setCardPacksCurrentPageAC(page))
     }
 
     const onChangeOption = (value: number) => {
-        dispatch(setCardsPageCountAC(value))
+        dispatch(setCardPacksPageCountAC(value))
     }
-
 
     return <Pagination
         cardPacksTotalCount={cardPacksTotalCount}
@@ -27,4 +25,4 @@ export const PaginationCardsContainer = () => {
         page={page}
         currentPageHandler={currentPageHandler}
     />
-}
+})

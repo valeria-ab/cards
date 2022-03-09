@@ -6,7 +6,7 @@ import {CardPacksType} from '../../../DAL/packs-api';
 import {QuestionModal} from './QuestionModal';
 import {CheckYourself} from '../Rate/CheckYourself';
 
-export const Learning = () => {
+export const Learning = React.memo(() => {
 
     const [card, setCard] = useState<CardResponseType>({} as CardResponseType);
     const [checkYourselfMode, setCheckYourselfMode] = useState<boolean>(false);
@@ -61,4 +61,4 @@ export const Learning = () => {
     )
 
 
-}
+})

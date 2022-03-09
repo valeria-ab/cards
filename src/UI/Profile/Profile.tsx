@@ -1,21 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Navigate} from 'react-router-dom';
 import {IAppStore} from '../../BLL/store/store';
 import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import s from './ProfilePage.module.css';
-import {Table} from '../Table/Table';
-import RangeSlider from '../PacksList/Range/RangeSlider';
-
+import {RangeSlider} from '../common/Range/RangeSlider';
 import {
     changeProfileData,
     InitialProfileStateType
 } from '../../BLL/profile/profile-reducer';
 import emptyProfilePhoto from '../../image/nophoto.jpg'
 import {EditProfileModal} from './EditProfileModal';
-import {SortingPacksType} from '../../DAL/packs-api';
-import {Sorting} from '../PacksList/Sorting/Sorting';
-import {PaginationPacksContainer} from '../PacksList/Pagination/PaginationPacksContainer';
+import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
+import {Sorting} from '../common/Sorting/Sorting';
+import {PaginationPacksContainer} from '../common/Pagination/PaginationPacksContainer';
+import SearchPacksContainer from '../common/Search/SearchPacksContainer';
+import {getCardsTC} from '../../BLL/cards/cards-reducer';
+import {Title} from '../common/Title';
+import {TableContainer} from '../common/Table/TableContainer';
 
 
 export const Profile = () => {
@@ -25,20 +27,23 @@ export const Profile = () => {
     const profile = useSelector<IAppStore, InitialProfileStateType>(
         (state) => state.profile
     );
-
+    const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
+    const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
     const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
-
-    const onChangeProfileDataClick = (newName: string, avatar: string | ArrayBuffer | null) => dispatch(changeProfileData(newName, avatar))
-
+    const packsList = useSelector<IAppStore, CardPacksType[]>((state) => state.packs.cardPacks)
+    const onChangeProfileDataClick = useCallback((newName: string, avatar: string | ArrayBuffer | null) => dispatch(changeProfileData(newName, avatar)), [])
     // const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
-
+    const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
 
     useEffect(() => {
-        if (isInitialized) dispatch(getPacksTC())
-    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
+        if (isInitialized) {
+            dispatch(getPacksTC())
+            currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
+        }
+    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack])
 
 
     // const refresh = async () => {
@@ -56,18 +61,31 @@ export const Profile = () => {
 
     return (
         <div className={s.container}>
-            <div className={s.profile__info}>
-                <ProfileInfo
-                    name={profile.name}
-                    avatar={profile.avatar}
-                    onChangeProfileDataClick={onChangeProfileDataClick}
-                />
-                <RangeSlider/>
-                <Sorting/>
-            </div>
-            <div className={s.profile__main}>
-                <Table/>
 
+            <div>
+                <div className={s.profile__info}>
+                    <ProfileInfo
+                        name={profile.name}
+                        avatar={profile.avatar}
+                        onChangeProfileDataClick={onChangeProfileDataClick}
+                    />
+                    <RangeSlider
+                        minCardsCount={minCardsCount}
+                        maxCardsCount={maxCardsCount}
+                        dispatch={dispatch}
+                    />
+                    <Sorting/>
+                </div>
+            </div>
+
+
+            <div className={s.profile__main}>
+                <div className={s.Table__top}>
+                    <Title value={'My packs list'}/>
+                    <SearchPacksContainer/>
+                </div>
+                <TableContainer/>
+                <PaginationPacksContainer/>
             </div>
         </div>
     );
@@ -79,7 +97,7 @@ type ProfileInfoType = {
     onChangeProfileDataClick: (newName: string, avatar: string | ArrayBuffer | null) => void
 }
 
-const ProfileInfo = (props: ProfileInfoType) => {
+const ProfileInfo = React.memo((props: ProfileInfoType) => {
 
     const [editProfileMode, setEditProfileMode] = useState(false);
     return (
@@ -101,4 +119,4 @@ const ProfileInfo = (props: ProfileInfoType) => {
             </button>
         </div>
     )
-}
+})

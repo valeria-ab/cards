@@ -15,7 +15,7 @@ type  LearnPackPropsType = {
     checkYourselfModeOn: () => void
 }
 
-export const QuestionModal = (props: LearnPackPropsType) => {
+export const QuestionModal = React.memo((props: LearnPackPropsType) => {
 
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
 
@@ -54,4 +54,4 @@ export const QuestionModal = (props: LearnPackPropsType) => {
         </div>
     )
 
-}
+})

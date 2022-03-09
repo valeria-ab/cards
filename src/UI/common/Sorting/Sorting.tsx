@@ -2,7 +2,7 @@ import {useDispatch} from 'react-redux';
 import React, {useState} from 'react';
 import {SortingItem} from './SortingItem';
 
-export const Sorting = () => {
+export const Sorting = React.memo(() => {
     const dispatch = useDispatch()
     const [isNameArrowUp, setNameArrowUp] = useState<boolean>(false);
     const [isCardsArrowUp, setCardsArrowUp] = useState<boolean>(false);
@@ -35,4 +35,4 @@ export const Sorting = () => {
         </div>
     )
 
-}
+})

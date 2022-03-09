@@ -3,10 +3,10 @@ import {IAppStore} from '../../../BLL/store/store';
 import s from './Search.module.scss';
 import Search from './Search';
 import {setSearchPackNameAC} from '../../../BLL/packs/packs-reducer';
+import React from 'react';
 
 
-const SearchPacksContainer = () => {
-
+const SearchPacksContainer = React.memo(() => {
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const dispatch = useDispatch();
     const onKeyUpHandler = (value: string) => dispatch(setSearchPackNameAC(value))
@@ -18,6 +18,6 @@ const SearchPacksContainer = () => {
             onKeyUpHandler={onKeyUpHandler}
         />
     </div>
-};
+})
 
 export default SearchPacksContainer;

@@ -3,8 +3,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import s from './ChooseOwner.module.scss';
 import {IAppStore} from '../../../BLL/store/store';
 import {changeLayoutAC} from '../../../BLL/cards/cards-reducer';
+import React from 'react';
 
-export const ChooseOwner = () => {
+export const ChooseOwner = React.memo(() => {
     const dispatch = useDispatch()
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
 
@@ -36,4 +37,4 @@ export const ChooseOwner = () => {
                 }}>All
         </button>
     </div>
-}
+})

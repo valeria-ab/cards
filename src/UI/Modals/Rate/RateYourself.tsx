@@ -5,7 +5,7 @@ import {IAppStore} from '../../../BLL/store/store';
 import s from './Rate.module.scss';
 
 
-export const RateYourself = () => {
+export const RateYourself = React.memo(() => {
     const dispatch = useDispatch()
     const grade = useSelector<IAppStore, number>(state => state.cards.myCurrentGrade)
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -74,4 +74,4 @@ export const RateYourself = () => {
             </form>
         </div>
     </div>
-}
+})

@@ -4,10 +4,10 @@ import { IAppStore } from "../../BLL/store/store";
 import { Navigate } from "react-router-dom";
 import s from "./Register.module.scss";
 import {Alert} from "@mui/material";
-import {ErrorSnackbar} from "../Error/ErrorSnackbar";
+import {ErrorSnackbar} from "../common/Error/ErrorSnackbar";
 import {registrationTC} from '../../BLL/register/register-reducer';
 
-//Add my branch
+//AddPack my branch
 interface IRegisterProps {
 }
 

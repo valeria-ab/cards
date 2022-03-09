@@ -13,7 +13,7 @@ type SortingPropsType = {
     dispatch: Dispatch
     setSortPacksValues: SortingPacksType[]
 }
-export const SortingItem = (props: SortingPropsType) => {
+export const SortingItem = React.memo((props: SortingPropsType) => {
     return (
         <div className={props.isArrowUp ? s.openDivStyles : ''}>
             <button className={s.filter__btn}
@@ -46,4 +46,4 @@ export const SortingItem = (props: SortingPropsType) => {
         </div>
 
     )
-}
+})

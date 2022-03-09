@@ -6,7 +6,7 @@ import {IAppStore} from '../../BLL/store/store';
 import {FORGOT_PATH, REGISTER_PATH} from '../Routes';
 import s from './LogIn.module.scss';
 import {Alert} from '@mui/material';
-import {ErrorSnackbar} from '../Error/ErrorSnackbar';
+import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
 import {signIn} from '../../BLL/login/login-reducer';
 
 const Login = React.memo(() => {

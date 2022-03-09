@@ -11,7 +11,7 @@ import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
 import {RateYourself} from './RateYourself';
 
 
-export const CheckYourself = (props: {
+export const CheckYourself = React.memo((props: {
     card: CardResponseType
     pack: CardPacksType
     checkYourselfModeOff: () => void
@@ -62,4 +62,4 @@ export const CheckYourself = (props: {
             </div>
         </div>
     )
-}
+})

@@ -1,7 +1,6 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styles from "./AddUpdate.module.scss";
 import {CardResponseType} from '../../../DAL/cards-api';
-import {useDispatch} from 'react-redux';
 
 
 type  AddUpdatePropsType = {

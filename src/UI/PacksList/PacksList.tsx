@@ -1,21 +1,22 @@
-import {Table} from '../Table/Table';
-import {Cards} from '../Cards/Cards';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {ChooseOwner} from './ChooseOwner/ChooseOwner';
-import RangeSlider from '../PacksList/Range/RangeSlider';
 import s from '../Profile/ProfilePage.module.css';
 import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {Navigate} from 'react-router-dom';
-import {SortingPacksType} from '../../DAL/packs-api';
-import {Sorting} from './Sorting/Sorting';
+import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
+import {Sorting} from '../common/Sorting/Sorting';
+import {PaginationPacksContainer} from '../common/Pagination/PaginationPacksContainer';
+import SearchPacksContainer from '../common/Search/SearchPacksContainer';
+import {RangeSlider} from '../common/Range/RangeSlider';
+import {getCardsTC} from '../../BLL/cards/cards-reducer';
+import {Title} from '../common/Title';
+import {TableContainer} from '../common/Table/TableContainer';
 
 
-export const PacksList = (
-    // props: { isTableMode: boolean }
-) => {
-    // console.log("я пакслист я отрисовался")
+export const PacksList = () => {
+
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
@@ -25,15 +26,21 @@ export const PacksList = (
     const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
     const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
+    const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
+    const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
+    const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
 
+    // const refresh = async () => {
+    //     await dispatch(getPacksTC())
+    // }
 
-    const refresh = async () => {
-        await dispatch(getPacksTC())
-    }
 
     useEffect(() => {
-        if(isInitialized)  dispatch(getPacksTC())
-    }, [withMyId, page, pageCount, cardsValuesFromRange, packName, sortingBy])
+        if (isInitialized) {
+            dispatch(getPacksTC())
+            currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
+        }
+    }, [withMyId, page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
@@ -49,12 +56,18 @@ export const PacksList = (
                 <div className={s.profile__ChooseOwner}>
                     <ChooseOwner/>
                 </div>
-                <RangeSlider />
+                <RangeSlider
+                    dispatch={dispatch}
+                    maxCardsCount={maxCardsCount}
+                    minCardsCount={minCardsCount}
+                />
                 <Sorting/>
             </div>
             <div className={s.profile__main}>
-                {/*{props.isTableMode && <Table/>}*/}
-                <Table/>
+                <Title value={'Packs List'}/>
+                <SearchPacksContainer/>
+                <TableContainer/>
+                <PaginationPacksContainer/>
             </div>
         </div>
     </div>

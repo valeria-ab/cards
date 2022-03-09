@@ -90,6 +90,7 @@ color: #27fe27;
   background-color: #FEFEFF;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 .profile__textName{
   margin-bottom: 20px;

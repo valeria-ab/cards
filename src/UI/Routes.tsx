@@ -3,12 +3,12 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import RegisterPage from './Register/RegisterPage';
 import Login from './Login/Login';
 import {NewPassword} from './Forgot/NewPassword';
-import {Error404} from './Error404';
+import {Error404} from './common/Error404/Error404';
 import {Forgot} from './Forgot/Forgot';
 import {PacksList} from './PacksList/PacksList';
 import {Learning} from './Modals/Learning/Learning';
 import {Profile} from './Profile/Profile';
-import {Cards} from './Cards/Cards';
+import {CardsPage} from './common/Cards/CardsPage';
 
 // all project paths
 export const SIGN_IN_PATH = '/login';
@@ -23,22 +23,18 @@ const RoutesComponent: React.FC = () => {
 
     return (
         <Routes>
-            <Route path={'/'} element={<Profile />}/>
-            <Route path={PROFILE_PATH} element={<Profile />}/>
-            {/*<Route path={PROFILE_PATH} element={<Profile isTableMode={true}/>}/>*/}
+            <Route path={'/'} element={<Profile/>}/>
+            <Route path={PROFILE_PATH} element={<Profile/>}/>
             <Route path={SIGN_IN_PATH} element={<Login/>}/>
             <Route path={REGISTER_PATH} element={<RegisterPage/>}/>
             <Route path={FORGOT_PATH} element={<Forgot/>}/>
             <Route path={RECOVERY_PATH} element={<NewPassword/>}/>
-            <Route path={PACKS_LIST_PATH} element={<PacksList />}/>
-            {/*<Route path={PACKS_LIST_PATH} element={<PacksList isTableMode={true}/>}/>*/}
+            <Route path={PACKS_LIST_PATH} element={<PacksList/>}/>
             <Route path={'404'} element={<Error404/>}/>
             <Route path={'*'} element={<Navigate to="/404"/>}/>
             <Route path={'/cards'} element={<Navigate to="/profile"/>}/>
-            <Route path={'/learn/:packId'} element={<Learning />}/>
-            {/*<Route path={'/packs-list/:packId'} element={<PacksList isTableMode={false}/>}/>*/}
-            {/*<Route path={'/profile/:packId'} element={<Profile isTableMode={false} />}/>*/}
-            <Route path={'pack/:packId'} element={<Cards />}/>
+            <Route path={'/learn/:packId'} element={<Learning/>}/>
+            <Route path={'pack/:packId'} element={<CardsPage/>}/>
         </Routes>
     );
 };

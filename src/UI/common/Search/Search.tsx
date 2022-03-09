@@ -1,14 +1,13 @@
-import {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import useDebounce from './CustomHook';
 import s from './Search.module.scss';
-
 
 type SearchPropsType = {
     title: string
     onKeyUpHandler: (value: string) => void
 }
 
-const Search = (props: SearchPropsType) => {
+const Search = React.memo((props: SearchPropsType) => {
     const [value, setValue] = useState(props.title)
 
     const onKeyUpHandler = useDebounce(() => props.onKeyUpHandler(value), 1000)
@@ -32,6 +31,6 @@ const Search = (props: SearchPropsType) => {
                onKeyPress={onEnterPressHandler}
         />
     </div>
-};
+});
 
 export default Search;

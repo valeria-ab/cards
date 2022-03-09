@@ -10,7 +10,7 @@ type PropsType = {
     currentPageHandler(page: number): void
 }
 
-export const Pagination: React.FC<PropsType> = (props) => {
+export const Pagination: React.FC<PropsType> = React.memo((props) => {
 
     let pagesCount = Math.ceil(props.cardPacksTotalCount / props.pageCount); // count of all pages, before pagination
     let pages = [];
@@ -94,5 +94,5 @@ export const Pagination: React.FC<PropsType> = (props) => {
 
         </div>
     )
-}
+})
 

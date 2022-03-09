@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styles from './Add.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {createPack} from "../../../BLL/packs/packs-reducer";

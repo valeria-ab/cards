@@ -67,6 +67,7 @@ export const cardsReducer = (state: InitialCardsStateType = initialState, action
         }
         case 'CARDS/SET-SEARCH-QUESTION-NAME':
             return {...state, cardQuestion: action.cardQuestion}
+
         default:
             return state;
     }
@@ -119,7 +120,7 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
     const {
         page,
         pageCount,
-        cardQuestion
+        cardQuestion,
     } = getState().cards;
     dispatch(setAppLoading(true))
     cardsApi.getCards({

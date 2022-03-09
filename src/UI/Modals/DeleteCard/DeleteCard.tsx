@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './DeleteCard.module.scss';
 import {useDispatch} from "react-redux";
 import {deleteCardTC} from "../../../BLL/cards/cards-reducer";
@@ -12,21 +12,13 @@ type  DeleteCardsPropsType = {
 
 export const DeleteCard = React.memo((props: DeleteCardsPropsType) => {
 
-
-    // const [name, setName] = useState<string>(props.pack.name);
-
     const dispatch = useDispatch()
-
-    // const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setName(e.currentTarget.value)
-    // }
 
 
     const onSaveClick = () => {
         dispatch(deleteCardTC(
             props.cards._id, props.cards.cardsPack_id
         ))
-
         props.deleteModeOff()
     }
 
