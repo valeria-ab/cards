@@ -7,7 +7,7 @@ import {Error404} from './common/Error404/Error404';
 import {Forgot} from './Forgot/Forgot';
 import {PacksList} from './PacksList/PacksList';
 import {Learning} from './Modals/Learning/Learning';
-import {Profile} from './Profile/Profile';
+import {ProfilePage} from './Profile/ProfilePage';
 import {CardsPage} from './common/Cards/CardsPage';
 
 // all project paths
@@ -23,8 +23,8 @@ const RoutesComponent: React.FC = () => {
 
     return (
         <Routes>
-            <Route path={'/'} element={<Profile/>}/>
-            <Route path={PROFILE_PATH} element={<Profile/>}/>
+            <Route path={'/'} element={<ProfilePage/>}/>
+            <Route path={PROFILE_PATH} element={<ProfilePage/>}/>
             <Route path={SIGN_IN_PATH} element={<Login/>}/>
             <Route path={REGISTER_PATH} element={<RegisterPage/>}/>
             <Route path={FORGOT_PATH} element={<Forgot/>}/>
