@@ -33,7 +33,7 @@ export const registrationTC = (payload : {email: string, password: string}) => (
         dispatch(successRegistrationAC(true))
       })
       .catch((error)=> {
-          dispatch(setErrorAC(error))
+          dispatch(setErrorAC(error.response.data.error))
       })
         .finally(() => dispatch(setAppLoading(false)))
 }

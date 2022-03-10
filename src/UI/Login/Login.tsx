@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {Navigate} from 'react-router-dom';
 import {IAppStore} from '../../BLL/store/store';
-import {FORGOT_PATH, REGISTER_PATH} from '../Routes';
+import {FORGOT_PATH, REGISTER_PATH, SIGN_IN_PATH} from '../Routes';
 import s from './LogIn.module.scss';
 import {Alert} from '@mui/material';
 import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';

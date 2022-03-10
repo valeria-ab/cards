@@ -122,7 +122,7 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
         pageCount,
         cardQuestion,
     } = getState().cards;
-    dispatch(setAppLoading(true))
+    // dispatch(setAppLoading(true))
     cardsApi.getCards({
         page,
         pageCount,
@@ -135,7 +135,9 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        // .finally(() =>
+        //     dispatch(setAppLoading(false))
+        // )
 }
 
 export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
@@ -145,7 +147,7 @@ export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): Thun
             dispatch(getCardsTC({cardsPack_id}))
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
@@ -162,7 +164,7 @@ export const createCardTC = (cardsPack_id: string, question: string, answer: str
                 dispatch(getCardsTC({cardsPack_id}))
             })
             .catch((err) => {
-                dispatch(setErrorAC(err))
+                dispatch(setErrorAC(err.response.data.error))
             })
             .finally(() => dispatch(setAppLoading(false)))
     }
@@ -175,7 +177,7 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
             dispatch(getCardsTC({cardsPack_id}))
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
         })
         .finally(() => dispatch(setAppLoading(false)))
 }
@@ -193,7 +195,7 @@ export const updateCardTC = (cardsPack_id: string, cardId: string, question: str
                 dispatch(getCardsTC({cardsPack_id}))
             })
             .catch((err) => {
-                dispatch(setErrorAC(err))
+                dispatch(setErrorAC(err.response.data.error))
             })
             .finally(() => dispatch(setAppLoading(false)))
     }

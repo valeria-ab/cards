@@ -10,7 +10,7 @@ import {setCardsPacksCountFromRangeAC, setSortPacksValueAC, setWithMyIdAC} from 
 import {logOut} from '../../BLL/login/login-reducer';
 import {changeLayoutAC} from '../../BLL/cards/cards-reducer';
 
-export default function MainHeader() {
+export  const MainHeader = React.memo( () =>{
     const dispatch = useDispatch()
 
     return (
@@ -40,16 +40,21 @@ export default function MainHeader() {
                             <span>Profile</span>
                         </button>
                     </NavLink>
-                    <button className={s.btn}
-                    onClick={() => dispatch(logOut())}
-                    >
-                        <img className={`${s.btnImg} ${s.btnLogout}`} src={LogoutIcon} alt="ProfileIcon"/>
-                        <span>Logout</span>
-                    </button>
+
+                        <button className={s.btn}
+                                onClick={() => {
+                                    dispatch(logOut())
+                                }}
+                        >
+                            <img className={`${s.btnImg} ${s.btnLogout}`} src={LogoutIcon} alt="ProfileIcon"/>
+                            <span>Logout</span>
+                        </button>
+
                 </div>
             </div>
         </div>
     );
-};
+})
 
 
+export default MainHeader;

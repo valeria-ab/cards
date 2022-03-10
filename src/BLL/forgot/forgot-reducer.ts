@@ -43,7 +43,7 @@ export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
            dispatch(sendRequestAC(true))
         })
         .catch((error) => {
-            dispatch(setErrorAC(error))
+            dispatch(setErrorAC(error.response.data.error))
         })
         .finally(() => dispatch(setAppLoading(false)))
 }

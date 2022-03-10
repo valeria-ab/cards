@@ -20,6 +20,7 @@ import {ProfileInfo} from './ProfileInfo';
 
 
 export const ProfilePage = () => {
+    console.log("profile")
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const pageCount = useSelector<IAppStore, number>((state) => state.packs.pageCount);

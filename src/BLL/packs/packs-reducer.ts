@@ -127,7 +127,7 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
 if (sortingBy) { // @ts-ignore
     mainPayload = {...mainPayload, sortPacks: sortingBy}}
 
-    dispatch(setAppLoading(true))
+    // dispatch(setAppLoading(true))
 
     packsApi.getPacks({
         ...mainPayload,
@@ -139,7 +139,7 @@ if (sortingBy) { // @ts-ignore
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        // .finally(() => dispatch(setAppLoading(false)))
 
 }
 

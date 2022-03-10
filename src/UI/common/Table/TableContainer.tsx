@@ -44,9 +44,9 @@ export const TableContainer = React.memo(() => {
     }, [])
 
 
-    if (isLoading) {
-        return <div className={s.table}>loading...</div>
-    }
+    // if (isLoading) {
+    //     return <div className={s.table}>loading...</div>
+    // }
     return (<div className={s.table}>
             <div className={s.Table__top}>
                 <button className={s.add} onClick={() => setAddMode(true)}> Add Pack</button>

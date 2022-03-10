@@ -1,11 +1,24 @@
-import React from "react";
+import React, {useCallback} from 'react';
+import Register from './Register';
+import {registrationTC} from '../../BLL/register/register-reducer';
+import {Navigate} from 'react-router-dom';
+import {IAppStore} from '../../BLL/store/store';
+import {useDispatch, useSelector} from 'react-redux';
 
-import Register from "./Register";
+const RegisterContainer: React.FC = React.memo(() => {
+    const dispatch = useDispatch()
+    const isRegistration = useSelector<IAppStore, boolean>(state => state.register.isRegistration)
 
-const RegisterContainer: React.FC = () => {
-  // redirect logic
+    const registrationRequest = useCallback((email: string, password: string) => {
+        dispatch(registrationTC({email, password}))
+    }, [])
 
-  return <Register />;
-};
+    if (isRegistration) {
+        return <Navigate to={'/login'}/>
+    }
+    return <Register
+        registrationRequest={registrationRequest}
+    />;
+});
 
 export default RegisterContainer;

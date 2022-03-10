@@ -1,62 +1,54 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IAppStore } from "../../BLL/store/store";
-import { Navigate } from "react-router-dom";
-import s from "./Register.module.scss";
-import {Alert} from "@mui/material";
-import {ErrorSnackbar} from "../common/Error/ErrorSnackbar";
-import {registrationTC} from '../../BLL/register/register-reducer';
+import React, {useState} from 'react';
+import s from './Register.module.scss';
+import {Alert} from '@mui/material';
+import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
+import {NavLink} from 'react-router-dom';
+import {REGISTER_PATH, SIGN_IN_PATH} from '../Routes';
 
-//AddPack my branch
-interface IRegisterProps {
+
+type RegisterPropsType = {
+    registrationRequest: (email: string, password: string) => void
 }
 
-const Register: React.FC<IRegisterProps> = ({}) => {
+const Register = React.memo((props: RegisterPropsType) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [repeatPassword, setRepeatPassword] = useState<string>('');
     const [emailError, setEmailError] = useState<null | string>(null)
     const [passError, setPassError] = useState<null | string>(null)
     const [repeatPasswordError, setRepeatPasswordError] = useState<null | string>(null)
-    const dispatch = useDispatch()
-    const isRegistration = useSelector<IAppStore, boolean>(state => state.register.isRegistration)
 
 
     const registration = () => {
         if (password === repeatPassword) {
-            dispatch(registrationTC({ email, password }))
+            props.registrationRequest(email, password)
         }
     }
 
     const blurHandler = () => {
         const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        if (email.length === 0){
-            setEmailError('Поле не может быть пустым')
-        }
-        else if (!re.test(String(email).toLowerCase())) {
-            setEmailError('Не валидный Email');
+        if (email.length === 0) {
+            setEmailError('The field cannot be empty')
+        } else if (!re.test(String(email).toLowerCase())) {
+            setEmailError('Invalid Email');
         } else {
             setEmailError(null);
         }
     };
     const passwordBlurHandler = () => {
-        if (password.length === 0){
-            setPassError ('Поле не может быть пустым')
+        if (password.length === 0) {
+            setPassError('The field cannot be empty')
         } else if (password.length < 3) {
-            setPassError ('не менее 3-х символов')
+            setPassError('at least 3 characters')
         }
     }
 
     const rePasswordBlurHandler = () => {
-        if (repeatPassword.length === 0){
-            setRepeatPasswordError ('Поле не может быть пустым')
+        if (repeatPassword.length === 0) {
+            setRepeatPasswordError('The field cannot be empty')
         } else if (repeatPassword.length < 3) {
-            setRepeatPasswordError ('не менее 3-х символов')
+            setRepeatPasswordError('at least 3 characters')
         }
-    }
-
-    if (isRegistration) {
-        return <Navigate to={'/login'} />
     }
 
     return <div className={s.Register}>
@@ -77,14 +69,14 @@ const Register: React.FC<IRegisterProps> = ({}) => {
                            setEmailError(null)
                        }}
                        onBlur={blurHandler}
-            />
+                />
 
-        </div>
-        {emailError !== null && <span>
+            </div>
+            {emailError !== null && <span>
             <Alert severity="error">{emailError}</Alert>
             </span>}
             <div className={s.InputWrapper}>
-                <label className={s.loginLabel} >Password</label>
+                <label className={s.loginLabel}>Password</label>
                 <input className={s.Input}
                        type="password"
                        placeholder={''}
@@ -118,18 +110,25 @@ const Register: React.FC<IRegisterProps> = ({}) => {
             </span>}
         </div>
         <div className={s.btnWrap}>
-            <button className={s.btnLeft} type="button">
-                Cancel
-            </button>
+            {/*<button className={s.btnLeft} type="button">*/}
+            {/*    Cancel*/}
+            {/*</button>*/}
             <button className={s.btnRight}
                     onClick={registration}
                     name={'Register'}
                     type="submit">
-                Register
+                Sign Up!
             </button>
+            <div>
+                <NavLink to={SIGN_IN_PATH}>
+                    Sign In
+                </NavLink>
+            </div>
+
         </div>
         <ErrorSnackbar/>
     </div>;
-};
+})
+
 
 export default Register;
