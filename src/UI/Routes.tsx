@@ -3,12 +3,12 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import Login from './Login/Login';
 import {NewPassword} from './Forgot/NewPassword';
 import {Error404} from './common/Error404/Error404';
-import {Forgot} from './Forgot/Forgot';
 import {PacksList} from './PacksList/PacksList';
 import {Learning} from './Modals/Learning/Learning';
 import {ProfilePage} from './Profile/ProfilePage';
 import {CardsPage} from './common/Cards/CardsPage';
 import RegisterContainer from './Register/RegisterContainer';
+import ForgotPasswordContainer from './Forgot/ForgotContainer';
 
 // all project paths
 export const SIGN_IN_PATH = '/login';
@@ -27,7 +27,7 @@ const RoutesComponent: React.FC = () => {
             <Route path={PROFILE_PATH} element={<ProfilePage/>}/>
             <Route path={SIGN_IN_PATH} element={<Login/>}/>
             <Route path={REGISTER_PATH} element={<RegisterContainer/>}/>
-            <Route path={FORGOT_PATH} element={<Forgot/>}/>
+            <Route path={FORGOT_PATH} element={<ForgotPasswordContainer/>}/>
             <Route path={RECOVERY_PATH} element={<NewPassword/>}/>
             <Route path={PACKS_LIST_PATH} element={<PacksList/>}/>
             <Route path={'404'} element={<Error404/>}/>

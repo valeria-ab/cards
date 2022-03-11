@@ -1,22 +1,21 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styles from "./Forgot.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordTC} from "../../BLL/forgot/forgot-reducer";
-import {IAppStore} from "../../BLL/store/store";
 import {CheckEmail} from "./CheckEmail";
 import {Alert} from "@mui/material";
 import {ErrorSnackbar} from "../common/Error/ErrorSnackbar";
-import {setErrorAC} from '../../BLL/app/app-reducer';
 
-export const Forgot = React.memo(() => {
+type ForgotPasswordPropsType = {
+    setError: (value: string) => void
+    forgotPasswordRequest: (value: string) => void
+    isRequestSend: boolean
+}
+export const Forgot = React.memo((props: ForgotPasswordPropsType) => {
 
-    const dispatch = useDispatch()
     const [valueInput, setValueInput] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
-    const isRequestSend = useSelector<IAppStore, boolean>(state => state.forgot.isRequestSend)
 
-    const checkEmailValidity = (value: string) => {  //валидация емайл
+    const checkEmailValidity = (value: string) => {
         const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return reg.test(value);
     };
@@ -31,14 +30,14 @@ export const Forgot = React.memo(() => {
     const onClickHandler = () => {
         if (!checkEmailValidity(valueInput)) {
             setError("Not valid email")
-            dispatch(setErrorAC("Not valid email"))
+          props.setError("Not valid email")
             return
         }
-        dispatch(forgotPasswordTC(valueInput))
+        props.forgotPasswordRequest(valueInput)
 
     }
 
-    if (isRequestSend) return <CheckEmail/>
+    if (props.isRequestSend) return <CheckEmail/>
 
     return (
         <div className={styles.main}>

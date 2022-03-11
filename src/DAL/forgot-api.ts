@@ -16,7 +16,7 @@ export const forgotApi = {
         return instance.post<SendMessageType>('auth/forgot', {
             email,
             from: 'test-front-admin <XXX@gmail.com>',
-            message: `<div><h1><a href='https://valeria-ab.github.io/cards/#/set-new-password/$token$'>change password</h1></div>`,
+            message: `<div style="background-color: #ff5df3; padding: 15px"><h1><a href='https://valeria-ab.github.io/cards/#/set-new-password/$token$'>change password</h1></div>`,
         });
     },
     newPassword(password: string, token: string) {

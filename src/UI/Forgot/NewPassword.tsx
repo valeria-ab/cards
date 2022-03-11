@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useState} from "react";
 import styles from "./NewPassword.module.scss";
 import {useParams} from "react-router-dom";
-import {sendNewPasswordTC} from "../../BLL/forgot/newPassword-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../BLL/store/store";
 import eye from "../../image/eye.svg";
 import eyeSlash from "../../image/eye-slash.svg";
 import Login from "../Login/Login";
+import {sendNewPasswordTC} from '../../BLL/forgot/forgot-reducer';
 
 export const NewPassword = React.memo(() => {
     const [valueInput, setValueInput] = useState<string>("");
@@ -14,7 +14,7 @@ export const NewPassword = React.memo(() => {
     const dispatch = useDispatch();
     const {token} = useParams<"token">();
     const isSend = useSelector<IAppStore, boolean>(
-        (state) => state.newPassword.isSend
+        (state) => state.forgotPassword.isSend
     );
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
