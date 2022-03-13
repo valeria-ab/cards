@@ -2,15 +2,18 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {styled} from '@mui/material/styles';
-import { setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
+import {setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
 import s from './Range.module.css'
 import {useCallback, useEffect, useState} from 'react';
 import {Dispatch} from 'redux';
+import {useSelector} from 'react-redux';
+import {IAppStore} from '../../../BLL/store/store';
 
 type RangeSliderType = {
-    dispatch: Dispatch
+    // dispatch: Dispatch
     maxCardsCount: number
     minCardsCount: number
+    onChangeCommitted: (values: number[]) => void
 }
 const CustomSlider = styled(Slider)({
     color: '#21268F',
@@ -45,20 +48,25 @@ const CustomSlider = styled(Slider)({
 
 export const RangeSlider = React.memo((props: RangeSliderType) => {
 
+    // const cardsValuesFromRange = useSelector<IAppStore, number[]>(state => state.packs.cardsValuesFromRange)
+    console.log("RangeSlider")
     const [values, setValues] = useState<number[]>([props.minCardsCount, props.maxCardsCount])
-
-    const handleChange = useCallback((event: Event, newValue: number | number[]) => {
+    console.log("min max aka values " + values)
+    console.log("props " + props.minCardsCount, props.maxCardsCount)
+    const handleChange = (event: Event, newValue: number | number[]) => {
         if (props.maxCardsCount > 0) {
             setValues(newValue as number[])
         }
-    }, []);
-    const onChangeCommitted = useCallback(() => {
-        if (props.maxCardsCount > 0) {   props.dispatch(setCardsPacksCountFromRangeAC(values))    }
-    }, [])
+    }
+    const onChangeCommitted = () => {
+        if (props.maxCardsCount > 0) {
+            props.onChangeCommitted(values)
+        }
+    }
 
-    useEffect(() => {
-        setValues([0, 1000])
-    }, [props.minCardsCount, props.maxCardsCount])
+    // useEffect(() => {
+    //     setValues([0, 1000])
+    // }, [props.minCardsCount, props.maxCardsCount])
 
     return (<div className={s.range}>
             <Box sx={{width: 200}}>

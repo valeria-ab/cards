@@ -17,6 +17,7 @@ import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
 import {ProfileInfo} from './ProfileInfo';
+import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
 
 
 export const ProfilePage = () => {
@@ -42,7 +43,7 @@ export const ProfilePage = () => {
             dispatch(getPacksTC())
             currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
         }
-    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack])
+    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack, maxCardsCount, minCardsCount])
 
 
     // const refresh = async () => {
@@ -68,11 +69,7 @@ export const ProfilePage = () => {
                         avatar={profile.avatar}
                         onChangeProfileDataClick={onChangeProfileDataClick}
                     />
-                    <RangeSlider
-                        minCardsCount={minCardsCount}
-                        maxCardsCount={maxCardsCount}
-                        dispatch={dispatch}
-                    />
+                    <RangeSliderContainer/>
                     <Sorting/>
                 </div>
             </div>

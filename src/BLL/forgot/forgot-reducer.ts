@@ -61,7 +61,7 @@ export const sendNewPasswordTC = (password: string, token: string) => (dispatch:
             dispatch(sendPasswordRequestAC(true))
         })
         .catch((error) => {
-            alert(error)
+            dispatch(setErrorAC(error.response.data.error))
         })
 }
 

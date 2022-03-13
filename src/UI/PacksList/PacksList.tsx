@@ -13,6 +13,7 @@ import {RangeSlider} from '../common/Range/RangeSlider';
 import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
+import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
 
 
 export const PacksList = () => {
@@ -40,7 +41,17 @@ export const PacksList = () => {
             dispatch(getPacksTC())
             currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
         }
-    }, [withMyId, page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack])
+    }, [
+        withMyId,
+        page,
+        pageCount,
+        cardsValuesFromRange,
+        packName,
+        sortingBy,
+        currentPack,
+        maxCardsCount,
+        minCardsCount
+    ])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
@@ -56,11 +67,7 @@ export const PacksList = () => {
                 <div className={s.profile__ChooseOwner}>
                     <ChooseOwner/>
                 </div>
-                <RangeSlider
-                    dispatch={dispatch}
-                    maxCardsCount={maxCardsCount}
-                    minCardsCount={minCardsCount}
-                />
+                <RangeSliderContainer/>
                 <Sorting/>
             </div>
             <div className={s.profile__main}>

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import styles from './Add.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {createPack} from "../../../BLL/packs/packs-reducer";
+import {createPack, setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
 import {IAppStore} from "../../../BLL/store/store";
 
 type  AddPackPropsType = {
@@ -23,6 +23,7 @@ export const AddPack = React.memo((props: AddPackPropsType) => {
 
     const onSaveClick = () => {
         dispatch(createPack(name, currentUserID))
+        dispatch(setCardsPacksCountFromRangeAC([0,1000]))
         props.setAddMode(false)
     }
 
