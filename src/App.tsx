@@ -47,7 +47,7 @@ const App: React.FC = () => {
 
     return (
         <div className="App">
-            {status === "loading" && <LinearProgress />}
+            {status === "loading" && <LinearProgress color={'info'}/>}
                 <Main/>
 
         </div>

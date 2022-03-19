@@ -13,7 +13,7 @@ import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
 import {Sorting} from '../common/Sorting/Sorting';
 import {PaginationPacksContainer} from '../common/Pagination/PaginationPacksContainer';
 import SearchPacksContainer from '../common/Search/SearchPacksContainer';
-import {getCardsTC} from '../../BLL/cards/cards-reducer';
+import {changeLayoutAC, getCardsTC} from '../../BLL/cards/cards-reducer';
 import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
 import {ProfileInfo} from './ProfileInfo';
@@ -53,6 +53,11 @@ export const ProfilePage = React.memo(() => {
     //
     //     currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
     // },[currentPack])
+
+    useEffect(() => {
+        dispatch(changeLayoutAC('profile'))
+
+    },[])
 
     // const refresh = async () => {
     //     await dispatch(getPacksTC())

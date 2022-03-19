@@ -49,10 +49,10 @@ const CustomSlider = styled(Slider)({
 export const RangeSlider = React.memo((props: RangeSliderType) => {
 
     // const cardsValuesFromRange = useSelector<IAppStore, number[]>(state => state.packs.cardsValuesFromRange)
-    console.log("RangeSlider")
+    // console.log("RangeSlider")
     const [values, setValues] = useState<number[]>([props.minCardsCount, props.maxCardsCount])
-    console.log("values " + values)
-    console.log("props " + props.minCardsCount, props.maxCardsCount)
+    // console.log("values " + values)
+    // console.log("props " + props.minCardsCount, props.maxCardsCount)
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (props.maxCardsCount > 0) {
             setValues(newValue as number[])

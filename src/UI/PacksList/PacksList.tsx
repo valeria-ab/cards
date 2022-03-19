@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {ChooseOwner} from './ChooseOwner/ChooseOwner';
 import s from '../Profile/ProfilePage.module.css';
-import {getPacksTC} from '../../BLL/packs/packs-reducer';
+import {getPacksTC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {Navigate} from 'react-router-dom';
@@ -10,7 +10,7 @@ import {Sorting} from '../common/Sorting/Sorting';
 import {PaginationPacksContainer} from '../common/Pagination/PaginationPacksContainer';
 import SearchPacksContainer from '../common/Search/SearchPacksContainer';
 import {RangeSlider} from '../common/Range/RangeSlider';
-import {getCardsTC} from '../../BLL/cards/cards-reducer';
+import {changeLayoutAC, getCardsTC} from '../../BLL/cards/cards-reducer';
 import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
 import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
@@ -54,6 +54,10 @@ export const
         // maxCardsCount,
         // minCardsCount
     ])
+
+        useEffect(() => {
+            dispatch(changeLayoutAC('packs-list'))
+        },[])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
