@@ -10,7 +10,7 @@ import {CardsPage} from './common/Cards/CardsPage';
 import RegisterContainer from './Register/RegisterContainer';
 import ForgotPasswordContainer from './Forgot/ForgotContainer';
 
-// all project paths
+// project paths
 export const SIGN_IN_PATH = '/login';
 export const REGISTER_PATH = '/register';
 export const FORGOT_PATH = '/forgot';
@@ -33,8 +33,8 @@ const RoutesComponent: React.FC = () => {
             <Route path={'404'} element={<Error404/>}/>
             <Route path={'*'} element={<Navigate to="/404"/>}/>
             <Route path={'/cards'} element={<Navigate to="/profile"/>}/>
-            <Route path={'/learn/:packId'} element={<Learning/>}/>
-            <Route path={'pack/:packId'} element={<CardsPage/>}/>
+            <Route path={'/learn/:packId/:packName'} element={<Learning/>}/>
+            <Route path={'pack/:packId/:packName'} element={<CardsPage/>}/>
         </Routes>
     );
 };

@@ -1,12 +1,20 @@
 import {useDispatch} from 'react-redux';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SortingItem} from './SortingItem';
+import {setCardsPacksCountFromRangeAC, setSortPacksValueAC} from '../../../BLL/packs/packs-reducer';
 
 export const Sorting = React.memo(() => {
     const dispatch = useDispatch()
     const [isNameArrowUp, setNameArrowUp] = useState<boolean>(false);
     const [isCardsArrowUp, setCardsArrowUp] = useState<boolean>(false);
     const [isLastUpdatedArrowUp, setLastUpdatedArrowUp] = useState<boolean>(false);
+
+    useEffect(() => {
+        return () => {
+            dispatch(setSortPacksValueAC(null))
+        }
+    }, [])
+
     return (
         <div>
             <span>Sorting by</span>

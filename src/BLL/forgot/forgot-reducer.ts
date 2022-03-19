@@ -44,7 +44,7 @@ type ActionsType = SendRequestActionType | SetErrorActionType |  ReturnType<type
 // thunk
 
 export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     forgotApi.forgotPassword(email)
         .then(() => {
            dispatch(sendRequestAC(true))
@@ -52,7 +52,7 @@ export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
         .catch((error) => {
             dispatch(setErrorAC(error.response.data.error))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 }
 
 export const sendNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {

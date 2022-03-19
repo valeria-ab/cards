@@ -1,14 +1,15 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import useDebounce from './CustomHook';
 import s from './Search.module.scss';
+import {setSearchPackNameAC} from '../../../BLL/packs/packs-reducer';
 
 type SearchPropsType = {
-    title: string
+    value: string
     onKeyUpHandler: (value: string) => void
 }
 
 const Search = React.memo((props: SearchPropsType) => {
-    const [value, setValue] = useState(props.title)
+    const [value, setValue] = useState(props.value)
 
     const onKeyUpHandler = useDebounce(() => props.onKeyUpHandler(value), 1000)
 
@@ -20,6 +21,11 @@ const Search = React.memo((props: SearchPropsType) => {
         setValue(e.currentTarget.value)
     }
 
+    useEffect(() => {
+        return () => {
+            setValue(props.value)
+        }
+    }, [props.value])
 
     return <div className={s.Search}>
         <input className={s.SearchInput}

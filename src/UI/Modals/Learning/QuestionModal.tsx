@@ -6,18 +6,37 @@ import {useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
+import {CircularProgress} from '@mui/material';
+import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 
 type  LearnPackPropsType = {
     questionMode: (value:boolean) => void
-    pack: CardPacksType
+    packName: string | undefined
     card: CardResponseType
     checkYourselfModeOn: () => void
 }
 
 export const QuestionModal = React.memo((props: LearnPackPropsType) => {
+    // console.log("question")
 
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
+    const status = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
+
+    // if (status === "loading") {
+    //     return (
+    //         <div
+    //             style={{
+    //                 position: "fixed",
+    //                 top: "30%",
+    //                 textAlign: "center",
+    //                 width: "100%",
+    //             }}
+    //         >
+    //             <CircularProgress />
+    //         </div>
+    //     );
+    // }
 
     return (
 
@@ -25,7 +44,7 @@ export const QuestionModal = React.memo((props: LearnPackPropsType) => {
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Learn {props.pack.name}</h2>
+                        <h2 className={styles.title}>Learn {props.packName}</h2>
                     </div>
                     <div className={styles.questionBody}>
                         <div className={styles.bold}>Question:

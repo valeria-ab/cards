@@ -1,13 +1,16 @@
 
 
 type InitialAppStateType = {
-   isLoading: boolean
+    status: RequestStatusType
     error: string | null
     isInitialized: boolean
 }
 
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
+
 const initialState: InitialAppStateType = {
-    isLoading: false,
+    status: 'loading',
     error: null,
     isInitialized: false
 };
@@ -15,7 +18,7 @@ const initialState: InitialAppStateType = {
 export const appReducer = (state: InitialAppStateType = initialState, action: ActionsType): InitialAppStateType => {
     switch (action.type) {
         case 'APP/SET-LOADING': {
-            return {...state, isLoading: action.value}
+            return {...state, status: action.value}
         }
         case 'APP/SET-IS_INITIALIZED': {
             return {...state, isInitialized: action.value}
@@ -28,7 +31,7 @@ export const appReducer = (state: InitialAppStateType = initialState, action: Ac
 };
 
 
-export const setAppLoading = (value: boolean) => ({
+export const setAppLoading = (value: RequestStatusType) => ({
     type: 'APP/SET-LOADING',
     value
 } as const);

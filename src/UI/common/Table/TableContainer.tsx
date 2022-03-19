@@ -1,13 +1,13 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
 import {EditPack} from '../../Modals/Edit/EditPack';
 import {Delete} from '../../Modals/Delete/Delete';
 import {AddPack} from '../../Modals/AddPack/AddPack';
-import {setCurrentPackAC} from '../../../BLL/cards/cards-reducer';
-import {CardPacksType} from '../../../DAL/packs-api';
+import {CardPacksType, SortingPacksType} from '../../../DAL/packs-api';
 import {Table} from './Table';
+import {getPacksTC} from '../../../BLL/packs/packs-reducer';
 
 
 export const TableContainer = React.memo(() => {
@@ -15,12 +15,17 @@ export const TableContainer = React.memo(() => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
-
+    const isInitialized = useSelector<IAppStore, boolean>(state => state.app.isInitialized)
     const dispatch = useDispatch()
 
-    const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
+    // const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
 
     const [pack, setPack] = useState<CardPacksType | null>(null);
+    const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
+    const page = useSelector<IAppStore, number>(state => state.packs.page)
+    const packName = useSelector<IAppStore, string>(state => state.packs.packName)
+    const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
+    const pageCount = useSelector<IAppStore, number>((state) => state.packs.pageCount);
 
     //список всех паков
     const packsList = useSelector<IAppStore, CardPacksType[]>((state) => state.packs.cardPacks);
@@ -39,9 +44,20 @@ export const TableContainer = React.memo(() => {
     }, [])
 
     const onLearnButtonClick = useCallback((pack: CardPacksType) => {
-        dispatch(setCurrentPackAC(pack))
+        // dispatch(setCurrentPackAC(pack))
+
+
         // dispatch(getCardsTC({cardsPack_id: pack._id}))
     }, [])
+
+
+    // useEffect(() => {
+    //
+    //     if (isInitialized) {
+    //         dispatch(getPacksTC())
+    //         // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
+    //     }
+    // }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
 
 
     // if (isLoading) {

@@ -11,12 +11,12 @@ import {Navigate, useParams} from 'react-router-dom';
 import SearchCardsContainer from '../Search/SearchCardsContainer';
 import {ArrowBack, CardsTable} from './CardsTable';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
-
+import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 
 export const CardsPage = React.memo(() => {
     const dispatch = useDispatch()
-    const {packId} = useParams()
+    const {packId, packName} = useParams()
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
     const pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
@@ -24,11 +24,10 @@ export const CardsPage = React.memo(() => {
     const [addEditMode, setAddEditMode] = useState<boolean>(false);
     const [addMode, setAddMode] = useState<boolean>(false);
     let page = useSelector<IAppStore, number>(state => state.cards.page)
-    const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
+    const status = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
     const cardQuestion = useSelector<IAppStore, string>(state => state.cards.cardQuestion)
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
-
 
 
     useEffect(() => {
@@ -68,11 +67,12 @@ export const CardsPage = React.memo(() => {
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
-    // if (isLoading) return <div>loading...</div>
+    if (status==="loading") return <div></div>
 
     return (
         <div className={s.container}>
-        {/*<div className={s.table}>*/}
+            {/*<div className={s.table}>*/}
+            <span>{packName}</span>
             <SearchCardsContainer/>
             {cards && cardsCurrent && deleteMode &&
                 <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
@@ -89,19 +89,27 @@ export const CardsPage = React.memo(() => {
             />}
 
 
-
             <ArrowBack layout={layout}/>
 
-            <button className={s.add} onClick={() =>  setAddMode(true)}> Add Card</button>
-           <CardsTable
-               addUpdateOn={addUpdateOn}
-               deleteModeOn={deleteModeOn}
-               cards={cards}
-               isLoading={isLoading}
-           />
-            <PaginationCardsContainer/>
+            <button className={s.add} onClick={() => setAddMode(true)}> Add Card</button>
+
+
+            {
+                cards[0]
+                    ? <div>
+                        <CardsTable
+                            addUpdateOn={addUpdateOn}
+                            deleteModeOn={deleteModeOn}
+                            cards={cards}
+                            // isLoading={status}
+                        />
+                        <PaginationCardsContainer/>
+                    </div>
+                    : <div>this pack is empty</div>
+            }
+
             <ErrorSnackbar/>
-        {/*</div>*/}
+            {/*</div>*/}
         </div>
     );
 });

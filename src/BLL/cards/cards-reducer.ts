@@ -22,7 +22,7 @@ export type InitialCardsStateType = {
     packUserId: string | null
     myCurrentGrade: number
     layout: 'profile' | 'packs-list'
-    currentPack: CardPacksType | null
+    // currentPack: CardPacksType | null
     cardQuestion: string, //for search
 }
 
@@ -36,13 +36,13 @@ const initialState: InitialCardsStateType = {
     packUserId: null,
     myCurrentGrade: 1,
     layout: 'profile',
-    currentPack: null,
+    // currentPack: null,
     cardQuestion: '', //for search
 };
 
 export const cardsReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
     switch (action.type) {
-        case 'CARDS/GET-CARDS': {
+        case 'CARDS/SET-CARDS': {
             return {...state, ...action.cards}
         }
         case 'CARDS/SET-CARDS-CURRENT-PAGE': {
@@ -62,9 +62,9 @@ export const cardsReducer = (state: InitialCardsStateType = initialState, action
         case 'CARDS/CHANGE-LAYOUT': {
             return {...state, layout: action.value}
         }
-        case 'CARDS/SET-CURRENT-PACK': {
-            return {...state, currentPack: action.value}
-        }
+        // case 'CARDS/SET-CURRENT-PACK': {
+        //     return {...state, currentPack: action.value}
+        // }
         case 'CARDS/SET-SEARCH-QUESTION-NAME':
             return {...state, cardQuestion: action.cardQuestion}
 
@@ -74,8 +74,8 @@ export const cardsReducer = (state: InitialCardsStateType = initialState, action
 };
 
 
-export const getCardsAC = (cards: CardsResponseType) => ({
-    type: 'CARDS/GET-CARDS',
+export const setCardsAC = (cards: CardsResponseType | {cards: CardResponseType[]}) => ({
+    type: 'CARDS/SET-CARDS',
     cards
 } as const);
 
@@ -94,12 +94,12 @@ export const setMyCurrentGradeAC = (value: number) =>
 export const updateGradeAC = (grade: number, id: string) => ({type: 'CARDS/UPDATE-GRADE', grade, id} as const)
 export const changeLayoutAC = (value: 'profile' | 'packs-list') =>
     ({type: 'CARDS/CHANGE-LAYOUT', value} as const)
-export const setCurrentPackAC = (value: CardPacksType) =>
-    ({type: 'CARDS/SET-CURRENT-PACK', value} as const)
+// export const setCurrentPackAC = (value: CardPacksType) =>
+//     ({type: 'CARDS/SET-CURRENT-PACK', value} as const)
 export const setSearchСardQuestionAC = (cardQuestion: string) =>
     ({type: 'CARDS/SET-SEARCH-QUESTION-NAME', cardQuestion} as const)
 
-export type GetCardsActionType = ReturnType<typeof getCardsAC>
+export type GetCardsActionType = ReturnType<typeof setCardsAC>
 export type AddCardsActionType = ReturnType<typeof AddCardsAC>
 
 type ActionsType =
@@ -111,7 +111,7 @@ type ActionsType =
     | SetErrorActionType
     | ReturnType<typeof setAppLoading>
     | ReturnType<typeof changeLayoutAC>
-    | ReturnType<typeof setCurrentPackAC>
+    // | ReturnType<typeof setCurrentPackAC>
     | ReturnType<typeof setSearchСardQuestionAC>
 
 // thunk
@@ -122,7 +122,7 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
         pageCount,
         cardQuestion,
     } = getState().cards;
-    // dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     cardsApi.getCards({
         page,
         pageCount,
@@ -130,18 +130,18 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
         ...payload
     })
         .then((res) => {
-            dispatch(getCardsAC(res.data))
+            dispatch(setCardsAC(res.data))
         })
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        // .finally(() =>
-        //     dispatch(setAppLoading(false))
-        // )
+        .finally(() =>
+            dispatch(setAppLoading("idle"))
+        )
 }
 
 export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     cardsApi.sendCard({...payload})
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
@@ -149,12 +149,12 @@ export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): Thun
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 }
 
 export const createCardTC = (cardsPack_id: string, question: string, answer: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
     (dispatch) => {
-        dispatch(setAppLoading(true))
+        dispatch(setAppLoading("loading"))
         cardsApi.sendCard({
             cardsPack_id,
             question,
@@ -166,12 +166,12 @@ export const createCardTC = (cardsPack_id: string, question: string, answer: str
             .catch((err) => {
                 dispatch(setErrorAC(err.response.data.error))
             })
-            .finally(() => dispatch(setAppLoading(false)))
+            .finally(() => dispatch(setAppLoading("succeeded")))
     }
 
 
 export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     cardsApi.deleteCard(id)
         .then((res) => {
             dispatch(getCardsTC({cardsPack_id}))
@@ -179,13 +179,13 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 }
 
 export const updateCardTC = (cardsPack_id: string, cardId: string, question: string, answer: string)
     : ThunkAction<void, IAppStore, unknown, AnyAction> =>
     (dispatch) => {
-        dispatch(setAppLoading(true))
+        dispatch(setAppLoading("loading"))
         cardsApi.updateCard({
             _id: cardId,
             question: question,
@@ -197,7 +197,7 @@ export const updateCardTC = (cardsPack_id: string, cardId: string, question: str
             .catch((err) => {
                 dispatch(setErrorAC(err.response.data.error))
             })
-            .finally(() => dispatch(setAppLoading(false)))
+            .finally(() => dispatch(setAppLoading("succeeded")))
     }
 
 // export const sendCardGradeTC = (card_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
@@ -223,7 +223,7 @@ export const updateGradeTC = (card_id: string) =>
             myCurrentGrade
         } = getState().cards
 
-        dispatch(setAppLoading(true))
+        dispatch(setAppLoading("loading"))
 
         rateApi.updateGrade(myCurrentGrade, card_id)
             .then((res) => {
@@ -232,7 +232,7 @@ export const updateGradeTC = (card_id: string) =>
             .catch(e => {
                 dispatch(setErrorAC(e.response.data.error))
             })
-            .finally(() => dispatch(setAppLoading(false)))
+            .finally(() => dispatch(setAppLoading("succeeded")))
     }
 
 

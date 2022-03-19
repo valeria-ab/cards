@@ -127,7 +127,7 @@ export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState
 if (sortingBy) { // @ts-ignore
     mainPayload = {...mainPayload, sortPacks: sortingBy}}
 
-    // dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
 
     packsApi.getPacks({
         ...mainPayload,
@@ -139,12 +139,12 @@ if (sortingBy) { // @ts-ignore
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        // .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 
 }
 
 export const createPack = (name: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     packsApi.createPack({name})
         .then((res) => {
             dispatch(getPacksTC({user_id}))
@@ -152,12 +152,12 @@ export const createPack = (name: string, user_id?: string): ThunkAction<void, IA
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 }
 
 
 export const deletePack = (packID: string, user_id?: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     packsApi.deletePack(packID)
         .then((res) => {
             dispatch(getPacksTC({user_id}))
@@ -165,7 +165,7 @@ export const deletePack = (packID: string, user_id?: string): ThunkAction<void, 
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("idle")))
 }
 
 
@@ -173,7 +173,7 @@ export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore,
     const pack = getState().packs.cardPacks.find((pack) => pack._id === payload._id)
 
     const updatePack = {...pack, ...payload};
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     packsApi.updatePack(updatePack)
         .then((res) => {
             dispatch(getPacksTC())
@@ -181,7 +181,7 @@ export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore,
         .catch((err) => {
             dispatch(setErrorAC(err))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("idle")))
 }
 
 

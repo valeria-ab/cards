@@ -8,14 +8,12 @@ import {Rating} from 'react-simple-star-rating';
 
 type CardsPropsType = {
     cards: CardResponseType[]
-    isLoading: boolean
     deleteModeOn: (card: CardResponseType) => void
     addUpdateOn: (card: CardResponseType) => void
 }
 
 export const CardsTable = React.memo((props: CardsPropsType) => {
 
-    if (props.isLoading) return <div>loading...</div>
 
     return (
         <div className={s.tableMain}>
@@ -30,7 +28,6 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
                 </tr>
                 </thead>
                 <tbody className={s.table__main}>
-
                 {props.cards.map((card) => {
                     return (<tr key={card._id} className={s.table__row}>
                         <td className={s.table__data}>{card.question}</td>
@@ -60,6 +57,7 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
                         </td>
                     </tr>)
                 })}
+
                 </tbody>
             </table>
         </div>

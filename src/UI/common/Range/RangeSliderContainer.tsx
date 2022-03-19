@@ -19,17 +19,19 @@ export const RangeSliderContainer = React.memo(() => {
 
     // const [values, setValues] = useState<number[]>([props.minCardsCount, props.maxCardsCount])
 
-    // console.log("max min " + maxCardsCount, minCardsCount)
+    // console.log("max min " + minCardsCount,  maxCardsCount)
     // console.log("cardsValuesFromRange " + cardsValuesFromRange)
     const onChangeCommitted = useCallback((values: number[]) => {
-
         dispatch(setCardsPacksCountFromRangeAC(values))
 
+        return () => {
+            dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+        }
     }, [])
 
-    useEffect(() => {
-        dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
-    }, [minCardsCount, maxCardsCount])
+    // useEffect(() => {
+    //     dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+    // }, [minCardsCount, maxCardsCount])
 
     return (<RangeSlider
             onChangeCommitted={onChangeCommitted}

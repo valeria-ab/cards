@@ -27,7 +27,7 @@ export const successRegistrationAC = (isRegistration: boolean) => {
 }
 
 export const registrationTC = (payload : {email: string, password: string}) => (dispatch: Dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     registerApi.register(payload)
       .then((res)=>{
         dispatch(successRegistrationAC(true))
@@ -35,7 +35,7 @@ export const registrationTC = (payload : {email: string, password: string}) => (
       .catch((error)=> {
           dispatch(setErrorAC(error.response.data.error))
       })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 }
 
 type successRegistrationType = ReturnType<typeof successRegistrationAC>

@@ -14,9 +14,11 @@ import {getCardsTC} from '../../BLL/cards/cards-reducer';
 import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
 import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
+import {RequestStatusType} from '../../BLL/app/app-reducer';
 
 
-export const PacksList = () => {
+export const
+    PacksList = () => {
 
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
@@ -26,8 +28,8 @@ export const PacksList = () => {
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
-    const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
-    const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
+    const status = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
+    // const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
     const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
     const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
 
@@ -39,7 +41,7 @@ export const PacksList = () => {
     useEffect(() => {
         if (isInitialized) {
             dispatch(getPacksTC())
-            currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
+            // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
         }
     }, [
         withMyId,
@@ -48,18 +50,18 @@ export const PacksList = () => {
         cardsValuesFromRange,
         packName,
         sortingBy,
-        currentPack,
-        maxCardsCount,
-        minCardsCount
+        // currentPack,
+        // maxCardsCount,
+        // minCardsCount
     ])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
 
-    if (isLoading) {
-        return <div className={s.PacksList}>loading...</div>
-    }
+    // if (status) {
+    //     return <div className={s.PacksList}>loading...</div>
+    // }
 
     return <div className={s.PacksList}>
         <div className={s.container}>

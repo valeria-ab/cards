@@ -50,7 +50,7 @@ export type LoginActions =
 
 
 export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     authApi
         .login(payload)
         .then((res) => {
@@ -67,15 +67,15 @@ export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
             dispatch(loginError(error));
             // dispatch(setErrorAC(error))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 };
 
 
 export const checkAuthMe = () => (dispatch: Dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     authApi.me()
         .then((res) => {
-            dispatch(setAppLoading(false))
+            // dispatch(setAppLoading(false))
             dispatch(setInitializedAC(true));
             dispatch(setUserProfile(res.data))
             dispatch(redirectToLogin(false))
@@ -84,12 +84,12 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
             console.log(err.response.data.error)
             dispatch(redirectToLogin(true))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 }
 
 
 export const logOut = () => (dispatch: Dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
     authApi
         .logOut()
         .then((res) => {
@@ -127,6 +127,6 @@ export const logOut = () => (dispatch: Dispatch) => {
             dispatch(loginError(error));
             dispatch(setErrorAC(error))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("succeeded")))
 };
 

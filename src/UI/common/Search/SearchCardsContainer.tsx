@@ -3,7 +3,8 @@ import {IAppStore} from '../../../BLL/store/store';
 import s from './Search.module.scss';
 import {setSearchСardQuestionAC} from '../../../BLL/cards/cards-reducer';
 import Search from './Search';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
+import {setSearchPackNameAC} from '../../../BLL/packs/packs-reducer';
 
 
 const SearchCardsContainer = React.memo(() => {
@@ -12,10 +13,15 @@ const SearchCardsContainer = React.memo(() => {
     const dispatch = useDispatch();
     const onKeyUpHandler = useCallback((value: string) => dispatch(setSearchСardQuestionAC(value)), [])
 
+    useEffect(() => {
+        return () => {
+            dispatch(setSearchСardQuestionAC(""))
+        }
+    }, [])
 
     return <div className={s.Search}>
         <Search
-            title={cardQuestion}
+            value={cardQuestion}
             onKeyUpHandler={onKeyUpHandler}
         />
     </div>

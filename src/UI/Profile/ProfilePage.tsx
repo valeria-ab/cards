@@ -18,10 +18,11 @@ import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
 import {ProfileInfo} from './ProfileInfo';
 import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
+import {RequestStatusType} from '../../BLL/app/app-reducer';
 
 
-export const ProfilePage = () => {
-    console.log("profile")
+export const ProfilePage = React.memo(() => {
+    // console.log("profile")
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const pageCount = useSelector<IAppStore, number>((state) => state.packs.pageCount);
@@ -35,16 +36,23 @@ export const ProfilePage = () => {
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
     const onChangeProfileDataClick = useCallback((newName: string, avatar: string | ArrayBuffer | null) => dispatch(changeProfileData(newName, avatar)), [])
-    // const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
-    const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
+    const isLoading = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
+    // const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
 
     useEffect(() => {
-        if (isInitialized) {
-            dispatch(getPacksTC())
-            currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
-        }
-    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack, maxCardsCount, minCardsCount])
 
+        if (isInitialized) {
+
+            dispatch(getPacksTC())
+            // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
+        }
+    }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
+    // }, [page, pageCount, cardsValuesFromRange, packName, sortingBy, currentPack, maxCardsCount, minCardsCount])
+
+    // useEffect(() => {
+    //
+    //     currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
+    // },[currentPack])
 
     // const refresh = async () => {
     //     await dispatch(getPacksTC())
@@ -85,5 +93,5 @@ export const ProfilePage = () => {
             </div>
         </div>
     );
-};
+});
 

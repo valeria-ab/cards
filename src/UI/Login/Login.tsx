@@ -8,6 +8,7 @@ import s from './LogIn.module.scss';
 import {Alert} from '@mui/material';
 import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
 import {signIn} from '../../BLL/login/login-reducer';
+import {RequestStatusType} from '../../BLL/app/app-reducer';
 
 const Login = React.memo(() => {
     const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const Login = React.memo(() => {
 
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const error = useSelector<IAppStore, string>((state) => state.login.error);
-    const isLoading = useSelector<IAppStore, boolean>((state) => state.app.isLoading);
+    const isLoading = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
     const dispatch = useDispatch();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,9 +28,9 @@ const Login = React.memo(() => {
         return <Navigate to={'/profile'}/>
     }
 
-    if (isLoading) {
-        return <div className={s.signIn}>loading...</div>
-    }
+    // if (isLoading) {
+    //     return <div className={s.signIn}>loading...</div>
+    // }
 
     return (
         <div className={s.signIn}>

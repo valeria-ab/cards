@@ -13,25 +13,27 @@ import {RateYourself} from './RateYourself';
 
 export const CheckYourself = React.memo((props: {
     card: CardResponseType
-    pack: CardPacksType
+    packName: string | undefined
     checkYourselfModeOff: () => void
     questionMode: (value: boolean) => void
 }) => {
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
     const dispatch = useDispatch()
+
     const onNextClick = () => {
         dispatch(updateGradeTC(props.card._id))
         props.checkYourselfModeOff()
         //зануляет setMyCurrentGradeAC
         dispatch(setMyCurrentGradeAC(1))
     }
+
     return (
 
         <div className={styles.modal}>
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Learn {props.pack.name}</h2>
+                        <h2 className={styles.title}>Learn {props.packName}</h2>
                     </div>
                     <div className={styles.questionBody}>
                         <div className={styles.bold}>Question:

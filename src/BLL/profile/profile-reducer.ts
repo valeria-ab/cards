@@ -78,7 +78,7 @@ export const setUserProfile = (userData: UserDomainType) =>
 // }
 
 export const changeProfileData = (name: string, avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    dispatch(setAppLoading(true))
+    dispatch(setAppLoading("loading"))
 
     authApi.changeProfileData(name, avatar)
         .then((res) => {
@@ -87,5 +87,5 @@ export const changeProfileData = (name: string, avatar: string | ArrayBuffer | n
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
         })
-        .finally(() => dispatch(setAppLoading(false)))
+        .finally(() => dispatch(setAppLoading("idle")))
 }

@@ -37,7 +37,7 @@ export const Table = React.memo((props: PacksTableType) => {
                     {props.packsList.map((pack) => {
 
                         return (<tr key={pack._id} className={s.table__row}>
-                            <NavLink to={`/pack/${pack._id}`}>
+                            <NavLink to={`/pack/${pack._id}/${pack.name}`}>
                                 <td className={s.table__data}>{pack.name}</td>
                             </NavLink>
                             <td className={s.table__data}>{pack.cardsCount}</td>
@@ -52,10 +52,11 @@ export const Table = React.memo((props: PacksTableType) => {
                                         <button className={s.buttonWrapper}
                                                 onClick={() => props.editModeOn(pack)}>Edit
                                         </button>
-                                        <NavLink to={`/learn/${pack._id}`}>
+                                        <NavLink to={`/learn/${pack._id}/${pack.name}`}>
                                             {
                                                 pack.cardsCount > 0 && <button className={s.buttonWrapper}
-                                                                               onClick={() => props.onLearnButtonClick(pack)}
+                                                                               // onClick={() => props.onLearnButtonClick(pack)
+
                                                 >Learn
                                                 </button>
                                             }
@@ -63,7 +64,7 @@ export const Table = React.memo((props: PacksTableType) => {
 
                                     </div>
                                     : pack.cardsCount > 0 &&
-                                    <NavLink to={`/learn/${pack._id}`}>
+                                    <NavLink to={`/learn/${pack._id}/${pack.name}`}>
                                         <button className={s.buttonWrapper}
                                                 onClick={() => props.onLearnButtonClick(pack)}>Learn
                                         </button>

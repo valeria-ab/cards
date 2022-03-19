@@ -51,7 +51,7 @@ export const RangeSlider = React.memo((props: RangeSliderType) => {
     // const cardsValuesFromRange = useSelector<IAppStore, number[]>(state => state.packs.cardsValuesFromRange)
     console.log("RangeSlider")
     const [values, setValues] = useState<number[]>([props.minCardsCount, props.maxCardsCount])
-    console.log("min max aka values " + values)
+    console.log("values " + values)
     console.log("props " + props.minCardsCount, props.maxCardsCount)
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (props.maxCardsCount > 0) {
@@ -64,9 +64,9 @@ export const RangeSlider = React.memo((props: RangeSliderType) => {
         }
     }
 
-    // useEffect(() => {
-    //     setValues([0, 1000])
-    // }, [props.minCardsCount, props.maxCardsCount])
+    useEffect(() => {
+        setValues([props.minCardsCount, props.maxCardsCount])
+    }, [props.minCardsCount, props.maxCardsCount])
 
     return (<div className={s.range}>
             <Box sx={{width: 200}}>
@@ -77,7 +77,8 @@ export const RangeSlider = React.memo((props: RangeSliderType) => {
                     onChange={handleChange}
                     onChangeCommitted={onChangeCommitted}
                     valueLabelDisplay="on"
-                    min={props.minCardsCount}
+                    min={props.minCardsCount}//цифры
+                    // max={20}
                     max={props.maxCardsCount}
                 />
             </Box>

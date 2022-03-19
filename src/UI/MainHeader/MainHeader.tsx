@@ -25,9 +25,9 @@ export const MainHeader = React.memo(() => {
                     <NavLink to={PACKS_LIST_PATH}>
                         <button className={s.btn} onClick={() => {
                             dispatch(setWithMyIdAC(false))
-                            dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                            // dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
                             dispatch(changeLayoutAC('packs-list'))
-                            dispatch(setSortPacksValueAC(null))
+                            // dispatch(setSortPacksValueAC(null))
                         }}>
                             <img className={s.btnImg} src={PackListIcon} alt="PacksListIcon"/>
                             <span>Packs List</span>
@@ -36,9 +36,9 @@ export const MainHeader = React.memo(() => {
                     <NavLink to={PROFILE_PATH}>
                         <button className={s.btn} onClick={() => {
                             dispatch(setWithMyIdAC(true))
-                            dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                            // dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
                             dispatch(changeLayoutAC('profile'))
-                            dispatch(setSortPacksValueAC(null))
+                            // dispatch(setSortPacksValueAC(null))
                         }}>
                             <img className={s.btnImg} src={ProfileIcon} alt="ProfileIcon"/>
                             <span>Profile</span>
