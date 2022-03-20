@@ -75,8 +75,11 @@ export const ProfilePage = React.memo(() => {
     return (
         <div className={s.container}>
 
-            <div>
+
+
+
                 <div className={s.profile__info}>
+                    <div className={s.profileInfo__b2}>
                     <ProfileInfo
                         name={profile.name}
                         avatar={profile.avatar}
@@ -84,17 +87,21 @@ export const ProfilePage = React.memo(() => {
                     />
                     <RangeSliderContainer/>
                     <Sorting/>
+                    </div>
                 </div>
-            </div>
+
 
 
             <div className={s.profile__main}>
-                <div className={s.Table__top}>
-                    <Title value={'My packs list'}/>
-                    <SearchPacksContainer/>
+                <div className={s.profile__b2}>
+                    <div className={s.Table__top}>
+                        <Title value={'My packs list'}/>
+                        <SearchPacksContainer/>
+                    </div>
+                    <TableContainer/>
+                    <PaginationPacksContainer/>
                 </div>
-                <TableContainer/>
-                <PaginationPacksContainer/>
+
             </div>
         </div>
     );
