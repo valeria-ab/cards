@@ -24,14 +24,14 @@ export const RangeSliderContainer = React.memo(() => {
     const onChangeCommitted = useCallback((values: number[]) => {
         dispatch(setCardsPacksCountFromRangeAC(values))
 
-        return () => {
-            dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
-        }
+        // return () => {
+        //     dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+        // }
     }, [])
 
-    // useEffect(() => {
-    //     dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
-    // }, [minCardsCount, maxCardsCount])
+    useEffect(() => {
+        return () => {dispatch(setCardsPacksCountFromRangeAC([0, 1000]))}
+    }, [])
 
     return (<RangeSlider
             onChangeCommitted={onChangeCommitted}

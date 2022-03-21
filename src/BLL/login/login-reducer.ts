@@ -117,7 +117,7 @@ export const logOut = () => (dispatch: Dispatch) => {
 
             dispatch(setWithMyIdAC(true))
             dispatch(changeLayoutAC("profile"))
-            dispatch(setSortPacksValueAC(null))
+            dispatch(setSortPacksValueAC(""))
         })
         .catch((err) => {
             const error = err.response

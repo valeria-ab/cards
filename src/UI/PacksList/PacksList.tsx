@@ -24,7 +24,7 @@ export const
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
-    const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
+    const sortingBy = useSelector<IAppStore, SortingPacksType | "">(state => state.packs.sortingBy)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
@@ -40,7 +40,7 @@ export const
 
     useEffect(() => {
         if (isInitialized) {
-            dispatch(getPacksTC())
+        dispatch(getPacksTC())
             // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
         }
     }, [
@@ -78,7 +78,7 @@ export const
             </div>
             <div className={s.profile__main}>
                 <Title value={'Packs List'}/>
-                <SearchPacksContainer/>
+                {/*<SearchPacksContainer/>*/}
                 <TableContainer/>
                 <PaginationPacksContainer/>
             </div>

@@ -1,9 +1,19 @@
-.SearchInput{
-    width: 461px;
+.search {
+padding: 15px 0;
+  min-width: 74%;
+  //min-width: 70%;
+  //max-width: 100%;
+  //min-width: 461px;
+  //width: 100%;
+}
+
+.searchInput{
+    //min-width: 461px;
+  width: 100%;
     height: 36px;
-    background: #ECECF9;
+    background: #ecf6f8;
     opacity: 0.5;
-    border: 1px solid #635D80;
+    border: 1px solid #092A61;
     border-radius: 2px;
     font-family: "SFUIDisplayRegular";
     font-style: normal;
@@ -14,11 +24,11 @@
     position: relative;
     
 }
-.SearchInput:active, :hover, :focus {
+.searchInput:active, :hover, :focus {
     outline: 0;
     outline-offset: 0;
 }
-.SearchInput::before{
+.searchInput::before{
         content: url("../../../image/SearchIcon.png");
         display: block;
         width: 16px;

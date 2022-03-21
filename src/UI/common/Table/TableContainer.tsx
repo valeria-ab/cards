@@ -8,6 +8,7 @@ import {AddPack} from '../../Modals/AddPack/AddPack';
 import {CardPacksType, SortingPacksType} from '../../../DAL/packs-api';
 import {Table} from './Table';
 import {getPacksTC} from '../../../BLL/packs/packs-reducer';
+import SearchPacksContainer from '../Search/SearchPacksContainer';
 
 
 export const TableContainer = React.memo(() => {
@@ -21,7 +22,7 @@ export const TableContainer = React.memo(() => {
     // const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
 
     const [pack, setPack] = useState<CardPacksType | null>(null);
-    const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
+    const sortingBy = useSelector<IAppStore, SortingPacksType | "">(state => state.packs.sortingBy)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
@@ -65,7 +66,8 @@ export const TableContainer = React.memo(() => {
     // }
     return (<div className={s.table}>
             <div className={s.Table__top}>
-                <button className={s.add} onClick={() => setAddMode(true)}> Add Pack</button>
+                <SearchPacksContainer/>
+                <button className={s.add} onClick={() => setAddMode(true)}> Add new pack</button>
             </div>
             {addMode && <AddPack setAddMode={setAddMode}/>}
             {pack && editMode && <EditPack pack={pack} setEditMode={setEditMode}/>}

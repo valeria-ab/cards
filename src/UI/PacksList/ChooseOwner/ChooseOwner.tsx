@@ -20,7 +20,7 @@ export const ChooseOwner = React.memo(() => {
                     dispatch(setWithMyIdAC(true))
                     dispatch(setCardsPacksCountFromRangeAC([0,1000]))
                     dispatch(changeLayoutAC("profile"))
-                    dispatch(setSortPacksValueAC(null))
+                    dispatch(setSortPacksValueAC(""))
                 }
                 }>My
         </button>
@@ -33,7 +33,7 @@ export const ChooseOwner = React.memo(() => {
                     dispatch(setWithMyIdAC(false))
                     dispatch(setCardsPacksCountFromRangeAC([0,1000]))
                     dispatch(changeLayoutAC("packs-list"))
-                    dispatch(setSortPacksValueAC(null))
+                    dispatch(setSortPacksValueAC(""))
                 }}>All
         </button>
     </div>

@@ -16,7 +16,7 @@ type RangeSliderType = {
     onChangeCommitted: (values: number[]) => void
 }
 const CustomSlider = styled(Slider)({
-    color: '#21268F',
+    color: '#092a61',
     height: 5,
     '& .MuiSlider-track': {
         border: 'none',
@@ -37,11 +37,12 @@ const CustomSlider = styled(Slider)({
         lineHeight: 1.2,
         fontSize: 12,
         background: 'unset',
-        padding: 0,
+        // padding: 0,
         width: 32,
         height: 24,
         borderRadius: 3,
-        backgroundColor: '#21268F',
+        // backgroundColor: '#21268F',
+        backgroundColor: '#092a61',
         '&:before': {display: 'none'},
     },
 });
@@ -69,8 +70,10 @@ export const RangeSlider = React.memo((props: RangeSliderType) => {
     }, [props.minCardsCount, props.maxCardsCount])
 
     return (<div className={s.range}>
-            <Box sx={{width: 200}}>
+            {/*<Box sx={{width: 200}}>*/}
+
                 <div className={s.rangeTitle}><b>Number of cards</b></div>
+            {/*<div style={{width: "90%"}}>*/}
                 <CustomSlider
                     getAriaLabel={() => 'Number of cards'}
                     value={values}
@@ -81,7 +84,8 @@ export const RangeSlider = React.memo((props: RangeSliderType) => {
                     // max={20}
                     max={props.maxCardsCount}
                 />
-            </Box>
+            {/*</div>*/}
+            {/*</Box>*/}
         </div>
 
     );

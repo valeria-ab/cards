@@ -17,7 +17,8 @@ export type InitialStateType = {
     packName: string
     cardsValuesFromRange: Array<number>
     withMyId: boolean
-    sortingBy: null | SortingPacksType
+    // sortingBy: null | SortingPacksType
+    sortingBy: "" | SortingPacksType
 }
 
 const initialState: InitialStateType = {
@@ -30,7 +31,7 @@ const initialState: InitialStateType = {
     packName: '', //for search
     cardsValuesFromRange: [0, 1000],
     withMyId: true,
-    sortingBy: null ,
+    sortingBy: "" ,
 };
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -75,7 +76,7 @@ export const setWithMyIdAC = (withMyId: boolean) =>
 export const setCardsPacksCountFromRangeAC = (numbers: Array<number>) =>  // min and max cardsPacks
     ({type: 'PACKS/RANGE-SET-CARDS-PACKS-COUNT', min: numbers[0], max: numbers[1]} as const)
 
-export const setSortPacksValueAC = (value: SortingPacksType | null) =>
+export const setSortPacksValueAC = (value: SortingPacksType | "") =>
     ({type: 'PACKS/SET-SORT-PACKS-COUNT', value} as const)
 
 export type GetPacksActionType = ReturnType<typeof setPacksAC>

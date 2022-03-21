@@ -31,7 +31,7 @@ export const ProfilePage = React.memo(() => {
     );
     const maxCardsCount = useSelector<IAppStore, number>(state => state.packs.maxCardsCount)
     const minCardsCount = useSelector<IAppStore, number>(state => state.packs.minCardsCount)
-    const sortingBy = useSelector<IAppStore, SortingPacksType | null>(state => state.packs.sortingBy)
+    const sortingBy = useSelector<IAppStore, SortingPacksType | "">(state => state.packs.sortingBy)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
@@ -43,7 +43,7 @@ export const ProfilePage = React.memo(() => {
 
         if (isInitialized) {
 
-            dispatch(getPacksTC())
+          dispatch(getPacksTC())
             // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
         }
     }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
@@ -94,10 +94,10 @@ export const ProfilePage = React.memo(() => {
 
             <div className={s.profile__main}>
                 <div className={s.profile__b2}>
-                    <div className={s.Table__top}>
+                    {/*<div className={s.Table__top}>*/}
                         <Title value={'My packs list'}/>
-                        <SearchPacksContainer/>
-                    </div>
+                        {/*<SearchPacksContainer/>*/}
+                    {/*</div>*/}
                     <TableContainer/>
                     <PaginationPacksContainer/>
                 </div>

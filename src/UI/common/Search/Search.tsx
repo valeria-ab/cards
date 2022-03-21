@@ -10,7 +10,9 @@ type SearchPropsType = {
 
 const Search = React.memo((props: SearchPropsType) => {
     const [value, setValue] = useState(props.value)
-
+    // const [value, setValue] = useState("")
+    console.log(" props: " + props.value)
+    console.log(" value: " + value)
     const onKeyUpHandler = useDebounce(() => props.onKeyUpHandler(value), 1000)
 
     const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -20,15 +22,16 @@ const Search = React.memo((props: SearchPropsType) => {
     const setInputValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
+    //
+    // useEffect(() => {
+    //     console.log("useEff " + props.value)
+    //     return () => {
+    //         setValue(props.value)
+    //     }
+    // }, [props.value])
 
-    useEffect(() => {
-        return () => {
-            setValue(props.value)
-        }
-    }, [props.value])
-
-    return <div className={s.Search}>
-        <input className={s.SearchInput}
+    return (
+        <input className={s.searchInput}
                type="text"
                value={value}
                placeholder={'Search...'}
@@ -36,7 +39,8 @@ const Search = React.memo((props: SearchPropsType) => {
                onKeyUp={onKeyUpHandler}
                onKeyPress={onEnterPressHandler}
         />
-    </div>
+
+    )
 });
 
 export default Search;

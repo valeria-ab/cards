@@ -17,7 +17,7 @@ const SearchPacksContainer = React.memo(() => {
         }
     }, [])
 
-    return <div className={s.Search}>
+    return <div className={s.search}>
         <Search
             value={packName}
             onKeyUpHandler={onKeyUpHandler}
