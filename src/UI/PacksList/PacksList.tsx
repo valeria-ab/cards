@@ -76,11 +76,14 @@ export const
                 <RangeSliderContainer/>
                 <Sorting/>
             </div>
+
             <div className={s.profile__main}>
-                <Title value={'Packs List'}/>
+                <div className={s.profile__b2}>
+                <Title value={'Packs list'}/>
                 {/*<SearchPacksContainer/>*/}
                 <TableContainer/>
                 <PaginationPacksContainer/>
+                </div>
             </div>
         </div>
     </div>

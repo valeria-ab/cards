@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import s from '../Table/Table.module.scss';
+import style from '../../Profile/ProfilePage.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {createCardTC, getCardsTC, updateCardTC} from '../../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../../BLL/store/store';
@@ -12,6 +13,7 @@ import SearchCardsContainer from '../Search/SearchCardsContainer';
 import {ArrowBack, CardsTable} from './CardsTable';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {RequestStatusType} from '../../../BLL/app/app-reducer';
+import {Title} from '../Title';
 
 
 export const CardsPage = React.memo(() => {
@@ -67,49 +69,57 @@ export const CardsPage = React.memo(() => {
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
-    if (status==="loading") return <div></div>
+    if (status === 'loading') return <div></div>
 
     return (
-        <div className={s.container}>
+        <div className={s.container} style={{padding: 0, marginTop: "1%", borderRadius: "10px", minHeight: "80vh"}}>
             {/*<div className={s.table}>*/}
-            <span>{packName}</span>
-            <SearchCardsContainer/>
-            {cards && cardsCurrent && deleteMode &&
-                <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
+            <div style={{  padding: '2% 5% 0'}}>
+                <div style={{display: 'flex', alignItems: 'baseline'}}>
+                    <ArrowBack layout={layout}/>
+                    {packName &&  <Title value={packName}/>}
+                </div>
+                <div className={s.Table__top}>
+                <SearchCardsContainer/>
+                <button className={s.add} onClick={() => setAddMode(true)}> Add Card</button>
+                </div>
+                {cards && cardsCurrent && deleteMode &&
+                    <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
 
 
-            {addEditMode && cardsCurrent &&
-                <AddUpdate addUpdateOff={addUpdateOff}
-                           updateCard={updateCard}
-                           card={cardsCurrent}
+                {addEditMode && cardsCurrent &&
+                    <AddUpdate addUpdateOff={addUpdateOff}
+                               updateCard={updateCard}
+                               card={cardsCurrent}
+                    />}
+                {addMode && <AddUpdate
+                    createCard={createCard}
+                    addUpdateOff={addUpdateOff}
                 />}
-            {addMode && <AddUpdate
-                createCard={createCard}
-                addUpdateOff={addUpdateOff}
-            />}
 
 
-            <ArrowBack layout={layout}/>
+                {
+                    cards[0]
+                        ? <div>
+                            <CardsTable
+                                addUpdateOn={addUpdateOn}
+                                deleteModeOn={deleteModeOn}
+                                cards={cards}
+                                // isLoading={status}
+                            />
+                            <PaginationCardsContainer/>
+                        </div>
+                        : <div style={{
+                            height: "55vh",
+                        opacity: "0.8",
+                            marginTop: "10%",
+                        // fontFamily: "Poppins, sans-serif",
+                        fontWeight: 400
+                        }}><span style={{}}>This pack is empty. Click add new card to fill this pack</span></div>
+                }
 
-            <button className={s.add} onClick={() => setAddMode(true)}> Add Card</button>
-
-
-            {
-                cards[0]
-                    ? <div>
-                        <CardsTable
-                            addUpdateOn={addUpdateOn}
-                            deleteModeOn={deleteModeOn}
-                            cards={cards}
-                            // isLoading={status}
-                        />
-                        <PaginationCardsContainer/>
-                    </div>
-                    : <div>this pack is empty</div>
-            }
-
-            <ErrorSnackbar/>
-            {/*</div>*/}
+                <ErrorSnackbar/>
+            </div>
         </div>
     );
 });

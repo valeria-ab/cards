@@ -98,6 +98,8 @@
 
 .chosenButtonBackground {
     background-color: #C2E4E7;
+    /*background-color: #092a61;*/
+    /*color: white;*/
 }
 
 .filter__icon {
@@ -149,8 +151,58 @@
     font-size: 18px;
     font-family: "Poppins", sans-serif;
     line-height: 27px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
 }
-
+.profile__textName:hover {
+    /*text-decoration: underline;*/
+    transform: scale(1.1);
+}
 .profile__ChooseOwner {
     margin-top: 33px;
 }
+.profile__photo_wrapper{
+
+}
+.profile__photo {
+    border-radius: 50%;
+    height: 150px;
+    margin: 0 auto;
+    cursor: pointer;
+    /*z-index: 0;*/
+}
+.profile__photo:hover {
+   /*opacity: 0.8;*/
+
+}
+
+.editAvatar {
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+}
+.editAvatar:before {
+     /*position: absolute;*/
+     content: '';
+     width: 35px;
+     height: 35px;
+     background: url('../../image/editAvatar.svg') 0 0 /cover no-repeat;
+     border-radius: 50%;
+     bottom: 0;
+     right: 0;
+    /*transition: transform 0.3s ease-in-out;*/
+ }
+
+.editAvatar:hover {
+     transform: scale(1.1)
+ }
+
+.editAvatar:hover::before {
+    position: absolute;
+    /*transform: scale(1.2)*/
+}
+

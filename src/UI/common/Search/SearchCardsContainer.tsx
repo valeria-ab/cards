@@ -19,7 +19,7 @@ const SearchCardsContainer = React.memo(() => {
         }
     }, [])
 
-    return <div className={s.Search}>
+    return <div className={s.search}>
         <Search
             value={cardQuestion}
             onKeyUpHandler={onKeyUpHandler}

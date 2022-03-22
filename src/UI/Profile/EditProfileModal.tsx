@@ -1,7 +1,10 @@
 import styles from './EditProfileModal.module.css';
+import s from '../../UI/Modals/Learning/Learning.module.scss';
 import React, {ChangeEvent, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
+import {FilledInput, FormControl, FormHelperText, Input, InputLabel, OutlinedInput} from '@mui/material';
+import Box from '@mui/material/Box';
 
 export const EditProfileModal = (props: {
     setEditProfileMode: (value: boolean) => void
@@ -32,16 +35,82 @@ export const EditProfileModal = (props: {
     }
 
     return (<div>
-        <div className={styles.modal}>
-            <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.wrap}>
+        <div className={s.modal}>
+            <div className={s.wrapper} onClick={(e) => e.stopPropagation()}>
+                <div className={s.wrap}>
                     <div className={styles.header}>
                         <h2 className={styles.title}>Personal information</h2>
                     </div>
-                    <input value={title}
-                           autoFocus
-                           onChange={onChangeTitleHandler}
-                    />
+
+
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': { m: 1 },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        {/*<FormControl variant="standard">*/}
+                        {/*    <InputLabel htmlFor="component-simple">Name</InputLabel>*/}
+                        {/*    <Input id="component-simple"*/}
+                        {/*           // value={name}*/}
+                        {/*           // onChange={handleChange}*/}
+                        {/*    />*/}
+                        {/*</FormControl>*/}
+                        <FormControl variant="standard">
+                            {/*<InputLabel htmlFor="component-helper">Name</InputLabel>*/}
+                            <Input
+                                id="component-helper"
+                                value={title}
+                                // onChange={handleChange}
+                                aria-describedby="component-helper-text"
+                            />
+                            <FormHelperText id="component-helper-text">
+                                Here you can change your name
+                            </FormHelperText>
+                        </FormControl>
+                        {/*<FormControl disabled variant="standard">*/}
+                        {/*    <InputLabel htmlFor="component-disabled">Name</InputLabel>*/}
+                        {/*    <Input id="component-disabled"*/}
+                        {/*           // value={name}*/}
+                        {/*           // onChange={handleChange}*/}
+                        {/*    />*/}
+                        {/*    <FormHelperText>Disabled</FormHelperText>*/}
+                        {/*</FormControl>*/}
+                        {/*<FormControl error variant="standard">*/}
+                        {/*    <InputLabel htmlFor="component-error">Name</InputLabel>*/}
+                        {/*    <Input*/}
+                        {/*        id="component-error"*/}
+                        {/*        // value={name}*/}
+                        {/*        // onChange={handleChange}*/}
+                        {/*        aria-describedby="component-error-text"*/}
+                        {/*    />*/}
+                        {/*    <FormHelperText id="component-error-text">Error</FormHelperText>*/}
+                        {/*</FormControl>*/}
+                        {/*<FormControl>*/}
+                        {/*    <InputLabel htmlFor="component-outlined">Name</InputLabel>*/}
+                        {/*    <OutlinedInput*/}
+                        {/*        id="component-outlined"*/}
+                        {/*        // value={name}*/}
+                        {/*        // onChange={handleChange}*/}
+                        {/*        label="Name"*/}
+                        {/*    />*/}
+                        {/*</FormControl>*/}
+                        {/*<FormControl variant="filled">*/}
+                        {/*    <InputLabel htmlFor="component-filled">Name</InputLabel>*/}
+                        {/*    <FilledInput id="component-filled"*/}
+                        {/*                 // value={name}*/}
+                        {/*                 // onChange={handleChange}*/}
+                        {/*    />*/}
+                        {/*</FormControl>*/}
+                    </Box>
+
+
+                    {/*<input value={title}*/}
+                    {/*       autoFocus*/}
+                    {/*       onChange={onChangeTitleHandler}*/}
+                    {/*/>*/}
                     <input type="file"
                            ref={inRef}
                            onChange={upload}

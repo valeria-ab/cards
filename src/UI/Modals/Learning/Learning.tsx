@@ -107,7 +107,7 @@ export const Learning = React.memo(() => {
             <div
                 style={{
                     position: 'fixed',
-                    top: '30%',
+                    top: '40%',
                     textAlign: 'center',
                     width: '100%',
                     margin: 'auto',

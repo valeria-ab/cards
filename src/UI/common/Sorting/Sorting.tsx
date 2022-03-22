@@ -4,6 +4,7 @@ import {SortingItem} from './SortingItem';
 import {setCardsPacksCountFromRangeAC, setSortPacksValueAC} from '../../../BLL/packs/packs-reducer';
 import {IAppStore} from '../../../BLL/store/store';
 import {SortingPacksType} from '../../../DAL/packs-api';
+import s from './Sorting.module.css';
 
 export const Sorting = React.memo(() => {
     const dispatch = useDispatch()
@@ -59,9 +60,9 @@ export const Sorting = React.memo(() => {
                              position={{top: '85%'}}
                 />
                 <div
-                    style={{textDecoration: "underline dotted", opacity: 0.8, fontSize: "14px"}}
+                    className={s.resetSortingFilter}
                     onClick={() => dispatch(setSortPacksValueAC(""))}
-                >reset sorting filters</div>
+                >reset sorting filter</div>
             </div>
         </div>
     )

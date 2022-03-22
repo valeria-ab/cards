@@ -43,8 +43,8 @@ export const QuestionModal = React.memo((props: LearnPackPropsType) => {
         <div className={styles.modal}>
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
-                    <div className={styles.header}>
-                        <h2 className={styles.title}>Learn {props.packName}</h2>
+                    <div className={styles.header} style={{marginBottom: 0}}>
+                        <h2 className={styles.title}>Learn "{props.packName}"</h2>
                     </div>
                     <div className={styles.questionBody}>
                         <div className={styles.bold}>Question:

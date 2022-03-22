@@ -11,7 +11,8 @@
     background-color: #fff;
     border: none;
     &:hover{
-        border: 1px solid #9A91C8;
+       box-shadow: 0px 4px 18px rgba(9, 42, 97, 0.72), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+
     }
 }
 .Choose__text{
@@ -19,6 +20,7 @@
 }
 
 .active {
-    background-color: #9A91C8;
+    //background-color: #C2E4E7;
+    background-color: #092a61;
     color: white;
 }

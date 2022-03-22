@@ -1,6 +1,8 @@
 import React from 'react';
 import s from '../Table/Table.module.scss';
-import ArrowBackIcon from '../../../image/png-transparent-arrow-computer-icons-left-arrow-angle-text-rectangle.png'
+// import ArrowBackIcon from '../../../image/png-transparent-arrow-computer-icons-left-arrow-angle-text-rectangle.png'
+// import ArrowBackIcon from '../../../image/arrowBack.svg'
+import ArrowBackIcon from '../../../image/27323.svg'
 import {CardResponseType} from '../../../DAL/cards-api';
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
@@ -38,7 +40,7 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
                                 readonly
                                 emptyColor={'#D7D8EF'}
                                 transition
-                                fillColor={'#21268F'}
+                                fillColor={'#092a61'}
                                 size={20}
                                 ratingValue={card.grade * 20}
                             />
@@ -66,15 +68,16 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
 
 export const ArrowBack = React.memo((props: { layout: 'profile' | 'packs-list' }) => {
 
-    return (<div>
+    return (<div style={{ marginRight: '20px'}}>
             <NavLink to={
                 props.layout === 'packs-list'
                     ? PACKS_LIST_PATH
                     : PROFILE_PATH
             }>
-                <button>
-                    <img className={s.back} src={ArrowBackIcon} alt="ArrowBack"/>
-                </button>
+                <div>
+                    <img className={s.back} src={ArrowBackIcon} alt="ArrowBack" style={{opacity: 0.8}}/>
+                    {/*<span className={s.back}>{"back to packs/"}</span>*/}
+                </div>
             </NavLink>
         </div>
     )

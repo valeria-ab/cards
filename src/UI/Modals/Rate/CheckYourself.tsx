@@ -33,14 +33,14 @@ export const CheckYourself = React.memo((props: {
             <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrap}>
                     <div className={styles.header}>
-                        <h2 className={styles.title}>Learn {props.packName}</h2>
+                        <h2 className={styles.title}>Learn "{props.packName}"</h2>
                     </div>
                     <div className={styles.questionBody}>
                         <div className={styles.bold}>Question:
-                            <span className={styles.regular}>{props.card.question}</span>
+                            <span className={styles.regular}> {props.card.question}</span>
                         </div>
                         <div className={styles.bold}>Answer:
-                            <span className={styles.regular}>{props.card.answer}</span>
+                            <span className={styles.regular}> {props.card.answer}</span>
                         </div>
                     </div>
                     <RateYourself/>
