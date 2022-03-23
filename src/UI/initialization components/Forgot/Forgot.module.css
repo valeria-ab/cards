@@ -11,6 +11,7 @@
     max-width: 413px;
     padding: 25px 30px;
     background-color: #F9F9FE;
+    color: #071e45;
 }
 
 .forgot__body {
@@ -19,9 +20,13 @@
 }
 
 .forgot__title {
-    margin-bottom: 32px;
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 600;
     font-size: 26px;
+    line-height: 39px;
+    color: #092A61;
+    margin-bottom: 32px;
 }
 
 .forgot__subtitle {
@@ -35,7 +40,7 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;
-    color: #24254A;
+    color: #092A61;
     opacity: 0.5;
     text-align: left;
 }
@@ -43,14 +48,14 @@
 .forgot__input {
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid #2D2E46;
+    border-bottom: 1px solid #092A61;
     padding: 5px;
     background-color: #F9F9FE;
 }
 
 .forgot__info {
     font-size: 14px;
-    color: #2D2E46;
+    color: #092A61;
     margin-bottom: 30px;
     text-align: left;
     font-family: SFUIDisplayMedium;
@@ -60,7 +65,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #21268F;
+    background: #092A61;
     box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
     border-radius: 30px;
     font-weight: 500;
@@ -79,13 +84,13 @@
 }
 
 .forgot__button:hover {
-    background: #4a4ebc;
+    background: #0c418e;
 }
 
 .forgot__login {
     font-weight: 600;
     font-size: 16px;
     text-align: center;
-    color: #21268F;
+    color: #092A61;
     text-decoration: none;
 }

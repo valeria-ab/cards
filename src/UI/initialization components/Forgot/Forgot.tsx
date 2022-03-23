@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styles from "./Forgot.module.css";
 import {CheckEmail} from "./CheckEmail";
 import {Alert} from "@mui/material";
-import {ErrorSnackbar} from "../common/Error/ErrorSnackbar";
+import {ErrorSnackbar} from "../../common/Error/ErrorSnackbar";
 
 type ForgotPasswordPropsType = {
     setError: (value: string) => void
@@ -43,7 +43,7 @@ export const Forgot = React.memo((props: ForgotPasswordPropsType) => {
         <div className={styles.main}>
             <div className={styles.forgot}>
                 <div className={styles.forgot__body}>
-                    <h2 className={styles.forgot__title}>It-incubator</h2>
+                    <h2 className={styles.forgot__title}>Playing cards</h2>
                     <div className={styles.forgot__subtitle}>Forgot your password?</div>
                     <label className={styles.loginLabel}>Email</label>
                     <input placeholder="" type="text" value={valueInput}

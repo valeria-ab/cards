@@ -2,13 +2,13 @@ import React, {FormEvent, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {Navigate} from 'react-router-dom';
-import {IAppStore} from '../../BLL/store/store';
-import {FORGOT_PATH, REGISTER_PATH, SIGN_IN_PATH} from '../Routes';
+import {IAppStore} from '../../../BLL/store/store';
+import {FORGOT_PATH, REGISTER_PATH, SIGN_IN_PATH} from '../../Routes';
 import s from './LogIn.module.scss';
 import {Alert} from '@mui/material';
-import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
-import {signIn} from '../../BLL/login/login-reducer';
-import {RequestStatusType} from '../../BLL/app/app-reducer';
+import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
+import {signIn} from '../../../BLL/login/login-reducer';
+import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 const Login = React.memo(() => {
     const [email, setEmail] = useState('');
@@ -34,7 +34,7 @@ const Login = React.memo(() => {
 
     return (
         <div className={s.signIn}>
-            <h2 className={s.title}>It-incubator</h2>
+            <h2 className={s.title}>Playing cards</h2>
             <h3 className={s.subtitle}>Sign In</h3>
             <form onSubmit={handleSubmit}>
                 <div className={s.formBox}>

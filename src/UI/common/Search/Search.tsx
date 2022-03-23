@@ -11,8 +11,8 @@ type SearchPropsType = {
 const Search = React.memo((props: SearchPropsType) => {
     const [value, setValue] = useState(props.value)
     // const [value, setValue] = useState("")
-    console.log(" props: " + props.value)
-    console.log(" value: " + value)
+    // console.log(" props: " + props.value)
+    // console.log(" value: " + value)
     const onKeyUpHandler = useDebounce(() => props.onKeyUpHandler(value), 1000)
 
     const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {

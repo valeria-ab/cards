@@ -1,14 +1,14 @@
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import Login from './Login/Login';
-import {NewPassword} from './Forgot/NewPassword';
+import Login from './initialization components/Login/Login';
+import {NewPassword} from './initialization components/Forgot/NewPassword';
 import {Error404} from './common/Error404/Error404';
 import {PacksList} from './PacksList/PacksList';
 import {Learning} from './Modals/Learning/Learning';
 import {ProfilePage} from './Profile/ProfilePage';
 import {CardsPage} from './common/Cards/CardsPage';
-import RegisterContainer from './Register/RegisterContainer';
-import ForgotPasswordContainer from './Forgot/ForgotContainer';
+import RegisterContainer from './initialization components/Register/RegisterContainer';
+import ForgotPasswordContainer from './initialization components/Forgot/ForgotContainer';
 
 // project paths
 export const SIGN_IN_PATH = '/login';

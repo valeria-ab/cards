@@ -1,9 +1,9 @@
 import React from 'react';
 import {Forgot} from './Forgot';
 import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../../BLL/store/store';
-import {setErrorAC} from '../../BLL/app/app-reducer';
-import {forgotPasswordTC} from '../../BLL/forgot/forgot-reducer';
+import {IAppStore} from '../../../BLL/store/store';
+import {setErrorAC} from '../../../BLL/app/app-reducer';
+import {forgotPasswordTC} from '../../../BLL/forgot/forgot-reducer';
 
 
 const ForgotPasswordContainer: React.FC = () => {

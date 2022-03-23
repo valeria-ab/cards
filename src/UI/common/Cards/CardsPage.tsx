@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import s from '../Table/Table.module.scss';
 import style from '../../Profile/ProfilePage.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {createCardTC, getCardsTC, updateCardTC} from '../../../BLL/cards/cards-reducer';
+import {createCardTC, getCardsTC, InitialCardsStateType, updateCardTC} from '../../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../../BLL/store/store';
 import {DeleteCard} from '../../Modals/DeleteCard/DeleteCard';
 import {AddUpdate} from '../../Modals/AddUpdateCard/AddUpdate';
@@ -19,7 +19,7 @@ import {Title} from '../Title';
 export const CardsPage = React.memo(() => {
     const dispatch = useDispatch()
     const {packId, packName} = useParams()
-    const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
+    const cards = useSelector<IAppStore, InitialCardsStateType>(state => state.cards)
     const pageCount = useSelector<IAppStore, number>(state => state.cards.pageCount)
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
     const [cardsCurrent, setCardsCurrent] = useState<CardResponseType | null>(null);
@@ -30,7 +30,8 @@ export const CardsPage = React.memo(() => {
     const layout = useSelector<IAppStore, 'profile' | 'packs-list'>(state => state.cards.layout)
     const cardQuestion = useSelector<IAppStore, string>(state => state.cards.cardQuestion)
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
-
+    const userId = useSelector<IAppStore, string>((state) => state.profile._id);
+    console.log(userId)
 
     useEffect(() => {
         if (packId && isInitialized) {
@@ -72,16 +73,20 @@ export const CardsPage = React.memo(() => {
     if (status === 'loading') return <div></div>
 
     return (
-        <div className={s.container} style={{padding: 0, marginTop: "1%", borderRadius: "10px", minHeight: "80vh"}}>
+      <div className={s.container} style={{
+            padding: 0, marginTop: '1%', borderRadius: '10px', minHeight: '80vh'
+        }}>
             {/*<div className={s.table}>*/}
-            <div style={{  padding: '2% 5% 0'}}>
+            <div style={{padding: '2% 5% 0'}}>
                 <div style={{display: 'flex', alignItems: 'baseline'}}>
                     <ArrowBack layout={layout}/>
-                    {packName &&  <Title value={packName}/>}
+                    {packName && <Title value={packName}/>}
                 </div>
                 <div className={s.Table__top}>
-                <SearchCardsContainer/>
-                <button className={s.add} onClick={() => setAddMode(true)}> Add Card</button>
+                    <SearchCardsContainer/>
+                    { userId === cards.packUserId &&
+                        <button className={s.add} onClick={() => setAddMode(true)}> Add Card</button>
+                    }
                 </div>
                 {cards && cardsCurrent && deleteMode &&
                     <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
@@ -99,23 +104,26 @@ export const CardsPage = React.memo(() => {
 
 
                 {
-                    cards[0]
+                    cards.cards[0]
                         ? <div>
                             <CardsTable
                                 addUpdateOn={addUpdateOn}
                                 deleteModeOn={deleteModeOn}
-                                cards={cards}
+                                cards={cards.cards}
+                                userId={userId}
                                 // isLoading={status}
                             />
                             <PaginationCardsContainer/>
                         </div>
                         : <div style={{
-                            height: "55vh",
-                        opacity: "0.8",
-                            marginTop: "10%",
-                        // fontFamily: "Poppins, sans-serif",
-                        fontWeight: 400
-                        }}><span style={{}}>This pack is empty. Click add new card to fill this pack</span></div>
+                            height: '55vh',
+                            opacity: '0.8',
+                            marginTop: '10%',
+                            // fontFamily: "Poppins, sans-serif",
+                            fontWeight: 400
+                        }}>
+                            <span style={{}}>This pack is empty. Click add new card to fill this pack</span>
+                        </div>
                 }
 
                 <ErrorSnackbar/>

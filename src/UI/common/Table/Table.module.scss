@@ -30,10 +30,13 @@
   line-height: 16px;
   text-overflow: ellipsis;
   align-items: center;
+a, a:visited {
+  color: black;
+}
 
 }
 .tableHeader{
-  background-color: #ECECF9;
+  //background-color: #ECECF9;
   //background-color: #daf1f5;
   background-color: #C2E4E7;
   cursor: pointer;
@@ -46,22 +49,32 @@
 .table__head{
 
   text-align: left;     
-  color: #2D2E46;
+  color: #092a61;
   font-family: "SFUIDisplayRegular";
     font-weight: 700;
     font-size: 13px;
     line-height: 16px;
     text-overflow: ellipsis;
 }
+.table__data__active_packName {
+  //transition: transform 0.1s ;
+  &:hover {
+    //transform: scale(1.1);
+    color: #092a61;
+    font-weight: bold;
+  }
+}
 
 .table__head:first-child, .table__data:first-child{
-  width: 25%;
+  width: 35%;
   //width: 182px;
   padding-left: 24px;
 }
 
+
+
 .table__head:nth-child(2), .table__data:nth-child(2){
-  width: 25%;
+  width: 15%;
   //width: 82px;
 }
 
@@ -81,6 +94,10 @@
   padding-left: 10px;
 }
 
+.inactive__tableRow {
+  cursor: auto;
+  opacity: 0.8;
+}
 .table__row:nth-child(even) {
   //background-color:#F8F7FD;
   //background-color:#ECF8F7;
@@ -110,10 +127,10 @@
   color: #000000;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 .table__data:first-child {
   cursor: pointer;
+
 }
 
 .add {

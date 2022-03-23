@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./CheckEmail.module.scss";
 
-import icon from "../../image/OK.png";
+import icon from "../../../image/OK.png";
 
 
 export const CheckEmail = React.memo(() => {

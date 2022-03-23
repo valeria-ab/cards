@@ -52,30 +52,30 @@ export const setUserProfile = (userData: UserDomainType) =>
 
 
 
-// export const changeUserName = (name: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-//     dispatch(setAppLoading(true))
-//     authApi.changeName(name)
-//         .then((res) => {
-//             dispatch(setUserProfile(res.data.updatedUser))
-//         })
-//         .catch((err) => {
-//             dispatch(setErrorAC(err.response.data.error))
-//         })
-//         .finally(() => dispatch(setAppLoading(false)))
-// }
+export const changeUserName = (name: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading("loading"))
+    authApi.changeName(name)
+        .then((res) => {
+            dispatch(setUserProfile(res.data.updatedUser))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err.response.data.error))
+        })
+        .finally(() => dispatch(setAppLoading("idle")))
+}
 
-// export const changeProfilePhoto = (avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-//     dispatch(setAppLoading(true))
-//
-//     authApi.changeProfilePhoto(avatar)
-//         .then((res) => {
-//             dispatch(setUserProfile(res.data.updatedUser))
-//         })
-//         .catch((err) => {
-//             dispatch(setErrorAC(err.response.data.error))
-//         })
-//         .finally(() => dispatch(setAppLoading(false)))
-// }
+export const changeProfilePhoto = (avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+    dispatch(setAppLoading("loading"))
+
+    authApi.changeProfilePhoto(avatar)
+        .then((res) => {
+            dispatch(setUserProfile(res.data.updatedUser))
+        })
+        .catch((err) => {
+            dispatch(setErrorAC(err.response.data.error))
+        })
+        .finally(() => dispatch(setAppLoading("idle")))
+}
 
 export const changeProfileData = (name: string, avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
     dispatch(setAppLoading("loading"))
@@ -89,3 +89,4 @@ export const changeProfileData = (name: string, avatar: string | ArrayBuffer | n
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }
+

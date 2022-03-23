@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import Register from './Register';
-import {registrationTC} from '../../BLL/register/register-reducer';
+import {registrationTC} from '../../../BLL/register/register-reducer';
 import {Navigate} from 'react-router-dom';
-import {IAppStore} from '../../BLL/store/store';
+import {IAppStore} from '../../../BLL/store/store';
 import {useDispatch, useSelector} from 'react-redux';
 
 const RegisterContainer: React.FC = React.memo(() => {

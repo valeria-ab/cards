@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import s from './Register.module.scss';
 import {Alert} from '@mui/material';
-import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
+import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
 import {NavLink} from 'react-router-dom';
-import {REGISTER_PATH, SIGN_IN_PATH} from '../Routes';
+import {REGISTER_PATH, SIGN_IN_PATH} from '../../Routes';
 
 
 type RegisterPropsType = {
@@ -53,7 +53,7 @@ const Register = React.memo((props: RegisterPropsType) => {
 
     return <div className={s.Register}>
         <h1 className={s.title}>
-            It-incubator
+            Playing cards
         </h1>
         <h3 className={s.subtitle}>Sign Up</h3>
         <div className={s.formBox}>

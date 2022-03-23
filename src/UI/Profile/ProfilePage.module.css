@@ -152,7 +152,7 @@
     font-family: "Poppins", sans-serif;
     line-height: 27px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out;
 }
 .profile__textName:hover {
     /*text-decoration: underline;*/
@@ -169,6 +169,7 @@
     height: 150px;
     margin: 0 auto;
     cursor: pointer;
+    /*position: relative;*/
     /*z-index: 0;*/
 }
 .profile__photo:hover {
@@ -182,7 +183,7 @@
     height: 150px;
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    /*transition: transform 0.2s ease-in-out;*/
     position: relative;
 }
 .editAvatar:before {
@@ -194,11 +195,11 @@
      border-radius: 50%;
      bottom: 0;
      right: 0;
-    /*transition: transform 0.3s ease-in-out;*/
+    transition: transform 0.3s ease-in-out;
  }
 
 .editAvatar:hover {
-     transform: scale(1.1)
+     /*transform: scale(1.1)*/
  }
 
 .editAvatar:hover::before {

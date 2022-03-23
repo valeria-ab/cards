@@ -12,6 +12,7 @@ type CardsPropsType = {
     cards: CardResponseType[]
     deleteModeOn: (card: CardResponseType) => void
     addUpdateOn: (card: CardResponseType) => void
+    userId: string
 }
 
 export const CardsTable = React.memo((props: CardsPropsType) => {
@@ -20,19 +21,19 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
     return (
         <div className={s.tableMain}>
             <table className={s.tableWrapper}>
-                <thead className={s.tableHeader}>
+                <thead className={s.tableHeader} style={{cursor: "auto"}}>
                 <tr className={s.table__headRow}>
                     <th className={s.table__head}>Question</th>
                     <th className={s.table__head}>Answer</th>
                     <th className={s.table__head}>Last Updated</th>
                     <th className={s.table__head}>Grade</th>
-                    <th className={s.table__head}>Actions</th>
+                    {props.userId === props.cards[0].user_id && <th className={s.table__head}>Actions</th>}
                 </tr>
                 </thead>
                 <tbody className={s.table__main}>
                 {props.cards.map((card) => {
                     return (<tr key={card._id} className={s.table__row}>
-                        <td className={s.table__data}>{card.question}</td>
+                        <td className={s.table__data} style={{cursor: "auto"}}>{card.question}</td>
                         <td className={s.table__data}>{card.answer}</td>
                         <td className={s.table__data}>{card.updated.slice(0, 10)}</td>
                         <td className={s.table__data}>
@@ -47,16 +48,18 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
 
                         </td>
 
-                        <td className={s.buttons}>
-                            <button className={s.delButtonWrapper} onClick={() => {
-                                props.deleteModeOn(card)
-                            }}>Delete
-                            </button>
-                            <button className={s.buttonWrapper} onClick={() => {
-                                props.addUpdateOn(card)
-                            }}>Edit
-                            </button>
-                        </td>
+                        {props.userId === props.cards[0].user_id
+                            && <td className={s.buttons}>
+                                <button className={s.delButtonWrapper} onClick={() => {
+                                    props.deleteModeOn(card)
+                                }}>Delete
+                                </button>
+                                <button className={s.buttonWrapper} onClick={() => {
+                                    props.addUpdateOn(card)
+                                }}>Edit
+                                </button>
+                            </td>}
+
                     </tr>)
                 })}
 
@@ -68,7 +71,7 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
 
 export const ArrowBack = React.memo((props: { layout: 'profile' | 'packs-list' }) => {
 
-    return (<div style={{ marginRight: '20px'}}>
+    return (<div style={{marginRight: '20px'}}>
             <NavLink to={
                 props.layout === 'packs-list'
                     ? PACKS_LIST_PATH

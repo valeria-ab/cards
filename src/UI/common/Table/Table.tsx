@@ -13,6 +13,7 @@ type PacksTableType = {
 }
 export const Table = React.memo((props: PacksTableType) => {
 
+    const inactiveTableRowStyle = `${s.table__data} ${s.inactive__tableRow}`
 
     return (
         <div className={s.table}>
@@ -37,13 +38,27 @@ export const Table = React.memo((props: PacksTableType) => {
                     {props.packsList.map((pack) => {
 
                         return (<tr key={pack._id} className={s.table__row}>
-                            <NavLink to={`/pack/${pack._id}/${pack.name}`}>
-                                <td className={s.table__data}>{pack.name}</td>
-                            </NavLink>
-                            <td className={s.table__data}>{pack.cardsCount}</td>
-                            <td className={s.table__data}>{pack.updated.slice(0, 10)}</td>
-                            <td className={s.table__data}>{pack.user_name}</td>
-                            <td className={s.table__data}>
+
+                            {
+                                pack.cardsCount > 0 || props.userId === pack.user_id
+
+                                    ?
+
+                                        <td className={`${s.table__data} ${s.table__data__active_packName}`} >
+                                            <NavLink to={`/pack/${pack._id}/${pack.name}`} >
+                                            {pack.name}
+                                            </NavLink>
+                                        </td>
+
+                                    : <td className={s.table__data}
+                                          style={{cursor: 'auto', opacity: "0.8"}}>{pack.name}</td>
+                            }
+
+
+                            <td className={ pack.cardsCount > 0 || props.userId === pack.user_id ? s.table__data : inactiveTableRowStyle}>{pack.cardsCount}</td>
+                            <td className={pack.cardsCount >  0 || props.userId === pack.user_id ? s.table__data : inactiveTableRowStyle}>{pack.updated.slice(0, 10)}</td>
+                            <td className={pack.cardsCount > 0 || props.userId === pack.user_id ? s.table__data : inactiveTableRowStyle}>{pack.user_name}</td>
+                            <td className={s.table__data} >
                                 {props.userId === pack.user_id ?
                                     <div className={s.buttons}>
                                         <button className={s.delButtonWrapper}
@@ -55,7 +70,7 @@ export const Table = React.memo((props: PacksTableType) => {
                                         <NavLink to={`/learn/${pack._id}/${pack.name}`}>
                                             {
                                                 pack.cardsCount > 0 && <button className={s.buttonWrapper}
-                                                                               // onClick={() => props.onLearnButtonClick(pack)
+                                                    // onClick={() => props.onLearnButtonClick(pack)
 
                                                 >Learn
                                                 </button>
@@ -65,7 +80,7 @@ export const Table = React.memo((props: PacksTableType) => {
                                     </div>
                                     : pack.cardsCount > 0 &&
                                     <NavLink to={`/learn/${pack._id}/${pack.name}`}>
-                                        <button className={s.buttonWrapper}
+                                        <button className={s.buttonWrapper} style={{cursor: "pointer"}}
                                                 onClick={() => props.onLearnButtonClick(pack)}>Learn
                                         </button>
                                     </NavLink>

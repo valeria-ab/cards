@@ -2,11 +2,11 @@ import React, {ChangeEvent, useState} from "react";
 import styles from "./NewPassword.module.scss";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {IAppStore} from "../../BLL/store/store";
-import eye from "../../image/eye.svg";
-import eyeSlash from "../../image/eye-slash.svg";
+import {IAppStore} from "../../../BLL/store/store";
+import eye from "../../../image/eye.svg";
+import eyeSlash from "../../../image/eye-slash.svg";
 import Login from "../Login/Login";
-import {sendNewPasswordTC} from '../../BLL/forgot/forgot-reducer';
+import {sendNewPasswordTC} from '../../../BLL/forgot/forgot-reducer';
 
 export const NewPassword = React.memo(() => {
     const [valueInput, setValueInput] = useState<string>("");
