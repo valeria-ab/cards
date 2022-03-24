@@ -2,8 +2,10 @@ import {CardPacksType, packsApi, PacksResponseType, PacksType, SortingPacksType}
 import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
-import {setAppLoading, setErrorAC} from '../app/app-reducer';
-import {logOut} from '../login/login-reducer';
+import {setAppLoading, setErrorAC, setInitializedAC} from '../app/app-reducer';
+import {logOut, redirectToLogin} from '../login/login-reducer';
+import {setUserProfile} from '../profile/profile-reducer';
+import {changeLayoutAC, setCardsPageCountAC} from '../cards/cards-reducer';
 
 
 
@@ -142,7 +144,31 @@ if (sortingBy) { // @ts-ignore
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() => dispatch(setAppLoading("idle")))
@@ -158,7 +184,31 @@ export const createPack = (name: string, user_id?: string): ThunkAction<void, IA
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() => dispatch(setAppLoading("succeeded")))
@@ -174,7 +224,31 @@ export const deletePack = (packID: string, user_id?: string): ThunkAction<void, 
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() => dispatch(setAppLoading("idle")))
@@ -193,7 +267,31 @@ export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore,
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() => dispatch(setAppLoading("idle")))

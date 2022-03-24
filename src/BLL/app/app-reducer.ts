@@ -1,3 +1,12 @@
+import {setUserProfile} from '../profile/profile-reducer';
+import {changeLayoutAC, setCardsPageCountAC} from '../cards/cards-reducer';
+import {redirectToLogin} from '../login/login-reducer';
+import {
+    setCardPacksPageCountAC,
+    setCardsPacksCountFromRangeAC,
+    setSortPacksValueAC,
+    setWithMyIdAC
+} from '../packs/packs-reducer';
 
 
 type InitialAppStateType = {
@@ -51,8 +60,6 @@ export type SetErrorActionType = ReturnType<typeof setErrorAC>
 type ActionsType = ReturnType<typeof setAppLoading>
     | SetErrorActionType
 | ReturnType<typeof setInitializedAC>
-
-
 
 
 

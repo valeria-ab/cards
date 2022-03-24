@@ -9,9 +9,16 @@ import {
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {IAppStore} from '../store/store';
 import {rateApi} from '../../DAL/rate-api';
-import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
+import {setAppLoading, setErrorAC, SetErrorActionType, setInitializedAC} from '../app/app-reducer';
 import {CardPacksType} from '../../DAL/packs-api';
-import {logOut} from '../login/login-reducer';
+import {logOut, redirectToLogin} from '../login/login-reducer';
+import {setUserProfile} from '../profile/profile-reducer';
+import {
+    setCardPacksPageCountAC,
+    setCardsPacksCountFromRangeAC,
+    setSortPacksValueAC,
+    setWithMyIdAC
+} from '../packs/packs-reducer';
 
 export type InitialCardsStateType = {
     cards: CardResponseType[],
@@ -137,7 +144,31 @@ export const getCardsTC = (payload: CardsType):ThunkAction<void, IAppStore, unkn
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() =>
@@ -171,6 +202,33 @@ export const createCardTC = (cardsPack_id: string, question: string, answer: str
             })
             .catch((err) => {
                 dispatch(setErrorAC(err.response.data.error))
+                if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                    dispatch(setInitializedAC(false))
+                    dispatch(setUserProfile({
+                        _id: '',
+                        email: '',
+                        name: '',
+                        avatar: '',
+                        publicCardPacksCount: 0,
+                        created: '',
+                        updated: '',
+                        isAdmin: false,
+                        verified: false,
+                        rememberMe: false,
+                        error: '',
+                        token: '',
+                        tokenDeathTime: 0,
+                        __v: 0
+                    }));
+                    dispatch(setCardPacksPageCountAC(10))
+                    dispatch(setCardsPageCountAC(10))
+                    dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                    dispatch(redirectToLogin(true))
+
+                    dispatch(setWithMyIdAC(true))
+                    dispatch(changeLayoutAC("profile"))
+                    dispatch(setSortPacksValueAC(""))
+                }
             })
             .finally(() => dispatch(setAppLoading("succeeded")))
     }
@@ -184,6 +242,33 @@ export const deleteCardTC = (id: string, cardsPack_id: string): ThunkAction<void
         })
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
+            }
         })
         .finally(() => dispatch(setAppLoading("succeeded")))
 }
@@ -202,25 +287,36 @@ export const updateCardTC = (cardsPack_id: string, cardId: string, question: str
             })
             .catch((err) => {
                 dispatch(setErrorAC(err.response.data.error))
+                if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                    dispatch(setInitializedAC(false))
+                    dispatch(setUserProfile({
+                        _id: '',
+                        email: '',
+                        name: '',
+                        avatar: '',
+                        publicCardPacksCount: 0,
+                        created: '',
+                        updated: '',
+                        isAdmin: false,
+                        verified: false,
+                        rememberMe: false,
+                        error: '',
+                        token: '',
+                        tokenDeathTime: 0,
+                        __v: 0
+                    }));
+                    dispatch(setCardPacksPageCountAC(10))
+                    dispatch(setCardsPageCountAC(10))
+                    dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                    dispatch(redirectToLogin(true))
+
+                    dispatch(setWithMyIdAC(true))
+                    dispatch(changeLayoutAC("profile"))
+                    dispatch(setSortPacksValueAC(""))
+                }
             })
             .finally(() => dispatch(setAppLoading("succeeded")))
     }
-
-// export const sendCardGradeTC = (card_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
-//     (dispatch: Dispatch, getState: () => IAppStore) => {
-//     const {
-//        myCurrentGrade
-//     } = getState().cardsReducer;
-//     rateAPI.updateGrade(myCurrentGrade, card_id)
-//         .then((res) => {
-//
-//             dispatch(setMyCurrentGradeAC(res.data.grade))
-//             console.log("success res.data.grade = " + res.data.grade)
-//         })
-//         .catch((err) => {
-//             dispatch(setErrorAC(err))
-//         })
-// }
 
 export const updateGradeTC = (card_id: string) =>
     (dispatch: Dispatch, getState: () => IAppStore) => {
@@ -237,6 +333,33 @@ export const updateGradeTC = (card_id: string) =>
             })
             .catch(e => {
                 dispatch(setErrorAC(e.response.data.error))
+                if(e.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                    dispatch(setInitializedAC(false))
+                    dispatch(setUserProfile({
+                        _id: '',
+                        email: '',
+                        name: '',
+                        avatar: '',
+                        publicCardPacksCount: 0,
+                        created: '',
+                        updated: '',
+                        isAdmin: false,
+                        verified: false,
+                        rememberMe: false,
+                        error: '',
+                        token: '',
+                        tokenDeathTime: 0,
+                        __v: 0
+                    }));
+                    dispatch(setCardPacksPageCountAC(10))
+                    dispatch(setCardsPageCountAC(10))
+                    dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                    dispatch(redirectToLogin(true))
+
+                    dispatch(setWithMyIdAC(true))
+                    dispatch(changeLayoutAC("profile"))
+                    dispatch(setSortPacksValueAC(""))
+                }
             })
             .finally(() => dispatch(setAppLoading("succeeded")))
     }

@@ -2,10 +2,17 @@
 import {ThunkAction} from 'redux-thunk';
 import {IAppStore} from '../store/store';
 import {AnyAction} from 'redux';
-import {setAppLoading, setErrorAC} from '../app/app-reducer';
+import {setAppLoading, setErrorAC, setInitializedAC} from '../app/app-reducer';
 import {authApi} from '../../DAL/auth-api';
 import {UserDomainType} from '../../DAL/api';
-import {logOut} from '../login/login-reducer';
+import {logOut, redirectToLogin} from '../login/login-reducer';
+import {
+    setCardPacksPageCountAC,
+    setCardsPacksCountFromRangeAC,
+    setSortPacksValueAC,
+    setWithMyIdAC
+} from '../packs/packs-reducer';
+import {changeLayoutAC, setCardsPageCountAC} from '../cards/cards-reducer';
 
 
 //types
@@ -62,7 +69,31 @@ export const changeUserName = (name: string): ThunkAction<void, IAppStore, unkno
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() => dispatch(setAppLoading("idle")))
@@ -78,7 +109,31 @@ export const changeProfilePhoto = (avatar: string | ArrayBuffer | null ): ThunkA
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
-                dispatch(logOut())
+                dispatch(setInitializedAC(false))
+                dispatch(setUserProfile({
+                    _id: '',
+                    email: '',
+                    name: '',
+                    avatar: '',
+                    publicCardPacksCount: 0,
+                    created: '',
+                    updated: '',
+                    isAdmin: false,
+                    verified: false,
+                    rememberMe: false,
+                    error: '',
+                    token: '',
+                    tokenDeathTime: 0,
+                    __v: 0
+                }));
+                dispatch(setCardPacksPageCountAC(10))
+                dispatch(setCardsPageCountAC(10))
+                dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                dispatch(redirectToLogin(true))
+
+                dispatch(setWithMyIdAC(true))
+                dispatch(changeLayoutAC("profile"))
+                dispatch(setSortPacksValueAC(""))
             }
         })
         .finally(() => dispatch(setAppLoading("idle")))
