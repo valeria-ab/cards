@@ -18,14 +18,13 @@ import {RequestStatusType} from '../../BLL/app/app-reducer';
 import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
 
 
-export const
-    PacksList = () => {
+export const PacksList = () => {
 
     const dispatch = useDispatch()
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const withMyId = useSelector<IAppStore, boolean>(state => state.packs.withMyId)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
-    const sortingBy = useSelector<IAppStore, SortingPacksType | "">(state => state.packs.sortingBy)
+    const sortingBy = useSelector<IAppStore, SortingPacksType | ''>(state => state.packs.sortingBy)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const pageCount = useSelector<IAppStore, number>(state => state.packs.pageCount)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
@@ -41,7 +40,7 @@ export const
 
     useEffect(() => {
         if (isInitialized) {
-        dispatch(getPacksTC())
+            dispatch(getPacksTC())
             // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
         }
     }, [
@@ -56,9 +55,9 @@ export const
         // minCardsCount
     ])
 
-        useEffect(() => {
-            dispatch(changeLayoutAC('packs-list'))
-        },[])
+    useEffect(() => {
+        dispatch(changeLayoutAC('packs-list'))
+    }, [])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
@@ -80,10 +79,10 @@ export const
 
             <div className={s.profile__main}>
                 <div className={s.profile__b2}>
-                <Title value={'Packs list'}/>
-                {/*<SearchPacksContainer/>*/}
-                <TableContainer/>
-                <PaginationPacksContainer/>
+                    <Title value={'Packs list'}/>
+                    {/*<SearchPacksContainer/>*/}
+                    <TableContainer/>
+                    <PaginationPacksContainer/>
                 </div>
             </div>
         </div>

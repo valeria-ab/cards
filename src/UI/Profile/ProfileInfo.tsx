@@ -2,8 +2,7 @@ import s from './ProfilePage.module.css';
 import emptyProfilePhoto from '../../image/nophoto.jpg'
 import pencil
     from '../../image/kisspng-verb-grammar-nonpast-tense-noun-pencil-icon-5aed74129c3655.1596332715255111866399.png'
-import {EditProfileModal} from './EditProfileModal';
-import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {TextField} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
@@ -18,8 +17,9 @@ type ProfileInfoPropsType = {
 }
 
 export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
-    console.log('profile info')
+
     const [title, setTitle] = useState(props.name)
+
     const [editProfileMode, setEditProfileMode] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null)
     const onAvatarClick = () => {
@@ -62,13 +62,14 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
         }
     }
 
+    useEffect(() => {
+        setTitle(props.name)
+        console.log(title)
+    }, [props.name])
+
     return (
         <div className={s.qqqqqqq}>
-            {/*{editProfileMode && <EditProfileModal setEditProfileMode={setEditProfileMode}*/}
-            {/*                                      title={props.name}*/}
-            {/*                                      onChangeProfileDataClick={props.onChangeProfileDataClick}*/}
-            {/*/>}*/}
-            {/*<h3 className={s.profile__text}>Profile</h3>*/}
+
             <div
                 style={{
                     paddingTop: '20px',
