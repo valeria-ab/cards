@@ -2,17 +2,19 @@ import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import useDebounce from './CustomHook';
 import s from './Search.module.scss';
 import {setSearchPackNameAC} from '../../../BLL/packs/packs-reducer';
+import {useSelector} from 'react-redux';
+import {IAppStore} from '../../../BLL/store/store';
+import {InitialCardsStateType} from '../../../BLL/cards/cards-reducer';
 
 type SearchPropsType = {
     value: string
     onKeyUpHandler: (value: string) => void
+    disabled: boolean
 }
 
 const Search = React.memo((props: SearchPropsType) => {
     const [value, setValue] = useState(props.value)
-    // const [value, setValue] = useState("")
-    // console.log(" props: " + props.value)
-    // console.log(" value: " + value)
+
     const onKeyUpHandler = useDebounce(() => props.onKeyUpHandler(value), 1000)
 
     const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -38,6 +40,8 @@ const Search = React.memo((props: SearchPropsType) => {
                onChange={setInputValueHandler}
                onKeyUp={onKeyUpHandler}
                onKeyPress={onEnterPressHandler}
+               disabled={props.disabled}
+            // disabled={true}
         />
 
     )

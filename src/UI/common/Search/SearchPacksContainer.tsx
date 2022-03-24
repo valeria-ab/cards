@@ -21,6 +21,7 @@ const SearchPacksContainer = React.memo(() => {
         <Search
             value={packName}
             onKeyUpHandler={onKeyUpHandler}
+            disabled={false}
         />
     </div>
 })
