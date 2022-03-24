@@ -44,14 +44,15 @@ export const Table = React.memo((props: PacksTableType) => {
 
                                     ?
 
-                                        <td className={`${s.table__data} ${s.table__data__active_packName}`} >
-                                            <NavLink to={`/pack/${pack._id}/${pack.name}`} >
+                                        // <td className={`${s.table__data} ${s.table__data__active_packName}`} >
+                                        <td className={s.table__data} >
+                                            <NavLink to={`/pack/${pack._id}/${pack.name}`} className={s.table__data__active_packName} >
                                             {pack.name}
                                             </NavLink>
                                         </td>
 
                                     : <td className={s.table__data}
-                                          style={{cursor: 'auto', opacity: "0.8"}}>{pack.name}</td>
+                                          style={{ opacity: "0.8"}}>{pack.name}</td>
                             }
 
 

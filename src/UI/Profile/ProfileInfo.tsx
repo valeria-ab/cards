@@ -64,7 +64,6 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
 
     useEffect(() => {
         setTitle(props.name)
-        console.log(title)
     }, [props.name])
 
     return (

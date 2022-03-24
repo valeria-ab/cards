@@ -5,19 +5,19 @@ import {setSearchСardQuestionAC} from '../../../BLL/cards/cards-reducer';
 import Search from './Search';
 import React, {useCallback, useEffect} from 'react';
 import {setSearchPackNameAC} from '../../../BLL/packs/packs-reducer';
+import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 
 const SearchCardsContainer = React.memo(() => {
-
     const cardQuestion = useSelector<IAppStore, string>(state => state.cards.cardQuestion)
     const dispatch = useDispatch();
     const onKeyUpHandler = useCallback((value: string) => dispatch(setSearchСardQuestionAC(value)), [])
 
-    useEffect(() => {
-        return () => {
-            dispatch(setSearchСardQuestionAC(""))
-        }
-    }, [])
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(setSearchСardQuestionAC(""))
+    //     }
+    // }, [])
 
     return <div className={s.search}>
         <Search

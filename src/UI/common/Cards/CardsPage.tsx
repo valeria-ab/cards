@@ -2,7 +2,13 @@ import React, {useCallback, useEffect, useState} from 'react';
 import s from '../Table/Table.module.scss';
 import style from '../../Profile/ProfilePage.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {createCardTC, getCardsTC, InitialCardsStateType, updateCardTC} from '../../../BLL/cards/cards-reducer';
+import {
+    createCardTC,
+    getCardsTC,
+    InitialCardsStateType,
+    setSearchСardQuestionAC,
+    updateCardTC
+} from '../../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../../BLL/store/store';
 import {DeleteCard} from '../../Modals/DeleteCard/DeleteCard';
 import {AddUpdate} from '../../Modals/AddUpdateCard/AddUpdate';
@@ -31,7 +37,7 @@ export const CardsPage = React.memo(() => {
     const cardQuestion = useSelector<IAppStore, string>(state => state.cards.cardQuestion)
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const userId = useSelector<IAppStore, string>((state) => state.profile._id);
-    console.log(userId)
+
 
     useEffect(() => {
         if (packId && isInitialized) {
@@ -67,64 +73,79 @@ export const CardsPage = React.memo(() => {
         setCardsCurrent(null)
     }, [])
 
+    const clearSearchState = useCallback(() => dispatch(setSearchСardQuestionAC('')), [])
+
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }
-    if (status === 'loading') return <div></div>
+    // if (status === 'loading') return <div></div>
 
     return (
-      <div className={s.container} style={{
+        <div className={s.container} style={{
             padding: 0, marginTop: '1%', borderRadius: '10px', minHeight: '80vh'
         }}>
             {/*<div className={s.table}>*/}
             <div style={{padding: '2% 5% 0'}}>
                 <div style={{display: 'flex', alignItems: 'baseline'}}>
-                    <ArrowBack layout={layout}/>
+                    <ArrowBack layout={layout} onClick={clearSearchState}/>
                     {packName && <Title value={packName}/>}
                 </div>
+
+
                 <div className={s.Table__top}>
                     <SearchCardsContainer/>
-                    { userId === cards.packUserId &&
+                    {userId === cards.packUserId &&
                         <button className={s.add} onClick={() => setAddMode(true)}> Add Card</button>
                     }
                 </div>
-                {cards && cardsCurrent && deleteMode &&
-                    <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
+
+                {status === 'loading'
+                    ? <div></div>
+                    : <>
+                        {cards && cardsCurrent && deleteMode &&
+                            <DeleteCard cards={cardsCurrent} deleteModeOff={deleteModeOff}/>}
 
 
-                {addEditMode && cardsCurrent &&
-                    <AddUpdate addUpdateOff={addUpdateOff}
-                               updateCard={updateCard}
-                               card={cardsCurrent}
-                    />}
-                {addMode && <AddUpdate
-                    createCard={createCard}
-                    addUpdateOff={addUpdateOff}
-                />}
+                        {addEditMode && cardsCurrent &&
+                            <AddUpdate addUpdateOff={addUpdateOff}
+                                       updateCard={updateCard}
+                                       card={cardsCurrent}
+                            />}
+                        {addMode && <AddUpdate
+                            createCard={createCard}
+                            addUpdateOff={addUpdateOff}
+                        />}
 
 
-                {
-                    cards.cards[0]
-                        ? <div>
-                            <CardsTable
-                                addUpdateOn={addUpdateOn}
-                                deleteModeOn={deleteModeOn}
-                                cards={cards.cards}
-                                userId={userId}
-                                // isLoading={status}
-                            />
-                            <PaginationCardsContainer/>
-                        </div>
-                        : <div style={{
-                            height: '55vh',
-                            opacity: '0.8',
-                            marginTop: '10%',
-                            // fontFamily: "Poppins, sans-serif",
-                            fontWeight: 400
-                        }}>
-                            <span style={{}}>This pack is empty. Click add new card to fill this pack</span>
-                        </div>
-                }
+                        {
+                            cards.cards[0]
+                                ? <div>
+                                    <CardsTable
+                                        addUpdateOn={addUpdateOn}
+                                        deleteModeOn={deleteModeOn}
+                                        cards={cards.cards}
+                                        userId={userId}
+                                        // isLoading={status}
+                                    />
+                                    <PaginationCardsContainer/>
+                                </div>
+                                : <div style={{
+                                    height: '55vh',
+                                    opacity: '0.8',
+                                    marginTop: '10%',
+                                    // fontFamily: "Poppins, sans-serif",
+                                    fontWeight: 400
+                                }}>
+                                    {
+                                        cardQuestion
+                                            ? <span>There is no сard with this question. Please try to look for something else.</span>
+                                            : <span>This pack is empty. Click add new card to fill this pack</span>
+
+                                    }
+                                </div>
+                        }
+
+                    </>}
 
                 <ErrorSnackbar/>
             </div>

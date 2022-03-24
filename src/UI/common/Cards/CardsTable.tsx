@@ -7,6 +7,9 @@ import {CardResponseType} from '../../../DAL/cards-api';
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
 import {Rating} from 'react-simple-star-rating';
+import {useSelector} from 'react-redux';
+import {IAppStore} from '../../../BLL/store/store';
+import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 type CardsPropsType = {
     cards: CardResponseType[]
@@ -20,8 +23,8 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
 
     return (
         <div className={s.tableMain}>
-            <table className={s.tableWrapper}>
-                <thead className={s.tableHeader} style={{cursor: "auto"}}>
+           <table className={s.tableWrapper}>
+                <thead className={s.tableHeader} style={{cursor: 'auto'}}>
                 <tr className={s.table__headRow}>
                     <th className={s.table__head}>Question</th>
                     <th className={s.table__head}>Answer</th>
@@ -33,7 +36,7 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
                 <tbody className={s.table__main}>
                 {props.cards.map((card) => {
                     return (<tr key={card._id} className={s.table__row}>
-                        <td className={s.table__data} style={{cursor: "auto"}}>{card.question}</td>
+                        <td className={s.table__data} style={{cursor: 'auto'}}>{card.question}</td>
                         <td className={s.table__data}>{card.answer}</td>
                         <td className={s.table__data}>{card.updated.slice(0, 10)}</td>
                         <td className={s.table__data}>
@@ -69,7 +72,10 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
     );
 });
 
-export const ArrowBack = React.memo((props: { layout: 'profile' | 'packs-list' }) => {
+export const ArrowBack = React.memo((props: {
+    layout: 'profile' | 'packs-list',
+    onClick: () => void
+}) => {
 
     return (<div style={{marginRight: '20px'}}>
             <NavLink to={
@@ -77,7 +83,7 @@ export const ArrowBack = React.memo((props: { layout: 'profile' | 'packs-list' }
                     ? PACKS_LIST_PATH
                     : PROFILE_PATH
             }>
-                <div>
+                <div onClick={props.onClick} >
                     <img className={s.back} src={ArrowBackIcon} alt="ArrowBack" style={{opacity: 0.8}}/>
                     {/*<span className={s.back}>{"back to packs/"}</span>*/}
                 </div>

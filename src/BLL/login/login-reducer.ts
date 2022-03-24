@@ -82,7 +82,7 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
         })
         .catch((err) => {
             console.log(err.response.data.error)
-            dispatch(redirectToLogin(true))
+            // dispatch(redirectToLogin(true))
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }
