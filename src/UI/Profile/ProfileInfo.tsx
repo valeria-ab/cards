@@ -14,7 +14,7 @@ import {changeProfilePhoto, changeUserName} from '../../BLL/profile/profile-redu
 type ProfileInfoPropsType = {
     avatar: string
     name: string
-    onChangeProfileDataClick: (newName: string, avatar: string | ArrayBuffer | null) => void
+    // onChangeProfileDataClick: (newName: string, avatar: string | ArrayBuffer | null) => void
 }
 
 export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {

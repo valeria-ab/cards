@@ -3,6 +3,7 @@ import {AnyAction, Dispatch} from 'redux';
 import {IAppStore} from '../store/store';
 import {ThunkAction} from 'redux-thunk';
 import {setAppLoading, setErrorAC} from '../app/app-reducer';
+import {logOut} from '../login/login-reducer';
 
 
 
@@ -96,7 +97,8 @@ type ActionsType =
 
 
 // thunk
-export const getPacksTC = (payload?: PacksType) => (dispatch: Dispatch, getState: () => IAppStore) => {
+export const getPacksTC = (payload?: PacksType):ThunkAction<void, IAppStore, unknown, AnyAction> =>
+    (dispatch, getState: () => IAppStore) => {
 
     const {
         page,
@@ -138,9 +140,12 @@ if (sortingBy) { // @ts-ignore
             dispatch(setPacksAC(res.data))
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
-        .finally(() => dispatch(setAppLoading("succeeded")))
+        .finally(() => dispatch(setAppLoading("idle")))
 
 }
 
@@ -151,7 +156,10 @@ export const createPack = (name: string, user_id?: string): ThunkAction<void, IA
             dispatch(getPacksTC({user_id}))
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
         .finally(() => dispatch(setAppLoading("succeeded")))
 }
@@ -164,7 +172,10 @@ export const deletePack = (packID: string, user_id?: string): ThunkAction<void, 
             dispatch(getPacksTC({user_id}))
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }
@@ -180,7 +191,10 @@ export const updatePack = (payload: CardPacksType): ThunkAction<void, IAppStore,
             dispatch(getPacksTC())
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }

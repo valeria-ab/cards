@@ -15,6 +15,7 @@ import {Title} from '../common/Title';
 import {TableContainer} from '../common/Table/TableContainer';
 import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
 import {RequestStatusType} from '../../BLL/app/app-reducer';
+import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
 
 
 export const
@@ -86,6 +87,7 @@ export const
                 </div>
             </div>
         </div>
+        <ErrorSnackbar/>
     </div>
 
 }

@@ -84,7 +84,7 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
             console.log(err.response.data.error)
             dispatch(redirectToLogin(true))
         })
-        .finally(() => dispatch(setAppLoading("succeeded")))
+        .finally(() => dispatch(setAppLoading("idle")))
 }
 
 
@@ -127,6 +127,6 @@ export const logOut = () => (dispatch: Dispatch) => {
             dispatch(loginError(error));
             dispatch(setErrorAC(error))
         })
-        .finally(() => dispatch(setAppLoading("succeeded")))
+        .finally(() => dispatch(setAppLoading("idle")))
 };
 

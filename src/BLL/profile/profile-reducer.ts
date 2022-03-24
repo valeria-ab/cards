@@ -5,6 +5,7 @@ import {AnyAction} from 'redux';
 import {setAppLoading, setErrorAC} from '../app/app-reducer';
 import {authApi} from '../../DAL/auth-api';
 import {UserDomainType} from '../../DAL/api';
+import {logOut} from '../login/login-reducer';
 
 
 //types
@@ -60,6 +61,9 @@ export const changeUserName = (name: string): ThunkAction<void, IAppStore, unkno
         })
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }
@@ -73,20 +77,26 @@ export const changeProfilePhoto = (avatar: string | ArrayBuffer | null ): ThunkA
         })
         .catch((err) => {
             dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }
 
-export const changeProfileData = (name: string, avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
-    dispatch(setAppLoading("loading"))
-
-    authApi.changeProfileData(name, avatar)
-        .then((res) => {
-            dispatch(setUserProfile(res.data.updatedUser))
-        })
-        .catch((err) => {
-            dispatch(setErrorAC(err.response.data.error))
-        })
-        .finally(() => dispatch(setAppLoading("idle")))
-}
+// export const changeProfileData = (name: string, avatar: string | ArrayBuffer | null ): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+//     dispatch(setAppLoading("loading"))
+//
+//     authApi.changeProfileData(name, avatar)
+//         .then((res) => {
+//             dispatch(setUserProfile(res.data.updatedUser))
+//         })
+//         .catch((err) => {
+//             dispatch(setErrorAC(err.response.data.error))
+//             if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+//                 dispatch(logOut())
+//             }
+//         })
+//         .finally(() => dispatch(setAppLoading("idle")))
+// }
 

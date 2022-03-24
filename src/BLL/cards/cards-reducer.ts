@@ -11,6 +11,7 @@ import {IAppStore} from '../store/store';
 import {rateApi} from '../../DAL/rate-api';
 import {setAppLoading, setErrorAC, SetErrorActionType} from '../app/app-reducer';
 import {CardPacksType} from '../../DAL/packs-api';
+import {logOut} from '../login/login-reducer';
 
 export type InitialCardsStateType = {
     cards: CardResponseType[],
@@ -116,7 +117,8 @@ type ActionsType =
 
 // thunk
 
-export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState: () => IAppStore) => {
+export const getCardsTC = (payload: CardsType):ThunkAction<void, IAppStore, unknown, AnyAction> =>
+    (dispatch, getState: () => IAppStore) => {
     const {
         page,
         pageCount,
@@ -133,14 +135,18 @@ export const getCardsTC = (payload: CardsType) => (dispatch: Dispatch, getState:
             dispatch(setCardsAC(res.data))
         })
         .catch((err) => {
-            dispatch(setErrorAC(err))
+            dispatch(setErrorAC(err.response.data.error))
+            if(err.response.data.error === "you are not authorized /ᐠ-ꞈ-ᐟ\\") {
+                dispatch(logOut())
+            }
         })
         .finally(() =>
             dispatch(setAppLoading("idle"))
         )
 }
 
-export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> => (dispatch) => {
+export const sendCardTC = (payload: CardRequestType, cardsPack_id: string): ThunkAction<void, IAppStore, unknown, AnyAction> =>
+    (dispatch) => {
     dispatch(setAppLoading("loading"))
     cardsApi.sendCard({...payload})
         .then((res) => {

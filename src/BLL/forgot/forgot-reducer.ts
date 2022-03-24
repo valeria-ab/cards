@@ -52,7 +52,7 @@ export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
         .catch((error) => {
             dispatch(setErrorAC(error.response.data.error))
         })
-        .finally(() => dispatch(setAppLoading("succeeded")))
+        .finally(() => dispatch(setAppLoading("idle")))
 }
 
 export const sendNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {

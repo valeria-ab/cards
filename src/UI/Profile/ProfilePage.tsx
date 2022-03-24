@@ -6,7 +6,6 @@ import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import s from './ProfilePage.module.css';
 import {RangeSlider} from '../common/Range/RangeSlider';
 import {
-    changeProfileData,
     InitialProfileStateType
 } from '../../BLL/profile/profile-reducer';
 import {CardPacksType, SortingPacksType} from '../../DAL/packs-api';
@@ -19,6 +18,7 @@ import {TableContainer} from '../common/Table/TableContainer';
 import {ProfileInfo} from './ProfileInfo';
 import {RangeSliderContainer} from '../common/Range/RangeSliderContainer';
 import {RequestStatusType} from '../../BLL/app/app-reducer';
+import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
 
 
 export const ProfilePage = React.memo(() => {
@@ -35,7 +35,7 @@ export const ProfilePage = React.memo(() => {
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
-    const onChangeProfileDataClick = useCallback((newName: string, avatar: string | ArrayBuffer | null) => dispatch(changeProfileData(newName, avatar)), [])
+    // const onChangeProfileDataClick = useCallback((newName: string, avatar: string | ArrayBuffer | null) => dispatch(changeProfileData(newName, avatar)), [])
     const isLoading = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
     // const currentPack = useSelector<IAppStore, CardPacksType | null>((state) => state.cards.currentPack)
 
@@ -83,7 +83,7 @@ export const ProfilePage = React.memo(() => {
                     <ProfileInfo
                         name={profile.name}
                         avatar={profile.avatar}
-                        onChangeProfileDataClick={onChangeProfileDataClick}
+                        // onChangeProfileDataClick={onChangeProfileDataClick}
                     />
                     <RangeSliderContainer/>
                     <Sorting/>
@@ -103,6 +103,7 @@ export const ProfilePage = React.memo(() => {
                 </div>
 
             </div>
+            <ErrorSnackbar/>
         </div>
     );
 });

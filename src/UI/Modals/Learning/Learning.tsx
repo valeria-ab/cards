@@ -12,6 +12,7 @@ import {RequestStatusType} from '../../../BLL/app/app-reducer';
 import {CircularProgress} from '@mui/material';
 import {setCardsAC, getCardsTC} from '../../../BLL/cards/cards-reducer';
 import {Navigate, useParams} from 'react-router-dom';
+import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
 
 export const Learning = React.memo(() => {
     // console.log('lear')
@@ -101,7 +102,9 @@ export const Learning = React.memo(() => {
     //         </div>
     //     );
     // }
-
+    if (!isInitialized) {
+        return <Navigate to={'/login'}/>;
+    }
     return (
         <>
             <div
@@ -130,6 +133,7 @@ export const Learning = React.memo(() => {
                                                          card={card}
                                                          packName={packName}
             />}
+            <ErrorSnackbar/>
         </>
 
     )
