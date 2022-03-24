@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import styles from "./NewPassword.module.scss";
+import style from '../InitCommonStyles.module.css';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../../BLL/store/store";
@@ -34,7 +35,7 @@ export const NewPassword = React.memo(() => {
         <div className={styles.main}>
             <div className={styles.password}>
                 <div className={styles.password__body}>
-                    <h2 className={styles.password__title}>It-incubator</h2>
+                    <h2 className={style.title}>Playing cards</h2>
                     <div className={styles.password__subtitle}>Create new password</div>
                     <div className={styles.password__inp__wrap}>
                         <input
@@ -56,7 +57,8 @@ export const NewPassword = React.memo(() => {
                         email
                     </div>
                     <button
-                        className={styles.password__button}
+                        className={style.btnBlue}
+                        style={{marginTop: "0"}}
                         onClick={onSendPasswordChange}
                     >
                         Create new password

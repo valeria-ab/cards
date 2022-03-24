@@ -1,9 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
-import styles from "./Forgot.module.css";
-import {CheckEmail} from "./CheckEmail";
-import {Alert} from "@mui/material";
-import {ErrorSnackbar} from "../../common/Error/ErrorSnackbar";
+import {CheckEmail} from './CheckEmail';
+import {Alert} from '@mui/material';
+import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
+import style from '../InitCommonStyles.module.css';
+
 
 type ForgotPasswordPropsType = {
     setError: (value: string) => void
@@ -12,7 +13,7 @@ type ForgotPasswordPropsType = {
 }
 export const Forgot = React.memo((props: ForgotPasswordPropsType) => {
 
-    const [valueInput, setValueInput] = useState<string>("");
+    const [valueInput, setValueInput] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
 
     const checkEmailValidity = (value: string) => {
@@ -29,8 +30,8 @@ export const Forgot = React.memo((props: ForgotPasswordPropsType) => {
 
     const onClickHandler = () => {
         if (!checkEmailValidity(valueInput)) {
-            setError("Not valid email")
-          props.setError("Not valid email")
+            setError('Not valid email')
+            props.setError('Not valid email')
             return
         }
         props.forgotPasswordRequest(valueInput)
@@ -40,29 +41,45 @@ export const Forgot = React.memo((props: ForgotPasswordPropsType) => {
     if (props.isRequestSend) return <CheckEmail/>
 
     return (
-        <div className={styles.main}>
-            <div className={styles.forgot}>
-                <div className={styles.forgot__body}>
-                    <h2 className={styles.forgot__title}>Playing cards</h2>
-                    <div className={styles.forgot__subtitle}>Forgot your password?</div>
-                    <label className={styles.loginLabel}>Email</label>
-                    <input placeholder="" type="text" value={valueInput}
-                           onChange={onInputChange}
-                           className={styles.forgot__input}/>
+        // <div className={styles.main}>
+        <div className={style.initCmpnentWrapper}>
+            {/*<div className={styles.forgot__body}>*/}
+                <h2 className={style.title}>Playing cards</h2>
+                <h3 className={style.subtitle}>Forgot your password?</h3>
+
+                <div className={style.formBox}>
+
+                    <label className={style.loginLabel} style={{paddingBottom: "20px"}}>
+                        Email
+                        <input placeholder=""
+                               type="text"
+                               value={valueInput}
+                               onChange={onInputChange}
+                               // className={styles.forgot__input}/>
+                               className={style.Input}/>
+                    </label>
+
+
                     {error ?
                         <Alert severity="error">{error}</Alert> : null}
-                    <div className={styles.forgot__info}>Enter your email address and we
+                    <div className={style.textLight}>
+                        Enter your email address and we
                         will
                         send you
                         further instructions
                     </div>
-                    <button className={styles.forgot__button}
-                            onClick={onClickHandler}>Send Instructions
-                    </button>
-                    <Link to={"/login"} className={styles.forgot__login}>Try logging
-                        in</Link>
                 </div>
+
+                <button className={style.btnBlue}
+                        onClick={onClickHandler}>Send Instructions
+                </button>
+            <p className={style.textLight}>Did you remember your password?</p>
+            <div>
+                <Link to={'/login'} className={style.linkBlue}>Try logging in</Link>
             </div>
+
+            {/*</div>*/}
+
             <ErrorSnackbar/>
         </div>
     );

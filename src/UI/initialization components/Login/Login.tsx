@@ -3,12 +3,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {Navigate} from 'react-router-dom';
 import {IAppStore} from '../../../BLL/store/store';
-import {FORGOT_PATH, REGISTER_PATH, SIGN_IN_PATH} from '../../Routes';
+import {FORGOT_PATH, REGISTER_PATH} from '../../Routes';
 import s from './LogIn.module.scss';
+import style from '../InitCommonStyles.module.css';
 import {Alert} from '@mui/material';
 import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
 import {signIn} from '../../../BLL/login/login-reducer';
-import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 const Login = React.memo(() => {
     const [email, setEmail] = useState('');
@@ -17,7 +17,6 @@ const Login = React.memo(() => {
 
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
     const error = useSelector<IAppStore, string>((state) => state.login.error);
-    const isLoading = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
     const dispatch = useDispatch();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -28,54 +27,49 @@ const Login = React.memo(() => {
         return <Navigate to={'/profile'}/>
     }
 
-    // if (isLoading) {
-    //     return <div className={s.signIn}>loading...</div>
-    // }
-
     return (
-        <div className={s.signIn}>
-            <h2 className={s.title}>Playing cards</h2>
-            <h3 className={s.subtitle}>Sign In</h3>
+        <div className={style.initCmpnentWrapper}>
+            <h2 className={style.title}>Playing cards</h2>
+            <h3 className={style.subtitle}>Sign In</h3>
             <form onSubmit={handleSubmit}>
-                <div className={s.formBox}>
-                    <label className={s.loginLabel}>Email
-                        <div className={s.InputWrapper}>
-                            <input
-                                className={s.Input}
-                                type="email"
-                                name="email"
-                                onChange={(e) => setEmail(e.currentTarget.value)}
-                            />
-                        </div>
+
+
+                <div className={style.formBox}>
+
+                    <label className={style.loginLabel}>Email
+                        <input
+                            className={style.Input}
+                            type="email"
+                            name="email"
+                            onChange={(e) => setEmail(e.currentTarget.value)}
+                        />
                     </label>
-                </div>
-                <div className={s.PasswordWrapper}>
-                    <label className={s.loginLabel}>Password
-                        <div className={s.InputWrapper}>
-                            <input
-                                className={s.Input}
-                                type="password"
-                                name="password"
-                                onChange={(e) => setPassword(e.currentTarget.value)}
-                            />
-                        </div>
+
+                    <label className={style.loginLabel}>Password
+                        <input
+                            className={style.Input}
+                            type="password"
+                            name="password"
+                            onChange={(e) => setPassword(e.currentTarget.value)}
+                        />
                     </label>
-                </div>
-                {error && (
-                    <span>
+
+                    {error && (
+                        <span>
             <Alert severity="error">{error}</Alert>
           </span>
-                )}
-                <div className={s.CheckBoxWrapper}>
-                    <div className={s.CheckBox}>
-                        <label className={s.CheckBoxLabel}>
-                            <input
-                                type="checkbox"
-                                name="rememberMe"
-                                onChange={(e) => setRememberMe(e.currentTarget.checked)}
-                            />
-                            Remember me
-                        </label>
+                    )}
+                    <div className={s.CheckBoxWrapper}>
+                        <div>
+                            <label className={s.CheckBoxLabel}>
+                                <input
+                                    type="checkbox"
+                                    name="rememberMe"
+                                    onChange={(e) => setRememberMe(e.currentTarget.checked)}
+                                />
+                                Remember me
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -84,12 +78,12 @@ const Login = React.memo(() => {
                     </NavLink>
                 </div>
                 <div>
-                    <button className={s.btnBlue}>Login</button>
+                    <button className={style.btnBlue}>Login</button>
                 </div>
             </form>
-            <p className={s.textLight}>Don't have an account?</p>
+            <p className={style.textLight}>Don't have an account?</p>
             <div>
-                <NavLink className={s.linkBlue} to={REGISTER_PATH}>
+                <NavLink className={style.linkBlue} to={REGISTER_PATH}>
                     Sign Up
                 </NavLink>
             </div>

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import s from './Register.module.scss';
+import style from '../InitCommonStyles.module.css';
 import {Alert} from '@mui/material';
 import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
 import {NavLink} from 'react-router-dom';
-import {REGISTER_PATH, SIGN_IN_PATH} from '../../Routes';
+import {SIGN_IN_PATH} from '../../Routes';
 
 
 type RegisterPropsType = {
@@ -51,15 +51,17 @@ const Register = React.memo((props: RegisterPropsType) => {
         }
     }
 
-    return <div className={s.Register}>
-        <h1 className={s.title}>
+    return <div className={style.initCmpnentWrapper}>
+        <h1 className={style.title}>
             Playing cards
         </h1>
-        <h3 className={s.subtitle}>Sign Up</h3>
-        <div className={s.formBox}>
-            <div className={s.InputWrapper}>
-                <label className={s.loginLabel}>Email</label>
-                <input className={s.Input}
+        <h3 className={style.subtitle}>Sign Up</h3>
+
+
+        <div className={style.formBox}>
+
+            <label className={style.loginLabel}>Email
+                <input className={style.Input}
                        type="text"
                        placeholder={''}
                        value={email}
@@ -70,14 +72,16 @@ const Register = React.memo((props: RegisterPropsType) => {
                        }}
                        onBlur={blurHandler}
                 />
+            </label>
 
-            </div>
+
             {emailError !== null && <span>
             <Alert severity="error">{emailError}</Alert>
             </span>}
-            <div className={s.InputWrapper}>
-                <label className={s.loginLabel}>Password</label>
-                <input className={s.Input}
+
+
+            <label className={style.loginLabel}>Password
+                <input className={style.Input}
                        type="password"
                        placeholder={''}
                        value={password}
@@ -87,14 +91,15 @@ const Register = React.memo((props: RegisterPropsType) => {
                            setPassError(null)
                        }}
                        onBlur={passwordBlurHandler}
-                /></div>
+                />
+            </label>
+
             {passError !== null && <span>
             <Alert severity="error">{passError}</Alert>
             </span>}
 
-            <div className={s.InputWrapper}>
-                <label className={s.loginLabel}>Confirm password</label>
-                <input className={s.Input}
+            <label className={style.loginLabel}>Confirm password
+                <input className={style.Input}
                        type="password"
                        placeholder={''}
                        value={repeatPassword}
@@ -104,28 +109,26 @@ const Register = React.memo((props: RegisterPropsType) => {
                            setRepeatPasswordError(null)
                        }}
                        onBlur={rePasswordBlurHandler}
-                /></div>
+                />
+            </label>
+
             {repeatPasswordError !== null && <span>
             <Alert severity="error">{repeatPasswordError}</Alert>
             </span>}
         </div>
-        <div className={s.btnWrap}>
-            {/*<button className={s.btnLeft} type="button">*/}
-            {/*    Cancel*/}
-            {/*</button>*/}
-            <button className={s.btnRight}
-                    onClick={registration}
-                    name={'Register'}
-                    type="submit">
-                Sign Up!
-            </button>
-            <div>
-                <NavLink to={SIGN_IN_PATH}>
-                    Sign In
-                </NavLink>
-            </div>
-
+        <button className={style.btnBlue}
+            // style={{ width: "187px", marginBottom: 0, marginTop: 0}}
+                onClick={registration}
+                name={'Register'}
+                type="submit">
+            Sign Up!
+        </button>
+        <div>
+            <NavLink to={SIGN_IN_PATH} className={style.linkBlue}>
+                Sign In
+            </NavLink>
         </div>
+
         <ErrorSnackbar/>
     </div>;
 })
