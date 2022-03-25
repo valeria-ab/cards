@@ -5,7 +5,8 @@
 .container {
     /*width: 1008px;*/
     width: 85%;
-    height: auto;
+    min-height: 80vh;
+    /*height: auto;*/
     margin: 1% auto;
     display: flex;
     border-radius: 10px;
@@ -131,10 +132,12 @@
 
 .profile__main {
     /*width: 765px;*/
+    padding: 2% 5%;
     width: 80%;
+    min-height: 600px;
     /*background-color: #FEFEFF;*/
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     /*background-color: rgba(254, 254, 255, 0.88);*/
     background-color: #fff;

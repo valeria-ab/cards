@@ -1,18 +1,15 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../../../BLL/store/store';
 import React, {useEffect, useState} from 'react';
-import {CardResponseType} from '../../../DAL/cards-api';
-import {CardPacksType} from '../../../DAL/packs-api';
+import quby from '../../image/quby.gif';
+import {getCardsTC, setCardsAC} from '../../BLL/cards/cards-reducer';
 import {QuestionModal} from './QuestionModal';
-import {CheckYourself} from '../Rate/CheckYourself';
-import waiting from '../../../image/cat-avatar.d04271ed.gif';
-import quby from '../../../image/quby.gif';
-import quby2 from '../../../image/quby(1).gif';
-import {RequestStatusType} from '../../../BLL/app/app-reducer';
-import {CircularProgress} from '@mui/material';
-import {setCardsAC, getCardsTC} from '../../../BLL/cards/cards-reducer';
-import {Navigate, useParams} from 'react-router-dom';
-import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
+import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
+import {CheckYourself} from './CheckYourself';
+import {IAppStore} from '../../BLL/store/store';
+import {CardResponseType} from '../../DAL/cards-api';
+import {RequestStatusType} from '../../BLL/app/app-reducer';
+import {useParams} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 export const Learning = React.memo(() => {
     // console.log('lear')
@@ -117,7 +114,7 @@ export const Learning = React.memo(() => {
                     borderRadius: '40%',
                 }}
             >
-                <img src={quby2} height={'200px'} style={{
+                <img src={quby} height={'180px'} style={{
                     textAlign: 'center',
                     margin: 'auto',
                     borderRadius: '40%',

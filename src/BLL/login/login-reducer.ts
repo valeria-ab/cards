@@ -58,6 +58,7 @@ export const signIn = (payload: LoginDataType) => (dispatch: Dispatch) => {
             dispatch(setUserProfile(res.data));
             dispatch(setInitializedAC(true))
             dispatch(loginError(''));
+            dispatch(setErrorAC(null))
         })
         .catch((err) => {
             const error = err.response
@@ -79,10 +80,11 @@ export const checkAuthMe = () => (dispatch: Dispatch) => {
             dispatch(setInitializedAC(true));
             dispatch(setUserProfile(res.data))
             dispatch(redirectToLogin(false))
+            dispatch(setErrorAC(null))
         })
         .catch((err) => {
             console.log(err.response.data.error)
-            // dispatch(redirectToLogin(true))
+            dispatch(redirectToLogin(true))
         })
         .finally(() => dispatch(setAppLoading("idle")))
 }

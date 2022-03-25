@@ -2,13 +2,14 @@ import React, {useCallback, useEffect, useState} from 'react';
 import s from './Table.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../../BLL/store/store';
-import {EditPack} from '../../Modals/Edit/EditPack';
-import {Delete} from '../../Modals/Delete/Delete';
-import {AddPack} from '../../Modals/AddPack/AddPack';
+import {EditPack} from '../../Modals/EditPack';
+import {DeletePack} from '../../Modals/DeletePack';
+import {AddPack} from '../../Modals/AddPack';
 import {CardPacksType, SortingPacksType} from '../../../DAL/packs-api';
 import {Table} from './Table';
 import {getPacksTC} from '../../../BLL/packs/packs-reducer';
 import SearchPacksContainer from '../Search/SearchPacksContainer';
+import {PaginationPacksContainer} from '../Pagination/PaginationPacksContainer';
 
 
 export const TableContainer = React.memo(() => {
@@ -22,7 +23,7 @@ export const TableContainer = React.memo(() => {
     // const isLoading = useSelector<IAppStore, boolean>(state => state.app.isLoading)
 
     const [pack, setPack] = useState<CardPacksType | null>(null);
-    const sortingBy = useSelector<IAppStore, SortingPacksType | "">(state => state.packs.sortingBy)
+    const sortingBy = useSelector<IAppStore, SortingPacksType | ''>(state => state.packs.sortingBy)
     const page = useSelector<IAppStore, number>(state => state.packs.page)
     const packName = useSelector<IAppStore, string>(state => state.packs.packName)
     const cardsValuesFromRange = useSelector<IAppStore, Array<number>>((state) => state.packs.cardsValuesFromRange);
@@ -52,18 +53,6 @@ export const TableContainer = React.memo(() => {
     }, [])
 
 
-    // useEffect(() => {
-    //
-    //     if (isInitialized) {
-    //         dispatch(getPacksTC())
-    //         // currentPack && dispatch(getCardsTC({cardsPack_id: currentPack._id}))
-    //     }
-    // }, [page, pageCount, cardsValuesFromRange, packName, sortingBy])
-
-
-    // if (isLoading) {
-    //     return <div className={s.table}>loading...</div>
-    // }
     return (<div className={s.table}>
             <div className={s.Table__top}>
                 <SearchPacksContainer/>
@@ -71,14 +60,17 @@ export const TableContainer = React.memo(() => {
             </div>
             {addMode && <AddPack setAddMode={setAddMode}/>}
             {pack && editMode && <EditPack pack={pack} setEditMode={setEditMode}/>}
-            {pack && deleteMode && <Delete pack={pack} setDeleteMode={setDeleteMode}/>}
+            {pack && deleteMode && <DeletePack pack={pack} setDeleteMode={setDeleteMode}/>}
 
-            <Table packsList={packsList}
-                   onLearnButtonClick={onLearnButtonClick}
-                   userId={userId}
-                   deleteModeOn={deleteModeOn}
-                   editModeOn={editModeOn}
-            />
+            {packsList[0]
+                ? <Table packsList={packsList}
+                         userId={userId}
+                         deleteModeOn={deleteModeOn}
+                         editModeOn={editModeOn}
+                />
+                : <div className={s.noItemText}>There are no packs. Click add new pack to create.</div>
+            }
+            {/*{packsList[0] && <PaginationPacksContainer/>}*/}
         </div>
 
     )

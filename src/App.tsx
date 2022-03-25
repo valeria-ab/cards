@@ -9,8 +9,8 @@ import {CircularProgress, LinearProgress} from '@mui/material';
 
 
 
-const App: React.FC = () => {
-    // console.log("app")
+const App = React.memo(() => {
+    console.log("app")
     const dispatch = useDispatch();
     const isInitialized = useSelector<IAppStore, boolean>(state => state.app.isInitialized)
     const redirectToLogin = useSelector<IAppStore, boolean>(state => state.login.redirectToLogin)
@@ -52,6 +52,6 @@ const App: React.FC = () => {
 
         </div>
     );
-};
+});
 
 export default App;

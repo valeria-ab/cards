@@ -1,8 +1,8 @@
-import {setMyCurrentGradeAC} from '../../../BLL/cards/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import React, {FormEvent} from 'react';
-import {IAppStore} from '../../../BLL/store/store';
 import s from './Rate.module.scss';
+import {setMyCurrentGradeAC} from '../../../BLL/cards/cards-reducer';
+import {IAppStore} from '../../../BLL/store/store';
 
 
 export const RateYourself = React.memo(() => {

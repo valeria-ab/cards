@@ -52,7 +52,7 @@ export const CardsTable = React.memo((props: CardsPropsType) => {
                         </td>
 
                         {props.userId === props.cards[0].user_id
-                            && <td className={s.buttons}>
+                            && <td className={s.buttons} style={{ marginTop: "12px"}}>
                                 <button className={s.delButtonWrapper} onClick={() => {
                                     props.deleteModeOn(card)
                                 }}>Delete

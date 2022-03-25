@@ -6,7 +6,7 @@ import {NavLink, useParams} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {setWithMyIdAC} from '../../BLL/packs/packs-reducer';
+import {setCardsPacksCountFromRangeAC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import {logOut} from '../../BLL/login/login-reducer';
 import {changeLayoutAC} from '../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../BLL/store/store';
@@ -37,7 +37,7 @@ export const MainHeader = React.memo(() => {
                         }
                                 onClick={() => {
                                     dispatch(setWithMyIdAC(false))
-                                    // dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                                    dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
                                     // dispatch(changeLayoutAC('packs-list'))
                                     // dispatch(setSortPacksValueAC(null))
                                     // setButtonActive('packs-list')
@@ -54,7 +54,7 @@ export const MainHeader = React.memo(() => {
                         }
                                 onClick={() => {
                                     dispatch(setWithMyIdAC(true))
-                                    // dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
+                                    dispatch(setCardsPacksCountFromRangeAC([0, 1000]))
                                     // dispatch(changeLayoutAC('profile'))
                                     // dispatch(setSortPacksValueAC(null))
                                     // setButtonActive('profile')

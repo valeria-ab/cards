@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import styles from './EditPack.module.scss';
+import s from './ModalsCommonStyles.module.css';
 import {useDispatch} from "react-redux";
-import {updatePack} from "../../../BLL/packs/packs-reducer";
-import {CardPacksType} from '../../../DAL/packs-api';
+import {updatePack} from "../../BLL/packs/packs-reducer";
+import {CardPacksType} from '../../DAL/packs-api';
 
 type  EditPackPropsType = {
     setEditMode: (value: boolean) => void
@@ -30,24 +30,25 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
     }
 
     return (
-        <div className={styles.modal}>
-            <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.wrap}>
-                    <div className={styles.header}>
-                        <h2 className={styles.title}>Edit pack name</h2>
+        <div className={s.modal}>
+            <div className={s.wrapper} onClick={(e) => e.stopPropagation()}>
+                <div className={s.wrap}>
+                    <div className={s.header}>
+                        <h2 className={s.title}>Edit pack name</h2>
                     </div>
-                    <p className={styles.text}>Pack name</p>
+                    <p className={s.text}>Pack name</p>
                     <input
                         type='text'
-                        className={styles.input}
+                        className={s.input}
                         value={name}
                         onChange={onChangeName}
                     />
-                    <div className={styles.wrapBtn}>
-                        <button className={styles.btnCancel} onClick={() => props.setEditMode(false)}>
+                    <div className={s.wrapBtn}>
+                        <button className={s.btnCancel} onClick={() => props.setEditMode(false)}>
                             Cancel
                         </button>
-                        <button onClick={onSaveClick} className={styles.btnSave}>
+                        <button onClick={onSaveClick}
+                                className={s.mainButton}>
                             Save
                         </button>
                     </div>

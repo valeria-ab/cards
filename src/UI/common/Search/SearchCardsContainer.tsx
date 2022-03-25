@@ -31,7 +31,6 @@ const SearchCardsContainer = React.memo(() => {
         <Search
             value={cardQuestion}
             onKeyUpHandler={onKeyUpHandler}
-            disabled={withMyId && cardsLength === 0}
         />
     </div>
 });

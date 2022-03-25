@@ -10,8 +10,8 @@ import {
     updateCardTC
 } from '../../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../../BLL/store/store';
-import {DeleteCard} from '../../Modals/DeleteCard/DeleteCard';
-import {AddUpdate} from '../../Modals/AddUpdateCard/AddUpdate';
+import {DeleteCard} from '../../Modals/DeleteCard';
+import {AddUpdateCard} from '../../Modals/AddUpdateCard';
 import {PaginationCardsContainer} from '../Pagination/PaginationCardsContainer';
 import {CardResponseType} from '../../../DAL/cards-api';
 import {Navigate, useParams} from 'react-router-dom';
@@ -107,11 +107,11 @@ export const CardsPage = React.memo(() => {
 
 
                         {addEditMode && cardsCurrent &&
-                            <AddUpdate addUpdateOff={addUpdateOff}
-                                       updateCard={updateCard}
-                                       card={cardsCurrent}
+                            <AddUpdateCard addUpdateOff={addUpdateOff}
+                                           updateCard={updateCard}
+                                           card={cardsCurrent}
                             />}
-                        {addMode && <AddUpdate
+                        {addMode && <AddUpdateCard
                             createCard={createCard}
                             addUpdateOff={addUpdateOff}
                         />}
@@ -129,17 +129,11 @@ export const CardsPage = React.memo(() => {
                                     />
                                     <PaginationCardsContainer/>
                                 </div>
-                                : <div style={{
-                                    height: '55vh',
-                                    opacity: '0.8',
-                                    marginTop: '10%',
-                                    // fontFamily: "Poppins, sans-serif",
-                                    fontWeight: 400
-                                }}>
+                                : <div className={s.noItemText}>
                                     {
                                         cardQuestion
-                                            ? <span>There is no сard with this question. Please try to look for something else.</span>
-                                            : <span>This pack is empty. Click add new card to fill this pack</span>
+                                            ? <span>There is no сard with this question.</span>
+                                            : <span>This pack is empty. Click add new card to fill this pack.</span>
 
                                     }
                                 </div>

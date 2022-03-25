@@ -4,6 +4,13 @@
   overflow: auto;
 
 }
+
+.table {
+  min-height: 400px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 .container{
   width: 90%;
   //height: auto;
@@ -21,7 +28,7 @@
 }
 .table__row {
   text-align: left;
-  height: 48px;    
+  height: 48px;
   color: #2D2E46;
   font-family: "SFUIDisplay-Bold";
   font-style: normal;
@@ -33,6 +40,13 @@
 a, a:visited {
   color: black;
 }
+}
+.noItemText {
+  //height: 55vh;
+  opacity: 0.8;
+  margin-top: 10%;
+  // fontFamily: "Poppins, sans-serif",
+  fontWeight: 400
 
 }
 .tableHeader{
@@ -40,7 +54,7 @@ a, a:visited {
   //background-color: #daf1f5;
   background-color: #C2E4E7;
   cursor: pointer;
-  padding: 0 5px; 
+  padding: 0 5px;
   gap: 10px;
   height: 48px;
 }
@@ -48,7 +62,7 @@ a, a:visited {
 
 .table__head{
 
-  text-align: left;     
+  text-align: left;
   color: #092a61;
   font-family: "SFUIDisplayRegular";
     font-weight: 700;
@@ -110,7 +124,7 @@ a, a:visited {
 }
 .table__headRow {
   height: 48px;
-    text-align: left;     
+    text-align: left;
     color: #2D2E46;
     font-family: "SFUIDisplayRegular";
     font-weight: 700;
@@ -164,7 +178,7 @@ a, a:visited {
   //box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
 .buttonWrapper{
-  
+
   background-color: #D7D8EF;
   //color:#21268F;
   color:#092a61;
@@ -178,7 +192,6 @@ a, a:visited {
   font-family: "SFUIDisplayRegular";
 }
 .buttons{
-  
   display: flex;
     align-items: center;
     gap: 10px;

@@ -9,7 +9,6 @@ import {InitialCardsStateType} from '../../../BLL/cards/cards-reducer';
 type SearchPropsType = {
     value: string
     onKeyUpHandler: (value: string) => void
-    disabled: boolean
 }
 
 const Search = React.memo((props: SearchPropsType) => {
@@ -40,8 +39,6 @@ const Search = React.memo((props: SearchPropsType) => {
                onChange={setInputValueHandler}
                onKeyUp={onKeyUpHandler}
                onKeyPress={onEnterPressHandler}
-               disabled={props.disabled}
-            // disabled={true}
         />
 
     )
