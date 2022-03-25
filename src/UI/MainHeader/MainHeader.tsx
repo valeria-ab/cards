@@ -74,7 +74,7 @@ export const MainHeader = React.memo(() => {
                             }
                                     onClick={() => {
                                         dispatch(logOut())
-                                        setButtonActive('logout')
+                                        // setButtonActive('logout')
                                     }}
                             >
                                 <img className={`${s.btnImg} ${s.btnLogout}`} src={LogoutIcon} alt="ProfileIcon"/>

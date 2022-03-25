@@ -20,6 +20,7 @@ import {ArrowBack, CardsTable} from './CardsTable';
 import {ErrorSnackbar} from '../Error/ErrorSnackbar';
 import {RequestStatusType} from '../../../BLL/app/app-reducer';
 import {Title} from '../Title';
+import {setCardsPacksCountFromRangeAC} from '../../../BLL/packs/packs-reducer';
 
 
 export const CardsPage = React.memo(() => {
@@ -73,7 +74,10 @@ export const CardsPage = React.memo(() => {
         setCardsCurrent(null)
     }, [])
 
-    const clearSearchState = useCallback(() => dispatch(setSearchСardQuestionAC('')), [])
+    const onArrowClick = useCallback(() => {
+        dispatch(setSearchСardQuestionAC(''))
+        dispatch(setCardsPacksCountFromRangeAC([0,1000]))
+    }, [])
 
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
@@ -87,7 +91,9 @@ export const CardsPage = React.memo(() => {
             {/*<div className={s.table}>*/}
             <div style={{padding: '2% 5% 0'}}>
                 <div style={{display: 'flex', alignItems: 'baseline'}}>
-                    <ArrowBack layout={layout} onClick={clearSearchState}/>
+                    <ArrowBack layout={layout}
+                               onClick={onArrowClick}
+                    />
                     {packName && <Title value={packName}/>}
                 </div>
 

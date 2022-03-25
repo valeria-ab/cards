@@ -6,7 +6,6 @@ import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 're
 import {TextField} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
-import {Dispatch} from 'redux';
 import {changeProfilePhoto, changeUserName} from '../../BLL/profile/profile-reducer';
 
 
@@ -55,10 +54,18 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
 
         }
     }
+    const onBlur = () => {
+        setEditProfileMode(false)
+        if (title !== props.name) {
+            dispatch(changeUserName(title))
+        }
+    }
     const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.charCode === 13) {
             setEditProfileMode(false)
-            dispatch(changeUserName(title))
+            if (title !== props.name) {
+                dispatch(changeUserName(title))
+            }
         }
     }
 
@@ -109,10 +116,7 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
                 {editProfileMode
                     ? <TextField variant={'standard'}
                                  value={title}
-                                 onBlur={() => {
-                                     setEditProfileMode(false)
-                                     dispatch(changeUserName(title))
-                                 }}
+                                 onBlur={onBlur}
                                  autoFocus
                                  onKeyPress={onEnterPressHandler}
                                  onChange={(e) => setTitle(e.currentTarget.value)}
@@ -125,17 +129,7 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
                              style={{display: 'inline-block', marginLeft: '10px'}}/>
                 </span>
                 }
-
-
             </div>
-
-
-            {/*<div style={{opacity: 0.8, fontSize: '14px', cursor: 'pointer'}}*/}
-            {/*     onClick={() => {*/}
-            {/*         setEditProfileMode(true)*/}
-            {/*     }}>edit profile <img src={pencil} height={'13px'}*/}
-            {/*                          style={{display: 'inline-block', marginLeft: '10px'}}/>*/}
-            {/*</div>*/}
         </div>
     )
 })

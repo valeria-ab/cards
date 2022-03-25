@@ -1,15 +1,10 @@
 import React from 'react';
 import s from '../Table/Table.module.scss';
-// import ArrowBackIcon from '../../../image/png-transparent-arrow-computer-icons-left-arrow-angle-text-rectangle.png'
-// import ArrowBackIcon from '../../../image/arrowBack.svg'
 import ArrowBackIcon from '../../../image/27323.svg'
 import {CardResponseType} from '../../../DAL/cards-api';
 import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../../Routes';
 import {Rating} from 'react-simple-star-rating';
-import {useSelector} from 'react-redux';
-import {IAppStore} from '../../../BLL/store/store';
-import {RequestStatusType} from '../../../BLL/app/app-reducer';
 
 type CardsPropsType = {
     cards: CardResponseType[]

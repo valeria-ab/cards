@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {ChooseOwner} from './ChooseOwner/ChooseOwner';
 import s from '../Profile/ProfilePage.module.css';
-import {getPacksTC} from '../../BLL/packs/packs-reducer';
+import {getPacksTC, setCardsPacksCountFromRangeAC} from '../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {Navigate} from 'react-router-dom';
@@ -44,6 +44,9 @@ export const PacksList = () => {
 
     useEffect(() => {
         dispatch(changeLayoutAC('packs-list'))
+        // return () => {
+        //     dispatch(setCardsPacksCountFromRangeAC([0,1000]))
+        // }
     }, [dispatch])
 
     if (!isInitialized) {

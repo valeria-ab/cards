@@ -21,11 +21,13 @@ export const EditPack = React.memo((props: EditPackPropsType) => {
     }
 
     const onSaveClick = () => {
-        dispatch(updatePack({
-            ...props.pack,
-            name: name,
-            user_id: props.pack.user_id,
-        }))
+       if (props.pack.name != name) {
+            dispatch(updatePack({
+                ...props.pack,
+                name: name,
+                user_id: props.pack.user_id,
+            }))
+        }
         props.setEditMode(false)
     }
 

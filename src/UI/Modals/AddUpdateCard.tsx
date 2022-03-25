@@ -4,7 +4,7 @@ import {CardResponseType} from '../../DAL/cards-api';
 
 
 type  AddUpdatePropsType = {
-    addUpdateOff?: () => void
+    addUpdateOff: () => void
     card?: CardResponseType
     updateCard?: (id: string, question: string, answer: string) => void
     createCard?: (question: string, answer: string) => void
@@ -26,10 +26,14 @@ export const AddUpdateCard = React.memo((props: AddUpdatePropsType) => {
 
     const onSaveHandler = () => {
         if (props.updateCard && props.card?._id) {
-            return props.updateCard(props.card?._id, question, answer)
+            if(props.card.answer !== answer || props.card.question !== question) {
+                return props.updateCard(props.card?._id, question, answer)
+            }
+
         } else if (props.createCard) {
             return props.createCard(question, answer)
         }
+        props.addUpdateOff()
     }
 
 
