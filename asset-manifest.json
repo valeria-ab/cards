@@ -1,21 +1,25 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.5bc69fbd.css",
-    "main.js": "/cards/static/js/main.c4fa97f0.js",
+    "main.css": "/cards/static/css/main.701b0e73.css",
+    "main.js": "/cards/static/js/main.46754275.js",
     "static/js/787.9b050168.chunk.js": "/cards/static/js/787.9b050168.chunk.js",
+    "static/media/quby.gif": "/cards/static/media/quby.61c60b781eee63ed1998.gif",
     "static/media/SFUIDisplay-Medium.woff": "/cards/static/media/SFUIDisplay-Medium.691073e2b9ef80d5c702.woff",
     "static/media/SFUIDisplay-Regular.woff": "/cards/static/media/SFUIDisplay-Regular.1b6ee1f6f9e80f37ff4e.woff",
     "static/media/logout.png": "/cards/static/media/logout.69c8d0de5b97aa810aef.png",
+    "static/media/kisspng-verb-grammar-nonpast-tense-noun-pencil-icon-5aed74129c3655.png": "/cards/static/media/kisspng-verb-grammar-nonpast-tense-noun-pencil-icon-5aed74129c3655.1596332715255111866399.bba2a88ada45199e802a.png",
     "static/media/nophoto.jpg": "/cards/static/media/nophoto.71c66821cfa713c4c347.jpg",
-    "static/media/eye-slash.svg": "/cards/static/media/eye-slash.fa5bf95aa99533ef3a5e22f4b889a35b.svg",
+    "static/media/editAvatar.svg": "/cards/static/media/editAvatar.d4a131d05d46ac9006e8.svg",
     "index.html": "/cards/index.html",
+    "static/media/eye-slash.svg": "/cards/static/media/eye-slash.fa5bf95aa99533ef3a5e22f4b889a35b.svg",
+    "static/media/27323.svg": "/cards/static/media/27323.a123006ae3e7f3b6638cbf8a5fe53765.svg",
     "static/media/eye.svg": "/cards/static/media/eye.9059668311ca4ba4cd3d67431dacce4b.svg",
-    "main.5bc69fbd.css.map": "/cards/static/css/main.5bc69fbd.css.map",
-    "main.c4fa97f0.js.map": "/cards/static/js/main.c4fa97f0.js.map",
+    "main.701b0e73.css.map": "/cards/static/css/main.701b0e73.css.map",
+    "main.46754275.js.map": "/cards/static/js/main.46754275.js.map",
     "787.9b050168.chunk.js.map": "/cards/static/js/787.9b050168.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5bc69fbd.css",
-    "static/js/main.c4fa97f0.js"
+    "static/css/main.701b0e73.css",
+    "static/js/main.46754275.js"
   ]
 }
