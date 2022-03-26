@@ -53,7 +53,8 @@ export const PacksList = () => {
         return <Navigate to={'/login'}/>;
     }
 
-    return <div className={s.PacksList}>
+    return (
+        // <div className={s.PacksList}>
         <div className={s.container}>
             <div className={s.profile__info}>
                 <div className={s.profile__ChooseOwner}>
@@ -70,8 +71,10 @@ export const PacksList = () => {
                     <PaginationPacksContainer/>
                 {/*</div>*/}
             </div>
+            <ErrorSnackbar/>
         </div>
-        <ErrorSnackbar/>
-    </div>
+
+    // </div>
+)
 
 }

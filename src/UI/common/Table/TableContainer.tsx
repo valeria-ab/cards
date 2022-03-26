@@ -53,7 +53,7 @@ export const TableContainer = React.memo(() => {
     }, [])
 
 
-    return (<div className={s.table}>
+    return (<div className={s.table_table}>
             <div className={s.Table__top}>
                 <SearchPacksContainer/>
                 <button className={s.add} onClick={() => setAddMode(true)}> Add new pack</button>

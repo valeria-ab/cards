@@ -15,7 +15,9 @@ export const Table = React.memo((props: PacksTableType) => {
     const inactiveTableRowStyle = `${s.table__data} ${s.inactive__tableRow}`
 
     return (
-        <div className={s.table}>
+        <div
+            className={s.table}
+        >
             {props.packsList[0]
                 ? <div className={s.tableMain}>
                     <table className={s.tableWrapper}>

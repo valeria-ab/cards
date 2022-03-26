@@ -5,7 +5,7 @@
 .container {
     /*width: 1008px;*/
     width: 85%;
-    min-height: 80vh;
+    min-height: 87vh;
     /*height: auto;*/
     margin: 1% auto;
     display: flex;
@@ -134,7 +134,7 @@
     /*width: 765px;*/
     padding: 2% 5%;
     width: 80%;
-    min-height: 600px;
+    /*min-height: 600px;*/
     /*background-color: #FEFEFF;*/
     display: flex;
     justify-content: space-between;
@@ -145,9 +145,9 @@
     border-bottom-right-radius: 10px;
 }
 
-.profile__b2 {
-    padding: 2% 5% 5%;
-}
+/*.profile__b2 {*/
+/*    padding: 2% 5% 5%;*/
+/*}*/
 
 .profile__textName {
     margin-bottom: 5px;
