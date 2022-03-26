@@ -15,9 +15,7 @@ export const Table = React.memo((props: PacksTableType) => {
     const inactiveTableRowStyle = `${s.table__data} ${s.inactive__tableRow}`
 
     return (
-        <div
-            className={s.table}
-        >
+        <div className={s.table}>
             {props.packsList[0]
                 ? <div className={s.tableMain}>
                     <table className={s.tableWrapper}>
@@ -36,7 +34,7 @@ export const Table = React.memo((props: PacksTableType) => {
                             <th className={s.table__head}>Actions</th>
                         </tr>
                         </thead>
-                        <tbody className={s.table__main}>
+                        <tbody>
                         {props.packsList.map((pack) => {
 
                             return (<tr key={pack._id} className={s.table__row}>
@@ -71,8 +69,6 @@ export const Table = React.memo((props: PacksTableType) => {
                                             <NavLink to={`/learn/${pack._id}/${pack.name}`}>
                                                 {
                                                     pack.cardsCount > 0 && <button className={s.buttonWrapper}
-                                                        // onClick={() => props.onLearnButtonClick(pack)
-
                                                     >Learn
                                                     </button>
                                                 }

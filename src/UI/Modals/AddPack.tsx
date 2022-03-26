@@ -23,7 +23,6 @@ export const AddPack = React.memo((props: AddPackPropsType) => {
 
     const onSaveClick = () => {
         dispatch(createPack(name, currentUserID))
-        dispatch(setCardsPacksCountFromRangeAC([0,1000]))
         props.setAddMode(false)
     }
 

@@ -211,7 +211,7 @@ export const createPack = (name: string, user_id?: string): ThunkAction<void, IA
                 dispatch(setSortPacksValueAC(""))
             }
         })
-        .finally(() => dispatch(setAppLoading("succeeded")))
+        .finally(() => dispatch(setAppLoading("idle")))
 }
 
 

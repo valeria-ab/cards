@@ -1,173 +1,116 @@
-.tableMain{
-  //box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-  box-shadow: 0px 4px 18px rgba(9, 42, 97, 0.72), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-  overflow: auto;
-
-}
-
-.table {
-  //border: 1px solid red;
- margin-top: 10px;
-  //display: flex;
-  //justify-content: space-between;
-  //flex-direction: column;
-}
-.table_table {
-  //border: 1px solid red;
+.table_container {
   min-height: 82%;
-  //display: flex;
-  //justify-content: space-between;
-  //flex-direction: column;
+  .Table__top{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
-.container{
-  width: 90%;
-  //height: auto;
-  margin: 0 auto;
-  padding: 2% ;
-  //display: flex;
-  background-color: white;
-
-}
-.tableWrapper{
-  border: none;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  width: 100%;
-}
-.table__row {
-  text-align: left;
-  height: 48px;
-  color: #2D2E46;
-  font-family: "SFUIDisplay-Bold";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 16px;
-  text-overflow: ellipsis;
-  align-items: center;
-a, a:visited {
-  color: black;
-}
-}
-.noItemText {
-  //height: 55vh;
-  opacity: 0.8;
-  margin-top: 10%;
-  // fontFamily: "Poppins, sans-serif",
-  fontWeight: 400
-
-}
-.tableHeader{
-  //background-color: #ECECF9;
-  //background-color: #daf1f5;
-  background-color: #C2E4E7;
-  cursor: pointer;
-  padding: 0 5px;
-  gap: 10px;
-  height: 48px;
-}
-
-
-.table__head{
-
-  text-align: left;
-  color: #092a61;
-  font-family: "SFUIDisplayRegular";
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    text-overflow: ellipsis;
-}
-.table__data__active_packName {
-  //transition: transform 0.1s
-  cursor: pointer;
-  &:hover {
-    //transform: scale(1.1);
-    color: #092a61;
-    font-weight: bold;
+.table {
+  margin-top: 10px;
+  .tableMain{
+    box-shadow: 0px 4px 18px rgba(9, 42, 97, 0.72), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    overflow: auto;
+    .tableWrapper{
+      border: none;
+      border-spacing: 0px;
+      border-collapse: collapse;
+      width: 100%;
+      .tableHeader{
+        background-color: #C2E4E7;
+        padding: 0 5px;
+        gap: 10px;
+        height: 48px;
+        .table__headRow {
+          height: 48px;
+          text-align: left;
+          color: #2D2E46;
+          font-family: "SFUIDisplayRegular";
+          font-weight: 700;
+          font-size: 13px;
+          line-height: 16px;
+          text-overflow: ellipsis;
+          .table__head{
+            text-align: left;
+            color: #092a61;
+            font-family: "SFUIDisplayRegular";
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 16px;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+      .table__row {
+        text-align: left;
+        height: 48px;
+        color: #2D2E46;
+        font-family: "SFUIDisplay-Bold";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 16px;
+        text-overflow: ellipsis;
+        align-items: center;
+        a, a:visited {
+          color: black;
+        }
+        .table__data {
+          font-family: "SFUIDisplayRegular";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 13px;
+          line-height: 16px;
+          color: #000000;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          .table__data__active_packName {
+            cursor: pointer;
+            &:hover {
+              color: #092a61;
+              font-weight: bold;
+            }
+          }
+          .buttons{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .delButtonWrapper{
+              color: #FFFFFF;
+              background-color: #F1453D;
+              font-family: "SFUIDisplayRegular";
+            }
+            .buttonWrapper{
+              background-color: #D7D8EF;
+              color:#092a61;
+              font-weight: 600;
+              font-family: "SFUIDisplayRegular";
+            }
+          }
+        }
+        .inactive__tableRow {
+          cursor: auto;
+          opacity: 0.8;
+        }
+      }
+    }
   }
 }
 
-.table__head:first-child, .table__data:first-child{
-  width: 35%;
-  //width: 182px;
-  padding-left: 24px;
-}
-
-
-
-.table__head:nth-child(2), .table__data:nth-child(2){
-  width: 15%;
-  //width: 82px;
-}
-
-.table__head:nth-child(3), .table__data:nth-child(3){
-  width: 15%;
-  //width: 135px;
-}
-
-.table__head:nth-child(4), .table__data:nth-child(4){
-  width: 15%;
-  //width: 109px;
-}
-
-.table__head:nth-child(5), .table__data:nth-child(5){
-  width: 20%;
-  //width: 161px;
-  padding-left: 10px;
-}
-
-.inactive__tableRow {
-  cursor: auto;
-  opacity: 0.8;
-}
-.table__row:nth-child(even) {
-  //background-color:#F8F7FD;
-  //background-color:#ECF8F7;
-  background-color: #ecf6f8;
-}
-
-.table__row:nth-child(odd) {
-  background-color:#FFFFFF;
-}
-.table__headRow {
-  height: 48px;
-    text-align: left;
-    color: #2D2E46;
-    font-family: "SFUIDisplayRegular";
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    text-overflow: ellipsis;
-}
-
-.table__data {
-  font-family: "SFUIDisplayRegular";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-  color: #000000;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .add {
-  //background: #21268F;
   background: #092a61;
   text-align: center;
   letter-spacing: 0.01em;
   color: #ECECF9;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
-  //min-width: 185px;
   min-width: 15%;
   height: 36px;
   font-family: "SFUIDisplayRegular";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  //margin: 20px 0 20px 20px;
   margin: auto 0 auto 20px;
   border: none;
   cursor: pointer;
@@ -177,54 +120,44 @@ a, a:visited {
   -ms-border-radius: 30px;
   -o-border-radius: 30px;
 }
-
-.back {
-  font-weight: 900;
-  cursor: pointer;
-  height: 20px;
-}
-.back:hover {
-  //box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-}
-.buttonWrapper{
-
-  background-color: #D7D8EF;
-  //color:#21268F;
-  color:#092a61;
-  font-weight: 600;
-  font-family: "SFUIDisplayRegular";
-
-}
-.delButtonWrapper{
-  color: #FFFFFF;
-  background-color: #F1453D;
-  font-family: "SFUIDisplayRegular";
-}
-.buttons{
-  display: flex;
-    align-items: center;
-    gap: 10px;
+.noItemText {
+  opacity: 0.8;
+  margin-top: 10%;
+  fontWeight: 400
 }
 
-.Table__top{
-
-  display: flex;
-  //flex-wrap: wrap;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  //margin-bottom: 10px;
+.table__head:first-child, .table__data:first-child{
+  width: 35%;
+  padding-left: 24px;
 }
+.table__head:nth-child(2), .table__data:nth-child(2){
+  width: 15%;
+}
+.table__head:nth-child(3), .table__data:nth-child(3){
+  width: 15%;
+}
+.table__head:nth-child(4), .table__data:nth-child(4){
+  width: 15%;
+}
+.table__head:nth-child(5), .table__data:nth-child(5){
+  width: 20%;
+  padding-left: 10px;
+}
+
+.table__row:nth-child(even) {
+  background-color: #ecf6f8;
+}
+.table__row:nth-child(odd) {
+  background-color:#FFFFFF;
+}
+
+
 .Table__name{
-  //margin-top: 24px;
   text-align: left;
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
-  //color: #2D2E46;
   color: #092a61;
 }
-.Table__name h2 {
 
-}
