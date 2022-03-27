@@ -11,8 +11,8 @@ import {ErrorSnackbar} from '../../common/Error/ErrorSnackbar';
 import {signIn} from '../../../BLL/login/login-reducer';
 
 const Login = React.memo(() => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('test1test@test.com');
+    const [password, setPassword] = useState('freetest');
     const [rememberMe, setRememberMe] = useState(false);
 
     const isInitialized = useSelector<IAppStore, boolean>((state) => state.app.isInitialized);
