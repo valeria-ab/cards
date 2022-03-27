@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './ModalsCommonStyles.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import {createPack, setCardsPacksCountFromRangeAC} from '../../BLL/packs/packs-reducer';
+import {createPack} from '../../BLL/packs/packs-reducer';
 import {IAppStore} from "../../BLL/store/store";
 
 type  AddPackPropsType = {

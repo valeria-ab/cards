@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {ChooseOwner} from './ChooseOwner/ChooseOwner';
 import s from '../Profile/ProfilePage.module.css';
-import {getPacksTC, setCardsPacksCountFromRangeAC} from '../../BLL/packs/packs-reducer';
+import {getPacksTC} from '../../BLL/packs/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../BLL/store/store';
 import {Navigate} from 'react-router-dom';
@@ -44,9 +44,6 @@ export const PacksList = () => {
 
     useEffect(() => {
         dispatch(changeLayoutAC('packs-list'))
-        // return () => {
-        //     dispatch(setCardsPacksCountFromRangeAC([0,1000]))
-        // }
     }, [dispatch])
 
     if (!isInitialized) {
@@ -54,7 +51,6 @@ export const PacksList = () => {
     }
 
     return (
-        // <div className={s.PacksList}>
         <div className={s.container}>
             <div className={s.profile__info}>
                 <div className={s.profile__ChooseOwner}>
@@ -65,16 +61,13 @@ export const PacksList = () => {
             </div>
 
             <div className={s.profile__main}>
-                {/*<div className={s.profile__b2}>*/}
                     <Title value={'Packs list'}/>
                     <TableContainer/>
                     <PaginationPacksContainer/>
-                {/*</div>*/}
             </div>
             <ErrorSnackbar/>
         </div>
 
-    // </div>
 )
 
 }

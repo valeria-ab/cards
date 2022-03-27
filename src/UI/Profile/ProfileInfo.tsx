@@ -4,15 +4,13 @@ import pencil
     from '../../image/kisspng-verb-grammar-nonpast-tense-noun-pencil-icon-5aed74129c3655.1596332715255111866399.png'
 import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {TextField} from '@mui/material';
-import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../../BLL/store/store';
+import {useDispatch} from 'react-redux';
 import {changeProfilePhoto, changeUserName} from '../../BLL/profile/profile-reducer';
 
 
 type ProfileInfoPropsType = {
     avatar: string
     name: string
-    // onChangeProfileDataClick: (newName: string, avatar: string | ArrayBuffer | null) => void
 }
 
 export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
@@ -20,23 +18,9 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
     const [title, setTitle] = useState(props.name)
 
     const [editProfileMode, setEditProfileMode] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null)
-    const onAvatarClick = () => {
-        setEditProfileMode(true)
-        inputRef.current?.click()
-    }
-
 
     const dispatch = useDispatch()
     const inRef = useRef<HTMLInputElement>(null)
-    const avatar = useSelector<IAppStore, string | null>(state => state.profile.avatar)
-    const [file64, setFile64] = useState<string | ArrayBuffer | null>(avatar ? avatar : null);
-    // const [title, setTitle] = useState(props.title)
-    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-
-    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setBase64Img(e, setBase64, dispatch)
 
     const upload = (e: ChangeEvent<HTMLInputElement>) => {
 
@@ -47,7 +31,6 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
 
         if (newFile) {
             reader.onloadend = () => {
-                // setFile64(reader.result);
                 dispatch(changeProfilePhoto(reader.result))
             }
             reader.readAsDataURL(newFile)
@@ -74,27 +57,20 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
     }, [props.name])
 
     return (
-        <div className={s.qqqqqqq}>
+        <div className={s.profile__infoPage}>
 
             <div
                 style={{
                     paddingTop: '20px',
                     marginBottom: '15px',
-                    // paddingBottom: '5px',
-
                 }}
-                // onClick={() => onAvatarClick}
             >
-                {/*<div   className={s.profile__photo_wrapper}>*/}
-                <div className={s.editAvatar}
-                    // onClick={onAvatarClick}
-                >
+                <div className={s.editAvatar}>
                     <input type="file"
                            ref={inRef}
                            style={{display: 'none'}}
                            onChange={upload}
                            accept=".jpg, .jpeg, .png"
-                        // style={{position: "absolute"}}
                     />
 
                     <img src={props.avatar ? props.avatar : emptyProfilePhoto}

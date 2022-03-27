@@ -2,13 +2,12 @@ import s from './MainHeader.module.css';
 import PackListIcon from '../../image/PacksListImg.png'
 import ProfileIcon from '../../image/ProfileImg.png'
 import LogoutIcon from '../../image/logout.png'
-import {NavLink, useParams} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {PACKS_LIST_PATH, PROFILE_PATH} from '../Routes';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setCardsPacksCountFromRangeAC, setWithMyIdAC} from '../../BLL/packs/packs-reducer';
 import {logOut} from '../../BLL/login/login-reducer';
-import {changeLayoutAC} from '../../BLL/cards/cards-reducer';
 import {IAppStore} from '../../BLL/store/store';
 
 export const MainHeader = React.memo(() => {
@@ -74,7 +73,6 @@ export const MainHeader = React.memo(() => {
                             }
                                     onClick={() => {
                                         dispatch(logOut())
-                                        // setButtonActive('logout')
                                     }}
                             >
                                 <img className={`${s.btnImg} ${s.btnLogout}`} src={LogoutIcon} alt="ProfileIcon"/>

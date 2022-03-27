@@ -7,12 +7,10 @@ import {ErrorSnackbar} from '../common/Error/ErrorSnackbar';
 import {CheckYourself} from './CheckYourself';
 import {IAppStore} from '../../BLL/store/store';
 import {CardResponseType} from '../../DAL/cards-api';
-import {RequestStatusType} from '../../BLL/app/app-reducer';
 import {useParams} from 'react-router-dom';
 import {Navigate} from 'react-router-dom';
 
 export const Learning = React.memo(() => {
-    // console.log('lear')
     const {packId, packName} = useParams()
 
     const dispatch = useDispatch();
@@ -21,8 +19,6 @@ export const Learning = React.memo(() => {
     const [questionMode, setQuestionMode] = useState<boolean>(true);
     const isInitialized = useSelector<IAppStore, boolean>(state => state.app.isInitialized)
     const cards = useSelector<IAppStore, CardResponseType[]>(state => state.cards.cards)
-    // const pack = useSelector<IAppStore, CardPacksType | null>(state => state.cards.currentPack)
-    const status = useSelector<IAppStore, RequestStatusType>((state) => state.app.status);
 
     const getCard = (cards: CardResponseType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -32,12 +28,8 @@ export const Learning = React.memo(() => {
                 return {sum: newSum, id: newSum < rand ? i : acc.id}
             }
             , {sum: 0, id: -1});
-        // console.log('test: ', sum, rand, res)
         return cards[res.id + 1];
     }
-    // const refresh = async () => {
-    //     await dispatch(getPacksTC())
-    // }
 
 
     useEffect(() => {
@@ -45,9 +37,7 @@ export const Learning = React.memo(() => {
         if (packId && isInitialized) {
             dispatch(getCardsTC({cardsPack_id: packId}))
         }
-
         return () => {
-
             dispatch(setCardsAC({cards: []}))
         }
 
@@ -72,33 +62,6 @@ export const Learning = React.memo(() => {
         return <Navigate to={'/login'}/>;
     }
 
-
-
-    // if (status === 'loading') {
-    //     return (
-    //         <div
-    //             style={{
-    //                 position: 'fixed',
-    //                 top: '30%',
-    //                 textAlign: 'center',
-    //                 width: '100%',
-    //                 margin: 'auto',
-    //                 borderRadius: '40%',
-    //
-    //             }}
-    //         >
-    //             <img src={quby2} height={'200px'} style={{
-    //
-    //
-    //                 textAlign: 'center',
-    //
-    //                 margin: 'auto',
-    //                 borderRadius: '40%',
-    //
-    //             }}/>
-    //         </div>
-    //     );
-    // }
     if (!isInitialized) {
         return <Navigate to={'/login'}/>;
     }

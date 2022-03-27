@@ -3,48 +3,30 @@
 }
 
 .container {
-    /*width: 1008px;*/
     width: 85%;
     min-height: 87vh;
     /*height: auto;*/
     margin: 1% auto;
     display: flex;
     border-radius: 10px;
-    /*border: 10px solid red;*/
-    /*background-color: #ECECF9;*/
-    /*background-color: rgba(254, 254, 255, 0.88);*/
 }
 
 .profile__info {
-    /*min-width: 243px;*/
     width: 20%;
     min-width: 225px;
     display: flex;
     flex-direction: column;
-    /*text-align: left;*/
-    /*background-color: #ECECF9;*/
-    /*background-color: rgb(185, 220, 230);*/
-    /*background-color: #DEF8F7;*/
     background-color: #ecf8f7;
     font-family: 'SFUIDisplayRegular';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     color: #2D2E46;
-    /*padding-left: 24px;*/
-    /*padding-top: 33px;*/
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
-.profileInfo__b2 {
-    /*padding: 2%;*/
-    /*background-color: #9a91c8;*/
-}
-
-.qqqqqqq {
-    /*border: 3px solid #ffaffb;*/
-    /* background-color: rgb(185, 220, 230);*/
+.profile__infoPage {
     background-color: #C2E4E7;
     height: 250px;
     border-top-left-radius: 10px;
@@ -55,7 +37,6 @@
 .dropdown {
     position: absolute;
     z-index: 10;
-    /*top:72%;*/
     left: 9%;
     min-width: 72px;
     padding: 16px;
@@ -70,8 +51,6 @@
 }
 
 .dropdownItem:hover {
-    /*text-shadow: 1px 1px 2px #C2E4E7, 0 0 0.5em #C2E4E7, 0 0 0.2em #092a61;*/
-    /*text-shadow: 1px 1px 2px #092a61, 0 0 0.5em #C2E4E7, 0 0 0.2em #C2E4E7;*/
     text-shadow: 1px 1px 1px #092a61;
 }
 
@@ -85,7 +64,6 @@
     position: relative;
     height: 32px;
     width: 155px;
-    /*text-align: left;*/
     padding: 0 30px 0 14px;
     background-color: #FFFFFF;
     border-radius: 20px;
@@ -99,19 +77,13 @@
 
 .chosenButtonBackground {
     background-color: #C2E4E7;
-    /*background-color: #092a61;*/
-    /*color: white;*/
 }
 
 .filter__icon {
     position: absolute;
     top: 60%;
     right: 6px;
-    /*width: 20px;*/
-    /*height: 20px;*/
     align-items: center;
-    /*justify-content: center;*/
-    /*background-color: #fff;*/
     border-radius: 50%;
     transform: translateY(-50%);
     transition: background-color .25s ease, color .25s ease;
@@ -131,23 +103,15 @@
 
 
 .profile__main {
-    /*width: 765px;*/
     padding: 2% 5%;
     width: 80%;
-    /*min-height: 600px;*/
-    /*background-color: #FEFEFF;*/
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    /*background-color: rgba(254, 254, 255, 0.88);*/
     background-color: #fff;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
-/*.profile__b2 {*/
-/*    padding: 2% 5% 5%;*/
-/*}*/
 
 .profile__textName {
     margin-bottom: 5px;
@@ -158,7 +122,6 @@
     transition: transform 0.1s ease-in-out;
 }
 .profile__textName:hover {
-    /*text-decoration: underline;*/
     transform: scale(1.1);
 }
 .profile__ChooseOwner {
@@ -172,12 +135,6 @@
     height: 150px;
     margin: 0 auto;
     cursor: pointer;
-    /*position: relative;*/
-    /*z-index: 0;*/
-}
-.profile__photo:hover {
-   /*opacity: 0.8;*/
-
 }
 
 .editAvatar {
@@ -186,11 +143,9 @@
     height: 150px;
     border-radius: 50%;
     cursor: pointer;
-    /*transition: transform 0.2s ease-in-out;*/
     position: relative;
 }
 .editAvatar:before {
-     /*position: absolute;*/
      content: '';
      width: 35px;
      height: 35px;
@@ -201,12 +156,7 @@
     transition: transform 0.3s ease-in-out;
  }
 
-.editAvatar:hover {
-     /*transform: scale(1.1)*/
- }
-
 .editAvatar:hover::before {
     position: absolute;
-    /*transform: scale(1.2)*/
 }
 
