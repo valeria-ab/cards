@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/cards/static/css/main.41aff6f0.css",
-    "main.js": "/cards/static/js/main.5df3151a.js",
+    "main.js": "/cards/static/js/main.8de25379.js",
     "static/js/787.9b050168.chunk.js": "/cards/static/js/787.9b050168.chunk.js",
     "static/media/quby.gif": "/cards/static/media/quby.61c60b781eee63ed1998.gif",
     "static/media/SFUIDisplay-Medium.woff": "/cards/static/media/SFUIDisplay-Medium.691073e2b9ef80d5c702.woff",
@@ -15,11 +15,11 @@
     "static/media/27323.svg": "/cards/static/media/27323.a123006ae3e7f3b6638cbf8a5fe53765.svg",
     "static/media/eye.svg": "/cards/static/media/eye.9059668311ca4ba4cd3d67431dacce4b.svg",
     "main.41aff6f0.css.map": "/cards/static/css/main.41aff6f0.css.map",
-    "main.5df3151a.js.map": "/cards/static/js/main.5df3151a.js.map",
+    "main.8de25379.js.map": "/cards/static/js/main.8de25379.js.map",
     "787.9b050168.chunk.js.map": "/cards/static/js/787.9b050168.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.41aff6f0.css",
-    "static/js/main.5df3151a.js"
+    "static/js/main.8de25379.js"
   ]
 }
