@@ -39,6 +39,7 @@ const Login = React.memo(() => {
                     <label className={style.loginLabel}>Email
                         <input
                             className={style.Input}
+                            value={email}
                             type="email"
                             name="email"
                             onChange={(e) => setEmail(e.currentTarget.value)}
@@ -48,6 +49,7 @@ const Login = React.memo(() => {
                     <label className={style.loginLabel}>Password
                         <input
                             className={style.Input}
+                            value={password}
                             type="password"
                             name="password"
                             onChange={(e) => setPassword(e.currentTarget.value)}
