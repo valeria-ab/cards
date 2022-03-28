@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux';
 import {SortingPacksType} from '../../../DAL/packs-api';
-import s from '../../Profile/ProfilePage.module.css';
+import s from './Sorting.module.css';
+import ArrowBackIcon from '../../../image/27323.svg'
 import arrow
     from '../../../image/png-transparent-arrow-computer-icons-bar-chart-arrow-angle-chevron-svg-filter-effects-thumbnail.png';
 import {setSortPacksValueAC} from '../../../BLL/packs/packs-reducer';
@@ -13,14 +14,13 @@ type SortingPropsType = {
     dispatch: Dispatch
     setSortPacksValues: SortingPacksType[]
     sortBy: '' | SortingPacksType
-    position: { top: string  }
 }
 
 export const SortingItem = React.memo((props: SortingPropsType) => {
 
 
     return (
-        <div className={props.isArrowUp ? s.openDivStyles : ''}>
+        <div className={s.openDivStyles}>
             <button className={props.setSortPacksValues.some((element: string) => element === props.sortBy)
                 ? `${s.filter__btn} ${s.chosenButtonBackground}`
                 : s.filter__btn
@@ -29,49 +29,49 @@ export const SortingItem = React.memo((props: SortingPropsType) => {
                 // onBlur={() => props.setArrowUp(false)}
             >
                 <span>{props.title}</span>
-                <span className={s.filter__icon}>
-                                <img src={arrow}
-                                     className={props.isArrowUp
-                                         ? s.filterIcon_imgOpened
-                                         : s.filterIcon_img}
-                                />
-                        </span>
+                <img src={arrow}
+                     className={props.isArrowUp
+                         ? s.filterIcon_imgOpened
+                         : s.filterIcon_img}
+                />
             </button>
-            {props.isArrowUp &&
 
-                <div
-                    onClick={() => props.setArrowUp(false) }
-                    style={{
-                    position: 'fixed',
-                    zIndex: 10,
-                    width: '100%',
-                    height: '100%',
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    top: 0,
-                    // backgroundColor: 'black',
-                    //opacity: 0.3,
-                }}>
-                    <div className={s.dropdown} style={props.position}>
-                        <ul>
-                            <li className={s.dropdownItem}
-                                onClick={() => {
-                                    props.dispatch(setSortPacksValueAC(props.setSortPacksValues[1]))
-                                    // props.setArrowUp(!props.isArrowUp)
-                                }}
-                            >по возрастанию
-                            </li>
-                            <li className={s.dropdownItem}
-                                onClick={() => {
-                                    props.dispatch(setSortPacksValueAC(props.setSortPacksValues[0]))
-                                    // props.setArrowUp(!props.isArrowUp)
-                                }}
-                            >по убыванию
-                            </li>
-                        </ul>
-                    </div>
-                </div>}
+
+            {props.isArrowUp &&
+                // <div
+                //     onClick={() => props.setArrowUp(false)}
+                //     className={s.onBlurStyle}
+                // >
+                <div className={s.dropdown}>
+                    <ul className={s.sortingUl}>
+                        <li className={s.dropdownItem}
+                            onClick={() => {
+                                props.dispatch(setSortPacksValueAC(props.setSortPacksValues[1]))
+                                props.setArrowUp(!props.isArrowUp)
+                            }}
+                        ><img src={ArrowBackIcon} height={'6px'}
+                              style={{
+                                  transform: 'rotate(90deg)',
+                                  display: 'inline-block'
+                              }}/>
+                            ascending
+                        </li>
+                        <li className={s.dropdownItem}
+                            onClick={() => {
+                                props.dispatch(setSortPacksValueAC(props.setSortPacksValues[0]))
+                                props.setArrowUp(!props.isArrowUp)
+                            }}
+                        ><img src={ArrowBackIcon} height={'6px'}
+                              style={{
+                                  transform: 'rotate(270deg)',
+                                  display: 'inline-block'
+                              }}/>
+                            descending
+                        </li>
+                    </ul>
+                </div>
+                // </div>
+            }
         </div>
 
     )
