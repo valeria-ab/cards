@@ -75,7 +75,7 @@ export const Forgot = React.memo((props: ForgotPasswordPropsType) => {
                 </button>
             <p className={style.textLight}>Did you remember your password?</p>
             <div>
-                <Link to={'/login'} className={style.linkBlue}>Try logging in</Link>
+                <Link to={'/login'} className={style.linkBlue}>Try to login</Link>
             </div>
 
             {/*</div>*/}
