@@ -3,7 +3,8 @@
     min-height: 86vh;
     padding: 2% 5%;
     width: 90%;
-    margin: 1% auto;
+    /*margin: 1% auto;*/
+    margin: 11vh auto 2%;
     background-color: white;
 }
 
