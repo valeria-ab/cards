@@ -6,7 +6,8 @@
     width: 85%;
     min-height: 87vh;
     /*height: auto;*/
-    margin: 1% auto;
+    /*margin: 1% auto;*/
+    margin: 11vh auto 2%;
     display: flex;
     border-radius: 10px;
 }

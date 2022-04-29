@@ -1,17 +1,26 @@
 .mainHeader {
-
+    position: fixed;
+    background: #E2FBF9;
+    z-index: 100;
+    width: 100%;
+    box-shadow: 0px 3px 20px rgb(172, 224, 228);
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     height: 9vh;
 }
 
-
+.linearProgress {
+    z-index: 1001;
+    position: fixed;
+    width: 100%
+}
 
 .title {
     margin: auto;
 }
+
 .title h1 {
 
     font-family: 'Cedarville Cursive', cursive;
@@ -20,7 +29,7 @@
     color: #092a61;
 }
 
-.btnWrap{
+.btnWrap {
     display: flex;
     width: 60%;
 }
@@ -29,7 +38,7 @@ a {
     text-decoration: none;
 }
 
-.btn{
+.btn {
     height: 100%;
     width: 173px;
     border: none;
@@ -46,18 +55,21 @@ a {
     color: #2D2E46;
     opacity: 0.7;
 }
-.active{
+
+.active {
     background-color: rgba(70, 147, 170, 0.19);
-    opacity:0.9;
+    opacity: 0.9;
 }
-.btn:hover{
+
+.btn:hover {
     border-bottom: 3px solid #092a61;
 
 }
 
-.btnImg{
+.btnImg {
     margin-right: 10px;
 }
+
 .btnLogout {
     height: 23px;
 }

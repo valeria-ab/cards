@@ -6,17 +6,16 @@ import {checkAuthMe} from './BLL/login/login-reducer';
 import {IAppStore} from './BLL/store/store';
 import {RequestStatusType} from './BLL/app/app-reducer';
 import {CircularProgress, LinearProgress} from '@mui/material';
+import MainHeader from './UI/MainHeader/MainHeader';
+import RoutesComponent from './UI/Routes';
 
 
 
 const App = React.memo(() => {
-    // console.log("app")
+
     const dispatch = useDispatch();
     const isInitialized = useSelector<IAppStore, boolean>(state => state.app.isInitialized)
     const redirectToLogin = useSelector<IAppStore, boolean>(state => state.login.redirectToLogin)
-    const status = useSelector<IAppStore, RequestStatusType>(
-        (state) => state.app.status
-    );
 
     useEffect(() => {
        dispatch(checkAuthMe())
@@ -24,12 +23,6 @@ const App = React.memo(() => {
     }, [])
 
 
-    // if(!isInitialized && !redirectToLogin) return <div>loading...</div>
-    // if(redirectToLogin) {
-    //     return <Navigate to={'/login'}/>
-    // }
-
-    // if (!isInitialized && !redirectToLogin) {
     if (!isInitialized && !redirectToLogin) {
         return (
             <div
@@ -47,9 +40,8 @@ const App = React.memo(() => {
 
     return (
         <div className="App">
-            {status === "loading" && <LinearProgress color={'info'}/>}
-                <Main/>
-
+            <MainHeader/>
+            <RoutesComponent/>
         </div>
     );
 });
