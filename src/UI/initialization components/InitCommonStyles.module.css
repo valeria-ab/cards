@@ -3,8 +3,9 @@
     width: 413px;
     padding: 25px 33px 26px 33px;
     text-align: center;
-    margin: auto;
+    /*margin: auto;*/
     border-radius: 8px;
+    margin: 11vh auto 1%;
 }
 
 

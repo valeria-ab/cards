@@ -1,14 +1,11 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import Main from './UI/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {checkAuthMe} from './BLL/login/login-reducer';
 import {IAppStore} from './BLL/store/store';
-import {RequestStatusType} from './BLL/app/app-reducer';
-import {CircularProgress, LinearProgress} from '@mui/material';
+import {CircularProgress} from '@mui/material';
 import MainHeader from './UI/MainHeader/MainHeader';
 import RoutesComponent from './UI/Routes';
-
 
 
 const App = React.memo(() => {
